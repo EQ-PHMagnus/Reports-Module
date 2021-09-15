@@ -170,6 +170,15 @@
 
     <!-- Page -->
     <div class="page">
+        <div class="page-header">
+        <h1 class="page-title">@yield('page-title')</h1>
+        <ol class="breadcrumb">
+            @yield('breadcrumbs')
+        </ol>
+        <div class="page-header-actions">
+            @yield('page-header-actions')
+        </div>
+        </div>
         <div class="page-content container-fluid">
             @yield('page-content')
         </div>
@@ -236,12 +245,13 @@
         'use strict';
 
         var Site = window.Site;
+        
         $(document).ready(function(){
-          Site.run();
+            Site.run();
         });
       })(document, window, jQuery);
 </script>
-
+@stack('scripts')
 </body>
 
 </html>
