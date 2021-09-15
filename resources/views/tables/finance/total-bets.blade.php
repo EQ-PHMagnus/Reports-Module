@@ -13,7 +13,7 @@ Total Bets
 @endsection
 
 @section('page-header-actions')
-	<a href="{{route('dashboard.finance.total-bets')}}" class="btn btn-icon btn-primary"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
+	<a href="{{route('dashboard.finance.total-bets')}}" class="btn btn-icon btn-primary" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')

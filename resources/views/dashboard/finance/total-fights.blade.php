@@ -13,7 +13,7 @@ Total Fights
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('dashboard.finance.total-fights') . '?view=table'}}" class="btn btn-icon btn-primary"><i class="icon wb-grid-9" aria-hidden="true"></i></a>
+    <a href="{{route('dashboard.finance.total-fights') . '?view=table'}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -68,25 +68,11 @@ Total Fights
 
 @push('scripts')
 <script>
-    let totalFightsPerYearData= {!! json_encode($totalFightsPerYear) !!};
-    let totalNumberFightsPerMonth = {!! json_encode($totalNumberFightsPerMonth) !!};
+    let totalFightsPerYear= {!! json_encode($totalFightsPerYear) !!};
     let totalNumberFightsPerDay = {!! json_encode($totalNumberFightsPerDay) !!};
     let totalNumberFightsPerArena = {!! json_encode($totalNumberFightsPerArena) !!};
 
-    let barGraphData = {
-        labels: [],
-        series: []
-    };
-    let series = [];
-    
-    for (var key in totalFightsPerYearData) {
-        if (totalFightsPerYearData.hasOwnProperty(key)) {
-            barGraphData.labels.push(key);
-            series.push(totalFightsPerYearData[key]);
-        }
-    }
-    
-    barGraphData.series.push(series);
+    let totalNumberFightsPerMonth = {!! json_encode($totalNumberFightsPerMonth) !!};
 
     let barGraphOptions = {
         axisY: {
@@ -104,12 +90,10 @@ Total Fights
         height: '300px'
     };
 
-    new Chartist.Bar('.total-fights-year',barGraphData,barGraphOptions);
+    new Chartist.Bar('.total-fights-year',totalFightsPerYear,barGraphOptions);
+    new Chartist.Bar('.total-fights-day',totalNumberFightsPerDay, barGraphOptions);
+    new Chartist.Bar('.total-fights-arena', totalNumberFightsPerArena , barGraphOptions);
 
     new Chartist.Line('.total-fights-month',totalNumberFightsPerMonth, lineGraphOptions);
-
-    new Chartist.Bar('.total-fights-day',totalNumberFightsPerDay, barGraphOptions);
-
-    new Chartist.Bar('.total-fights-arena', totalNumberFightsPerArena , barGraphOptions);
 </script>
 @endpush

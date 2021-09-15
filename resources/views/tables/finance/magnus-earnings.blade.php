@@ -13,7 +13,7 @@ Magnus Earnings
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('dashboard.finance.total-fights') . '?view=table'}}" class="btn btn-icon btn-primary"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
+    <a href="{{route('dashboard.finance.total-fights') . '?view=table'}}" class="btn btn-icon btn-primary" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -86,52 +86,3 @@ Magnus Earnings
     </div>      
 </div>
 @endsection
-@push('scripts')
-<script type="text/javascript">
-	const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'PHP',
-        });
-
-    let totalEarningsPerDay= {!! json_encode($totalEarningsPerDay) !!};
-    let totalEarningsPerMonth= {!! json_encode($totalEarningsPerMonth) !!};
-    let totalEarningsPerYear= {!! json_encode($totalEarningsPerYear) !!};
-    let totalEarningsPerArena= {!! json_encode($totalEarningsPerArena) !!};
-    let totalEarningsPerFight= {!! json_encode($totalEarningsPerFight) !!};
-
-    let barGraphOptions = {
-        axisY: {
-            onlyInteger : true
-        },
-        height: '300px',
-        axisY: {
-            labelInterpolationFnc: function(value,idx) {
-                return formatter.format(value);     
-            }
-        },
-        chartPadding: {
-            left: 30
-        }
-    };
-
-    let lineGraphOptions = {
-        low: 0,
-        showArea: true,
-        height: '300px',
-        axisY: {
-            labelInterpolationFnc: function(value,idx) {
-                return formatter.format(value);     
-            }
-        },
-        chartPadding: {
-            left: 30
-        }
-    };
-
-    new Chartist.Line('.total-earnings-per-day',totalEarningsPerDay, lineGraphOptions);
-    new Chartist.Line('.total-earnings-per-month',totalEarningsPerMonth, lineGraphOptions);
-    new Chartist.Line('.total-earnings-per-year',totalEarningsPerYear, lineGraphOptions);
-    new Chartist.Bar('.total-earnings-per-arena',totalEarningsPerArena, barGraphOptions);
-    new Chartist.Bar('.total-earnings-per-fight',totalEarningsPerFight, barGraphOptions);
-</script>
-@endpush
