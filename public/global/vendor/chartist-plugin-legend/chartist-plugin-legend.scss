@@ -1,0 +1,73 @@
+$color-blue-600: #3e8ef7 !default;
+$color-green-100: #c2fadc !default;
+$color-red-500: #ff666b !default;
+$color-purple-600: #9463f7 !default;
+$color-yellow-600: #ffcd17 !default;
+$color-pink-600: #f74584 !default;
+$color-indigo-400: #96a3fa !default;
+$color-light-green-700: #5a9101 !default;
+$color-orange-400: #fa983c !default;
+$color-cyan-400: #54cbe3 !default;
+$color-teal-600: #17b3a3 !default;
+$color-brown-500: #ab8c82 !default;
+$color-grey-400: #bdbdbd !default;
+$color-green-400: #49de94 !default;
+
+$ct-series-colors: (
+  $color-blue-600,
+  $color-green-400,
+  $color-red-500,
+  $color-purple-600,
+  $color-yellow-600,
+  $color-pink-600,
+    $color-indigo-400,  
+  $color-light-green-700,
+  $color-orange-400,
+  $color-cyan-400,
+  $color-teal-600,
+  $color-brown-500,
+  $color-grey-400
+);
+
+.ct-legend {
+    position: relative;
+    z-index: 10;
+    list-style: none;
+    text-align: center;
+
+    li {
+        position: relative;
+        padding-left: 23px;
+        margin-right: 10px;
+        margin-bottom: 3px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    li:before {
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        left: 0;
+        content: '';
+        border: 3px solid transparent;
+        border-radius: 2px;
+    }
+
+    li.inactive:before {
+        background: transparent;
+    }
+
+    &.ct-legend-inside {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    @for $i from 0 to length($ct-series-colors) {
+        .ct-series-#{$i}:before {
+            background-color: nth($ct-series-colors, $i + 1);
+            border-color: nth($ct-series-colors, $i + 1);
+        }
+    }
+}

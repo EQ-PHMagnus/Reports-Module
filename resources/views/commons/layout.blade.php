@@ -27,15 +27,15 @@
     <link rel="stylesheet" href="{{asset('global/vendor/jquery-mmenu/jquery-mmenu.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <!-- Charts -->
-    <link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/jvectormap/jquery-jvectormap.css')}}">
-    <link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css')}}">
 
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('global/fonts/web-icons/web-icons.min.css')}}">
     <link rel="stylesheet" href="{{asset('global/fonts/brand-icons/brand-icons.min.css')}}">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+
+    @stack('css')
 
     <!--[if lt IE 9]>
     <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
@@ -207,8 +207,6 @@
     <script src="{{asset('global/vendor/screenfull/screenfull.js')}}"></script>
     <script src="{{asset('global/vendor/slidepanel/jquery-slidePanel.js')}}"></script>
     <script src="{{asset('global/vendor/skycons/skycons.js')}}"></script>
-    <script src="{{asset('global/vendor/chartist/chartist.min.js')}}"></script>
-    <script src="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.js')}}"></script>
     <script src="{{asset('global/vendor/aspieprogress/jquery-asPieProgress.min.js')}}"></script>
     <script src="{{asset('global/vendor/jvectormap/jquery-jvectormap.min.js')}}"></script>
     <script src="{{asset('global/vendor/jvectormap/maps/jquery-jvectormap-au-mill-en.js')}}"></script>
