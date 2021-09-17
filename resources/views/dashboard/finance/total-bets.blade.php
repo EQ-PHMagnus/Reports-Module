@@ -13,7 +13,7 @@ Total Bets
 @endsection
 
 @section('page-header-actions')
-	<a href="{{route('dashboard.finance.total-bets') . '?view=table'}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
+	<a href="{{route('dashboard.finance.total-bets')}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -22,7 +22,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Number of Bets per YEAR</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
             		<div class="number-bets-year"></div>
 	        	</div>
         	</div>
@@ -33,7 +33,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Number of Bets per MONTH</p>
-        		<div class="p-5 h-300">
+        		<div class="p-5 h-400">
             		<div class="total-bets-month"></div>
 	        	</div>
         	</div>
@@ -44,7 +44,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Number of Bets per DAY</p>
-        		<div class="p-5 h-300">
+        		<div class="p-5 h-400">
             		<div class="total-bets-day"></div>
 	        	</div>
         	</div>
@@ -57,7 +57,7 @@ Total Bets
         <div class="card card-shadow" >
         	<div class="card-body">
         		<p>Total Amount of Bets per YEAR</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
             		<div class="amount-bets-year"></div>
 	        	</div>
         	</div>
@@ -68,7 +68,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
             	<p>Year and Total Number of Bets per MONTH</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
             		<div class="years-and-amount-bets-month"></div>
 	        	</div>
         	</div>
@@ -79,7 +79,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>2020 and 2021</p>
-        		<div class="p-5 h-300">
+        		<div class="p-5 h-400">
             		<div class="years-and-amount-bets-day"></div>
 	        	</div>
         	</div>
@@ -103,7 +103,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Amount of Bets per arena</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
             		<div class="amount-bets-arena"></div>
 	        	</div>
         	</div>
@@ -112,7 +112,15 @@ Total Bets
 </div>
 @endsection
 
+@push('css')
+<link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.css')}}">
+@endpush
 @push('scripts')
+<script src="{{asset('global/vendor/chartist/chartist.min.js')}}"></script>
+<script src="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.js')}}"></script>
+<script src="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.js')}}"></script>
 <script type="text/javascript">
 	const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -134,7 +142,7 @@ Total Bets
 		axisY: {
 			onlyInteger : true
 		},
-		height: '300px',
+		height: '300px'
 	};
 
 	new Chartist.Bar('.number-bets-year',totalBetsPerYear,barGraphOptions);
@@ -166,7 +174,12 @@ Total Bets
 		},
 		chartPadding: {
 		    left: 30
-		}
+		},
+		plugins: [
+            Chartist.plugins.legend({
+            	legendNames: ['2020', '2021'],
+        	})
+        ]
 	};
 
 	new Chartist.Line('.years-and-amount-bets-month',yearAndTotalAmountBetsPerMonth, lineGraphOptions);

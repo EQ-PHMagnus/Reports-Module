@@ -18,7 +18,7 @@ class FinanceController extends Controller
 
     public function totalBets(){
         $view = 'tables.finance.total-bets';
-        $tableView = request()->input('view',null) == 'table';
+        $dashboardView = request()->input('view',null) == 'dashboard';
         
         $bets = $this->model->getBetsData();
 
@@ -57,7 +57,7 @@ class FinanceController extends Controller
              });
         });
 
-        if($tableView == false){
+        if($dashboardView == true){
             $totalBetsPerYear = $this->formatBar($totalBetsPerYear);
             $totalAmountBetsPerYear = $this->formatBar($totalAmountBetsPerYear);
             $totalAmountBetsPerArena = $this->formatBar($totalAmountBetsPerArena);
@@ -88,7 +88,7 @@ class FinanceController extends Controller
     public function totalFights()
     {
         $view = 'tables.finance.total-fights';
-        $tableView = request()->input('view',null) == 'table';
+        $dashboardView = request()->input('view',null) == 'dashboard';
         
         $fights = $this->model->getFightsData();
 
@@ -102,7 +102,7 @@ class FinanceController extends Controller
              });
         });
 
-        if($tableView == false){
+        if($dashboardView == true){
             $totalFightsPerYear = $this->formatBar($totalFightsPerYear);
             $totalNumberFightsPerDay = $this->formatBar($totalNumberFightsPerDay);
             $totalNumberFightsPerArena = $this->formatBar($totalNumberFightsPerArena);
@@ -124,7 +124,7 @@ class FinanceController extends Controller
     public function magnusEarnings()
     {
         $view = 'tables.finance.magnus-earnings';
-        $tableView = request()->input('view',null) == 'table';
+        $dashboardView = request()->input('view',null) == 'dashboard';
 
         $fights = $this->model->getMagnusEarningsData();
         $totalEarningsPerArena = $fights->groupBy('arena')->map->sum('magnus_earnings');
@@ -166,7 +166,7 @@ class FinanceController extends Controller
         $totalEarningsPerMonthFormat['series'][] = $subSeries;   
 
 
-        if($tableView == false){
+        if($dashboardView == true){
             $totalEarningsPerDay = $this->formatBar($totalEarningsPerDay,'August');
             $totalEarningsPerArena = $this->formatBar($totalEarningsPerArena);
             $totalEarningsPerFight = $this->formatBar($totalEarningsPerFight);

@@ -13,7 +13,7 @@ Total Fights
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('dashboard.finance.total-fights')}}" class="btn btn-icon btn-primary btn-outline" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
+    <a href="{{route('dashboard.finance.total-fights') . '?view=dashboard'}}" class="btn btn-icon btn-primary btn-outline" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')

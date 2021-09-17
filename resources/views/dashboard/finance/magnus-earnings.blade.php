@@ -13,7 +13,7 @@ Magnus Earnings
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('dashboard.finance.magnus-earnings') . '?view=table'}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
+    <a href="{{route('dashboard.finance.magnus-earnings')}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -86,7 +86,16 @@ Magnus Earnings
     </div>      
 </div>
 @endsection
+
+@push('css')
+<link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.css')}}">
+@endpush
 @push('scripts')
+<script src="{{asset('global/vendor/chartist/chartist.min.js')}}"></script>
+<script src="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.js')}}"></script>
+<script src="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.js')}}"></script>
 <script type="text/javascript">
 	const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -130,6 +139,25 @@ Magnus Earnings
 
     new Chartist.Line('.total-earnings-per-day',totalEarningsPerDay, lineGraphOptions);
     new Chartist.Line('.total-earnings-per-month',totalEarningsPerMonth, lineGraphOptions);
+    lineGraphOptions = {
+        low: 0,
+        showArea: true,
+        height: '300px',
+        axisY: {
+            labelInterpolationFnc: function(value,idx) {
+                return formatter.format(value);     
+            }
+        },
+        chartPadding: {
+            left: 30
+        },
+        plugins: [
+            Chartist.plugins.legend({
+                legendNames: ['2020', '2021'],
+            })
+        ]
+    };
+    
     new Chartist.Line('.total-earnings-per-year',totalEarningsPerYear, lineGraphOptions);
     new Chartist.Bar('.total-earnings-per-arena',totalEarningsPerArena, barGraphOptions);
     new Chartist.Bar('.total-earnings-per-fight',totalEarningsPerFight, barGraphOptions);
