@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\FinanceController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\FightController;
+use App\Http\Controllers\BetController;
+use App\Http\Controllers\ArenaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,5 +24,13 @@ Route::namespace('Dashboard')
     Route::get('/total-bets', [FinanceController::class, 'totalBets'])->name('dashboard.finance.total-bets');
     Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
     Route::get('/magnus-earnings', [FinanceController::class, 'magnusEarnings'])->name('dashboard.finance.magnus-earnings');
+    Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.super-agent-accounts');
+});
+
+Route::group(['prefix' => 'masterfile'], function() {
+    Route::resource('users', UserController::class);
+    Route::resource('fights', FightController::class);
+    Route::resource('bets', BetController::class);
+    Route::resource('arenas', ArenaController::class);
 });
 

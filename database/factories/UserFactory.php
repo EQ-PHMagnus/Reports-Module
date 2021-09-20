@@ -24,9 +24,13 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'nickname' => $this->faker->firstName(),
+            'username' => $this->faker->unique()->firstName() .  $this->faker->randomDigit(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'mobile_number' => '09' . $this->faker->randomDigit() . $this->faker->ean8(), 
+            'points' => $this->faker->numberBetween($min = 100, $max = 999999) , 
+            'identification' => $this->faker->imageUrl($width = 640, $height = 480), 
+            'commission' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 0.1, $max = 0.9), 
             'remember_token' => Str::random(10),
         ];
     }

@@ -178,7 +178,7 @@ class FinanceController extends Controller
             $view = 'dashboard.finance.magnus-earnings';
         }
 
-        return view($view,compact(
+        return view('tables.finance.magnus-earnings',compact(
             'fights',
             'totalEarningsPerDay',
             'totalEarningsPerMonth',
@@ -186,5 +186,9 @@ class FinanceController extends Controller
             'totalEarningsPerArena',
             'totalEarningsPerFight',
         ));
+    }
+
+    public function superAgentAccounts(){
+        return view('tables.finance.super-agent-accounts');
     }
 }
