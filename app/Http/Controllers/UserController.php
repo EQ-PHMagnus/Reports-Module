@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use DB;
+
 class UserController extends Controller
 {
     /**
@@ -13,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10)->withQueryString();
+        $users = User::orderByDesc('created_at')->paginate(10)->withQueryString();
 
         return view('users.index',compact('users'));
     }
@@ -25,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -36,7 +38,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $user = User::create($request->except('_token'));
+
+            DB::commit();
+            flashMessage('User created successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
     }
 
     /**
@@ -58,7 +70,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -70,7 +84,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $user = User::updateOrCreate(['id' => $id], $request->except('_token','_method'));
+
+            DB::commit();
+            flashMessage('User updated successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
     }
 
     /**
@@ -81,6 +105,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $user = User::findOrFail($id);
+            $user->delete();
+
+            DB::commit();
+            return response()->json('Deleted successfully!.');
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : abort(400);
+        }
     }
 }

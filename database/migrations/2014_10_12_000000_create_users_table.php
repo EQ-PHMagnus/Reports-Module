@@ -20,12 +20,19 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('mobile_number',11);
+            $table->string('occupation')->nullable();
+            $table->string('agent_code');
+            $table->text('address')->nullable();
+            $table->timestamp('dob');
+            $table->string('facebook')->nullable();
             $table->bigInteger('points')->default(0);
             $table->text('identification')->nullable();
             $table->double('commission',8,4)->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            //temp
+            $table->enum('role',config('defaults.affiliates'));
         });
     }
 

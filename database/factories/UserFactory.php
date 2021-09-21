@@ -32,6 +32,13 @@ class UserFactory extends Factory
             'identification' => $this->faker->imageUrl($width = 640, $height = 480), 
             'commission' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 0.1, $max = 0.9), 
             'remember_token' => Str::random(10),
+            'occupation' => $this->faker->randomElement(['employee','business owner','none']),
+            'address' => $this->faker->address,
+            'dob' => $this->faker->dateTimeBetween($startDate = '-30 years', $endDate = '-18 years', $timezone = null),
+            'facebook' =>$this->faker->firstName(),
+            'agent_code' => $this->faker->unique()->numerify('Agent ###'),
+            //Temp
+            'role' => $this->faker->randomElement(config('defaults.affiliates')),
         ];
     }
 
