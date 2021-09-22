@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fight;
+use App\Models\Arena;
 use Illuminate\Http\Request;
+use App\Http\Requests\FightRequest;
+use DB;
 
 class FightController extends Controller
 {
@@ -14,7 +17,9 @@ class FightController extends Controller
      */
     public function index()
     {
-        //
+        $fights = Fight::with('arena')->orderBy('schedule')->paginate(10)->withQueryString();
+
+        return view('fights.index',compact('fights'));
     }
 
     /**
@@ -24,7 +29,8 @@ class FightController extends Controller
      */
     public function create()
     {
-        //
+        $arenas = Arena::orderBy('name')->get();
+        return view('fights.create',compact('arenas'));
     }
 
     /**
@@ -33,9 +39,21 @@ class FightController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FightRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $data = $request->except('_token');
+         
+            $fight = Fight::create($data);
+
+            DB::commit();
+            flashMessage('Fight created successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
     }
 
     /**
@@ -57,7 +75,9 @@ class FightController extends Controller
      */
     public function edit(Fight $fight)
     {
-        //
+        $arenas = Arena::orderBy('name')->get();
+        
+        return view('fights.edit',compact('fight','arenas'));
     }
 
     /**
@@ -67,9 +87,21 @@ class FightController extends Controller
      * @param  \App\Models\Fight  $fight
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fight $fight)
+    public function update(FightRequest $request, Fight $fight)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $data =  $request->except('_token','_method');
+
+            $fight->update($data);
+
+            DB::commit();
+            flashMessage('Fight updated successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
     }
 
     /**
@@ -80,6 +112,15 @@ class FightController extends Controller
      */
     public function destroy(Fight $fight)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $fight->delete();
+
+            DB::commit();
+            return response()->json('Deleted successfully!.');
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : abort(400);
+        }
     }
 }

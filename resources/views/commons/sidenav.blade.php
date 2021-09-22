@@ -41,6 +41,11 @@
                             <span class="site-menu-title">Affiliates</span>
                         </a>
                     </li>
+                    <li class="site-menu-item {{request()->route()->named('arenas.index') ?  'active' : ''}}">
+                        <a class="animsition-link" href="{{route('arenas.index')}}">
+                            <span class="site-menu-title">Arenas</span>
+                        </a>
+                    </li>
                     <li class="site-menu-item {{request()->route()->named('fights.index') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('fights.index')}}">
                             <span class="site-menu-title">Fights</span>
@@ -48,12 +53,7 @@
                     </li>
                     <li class="site-menu-item {{request()->route()->named('bets.index') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('bets.index')}}">
-                            <span class="site-menu-title">Bets</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item {{request()->route()->named('arenas.index') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('arenas.index')}}">
-                            <span class="site-menu-title">Arenas</span>
+                            <span class="site-menu-title">Bet History</span>
                         </a>
                     </li>
                 </ul>

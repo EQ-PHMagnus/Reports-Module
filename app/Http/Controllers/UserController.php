@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use DB;
 
@@ -36,11 +37,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         DB::beginTransaction();
         try{
-            $user = User::create($request->except('_token'));
+            $data = $request->except('_token','password_confirmation');
+            //TODO
+            //Handle File uploads
+            $user = User::create($data);
 
             DB::commit();
             flashMessage('User created successfully!');
@@ -86,7 +90,10 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try{
-            $user = User::updateOrCreate(['id' => $id], $request->except('_token','_method'));
+            $data =  $request->except('_token','_method');
+            //TODO
+            //Handle File uploads
+            $user = User::updateOrCreate(['id' => $id],$data);
 
             DB::commit();
             flashMessage('User updated successfully!');

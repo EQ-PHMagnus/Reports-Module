@@ -63,10 +63,10 @@ Create Affiliates
                         <input type="text" class="form-control" placeholder="Enter Occupation" autocomplete="off" name="occupation" value="{{old('occupation')}}">
                     </div>                    
                    
-                    <div class="form-group col-md-3 col-xs-12">
+                   {{--  <div class="form-group col-md-3 col-xs-12">
                         <label>Identification</label>
                         <input type="file" class="form-control" placeholder="Enter ID" autocomplete="off" accept="image/*" name="identification">
-                    </div>
+                    </div> --}}
 
                     <div class="form-group col-12">
                         <h3>Account Information</h3>
@@ -91,11 +91,11 @@ Create Affiliates
                     </div>
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Password</label>
-                        <input type="password" class="form-control" placeholder="Agent Code" autocomplete="off" name="password" value="{{old('agent_code')}}">
+                        <input type="password" class="form-control" placeholder="Password" autocomplete="off" name="password">
                     </div>
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Confirm Password</label>
-                        <input type="password" class="form-control" placeholder="Agent Code" autocomplete="off" name="password_confirm" value="{{old('agent_code')}}">
+                        <input type="password" class="form-control" placeholder="Confirm Password" autocomplete="off" name="password_confirmation">
                     </div>
                 </div>
             </div>

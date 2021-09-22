@@ -8,3 +8,7 @@ function flashMessage($message, $success = true){
         session()->flash('msgClass', 'danger');
     }
 }
+
+function moneyFormat($str){
+    return '₱' . number_format($str,2,".",",");
+}

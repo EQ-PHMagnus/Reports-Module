@@ -23,7 +23,7 @@ class ArenaFactory extends Factory
     {
        return [
             'name' => $this->faker->unique()->numerify('Arena #'),
-            'status' => $this->faker->randomElement(['active', 'inactive'])
+            'status' => $this->faker->randomElement(config('defaults.arena-status'))
         ];
     }
 }

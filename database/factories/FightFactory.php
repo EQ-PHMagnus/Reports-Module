@@ -22,6 +22,7 @@ class FightFactory extends Factory
     public function definition()
     {
         return [
+            'fight_no' => $this->faker->randomDigit(),
             'arena_id' => \App\Models\Arena::inRandomOrder()->first()->id,
             'meron' => $this->faker->numerify('Meron ###'),
             'wala' => $this->faker->numerify('Wala ###'),

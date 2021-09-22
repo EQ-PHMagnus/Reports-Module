@@ -64,15 +64,15 @@ Edit Affiliates
                         <input type="text" class="form-control" placeholder="Enter Occupation" autocomplete="off" name="occupation" value="{{old('occupation',$user->occupation)}}">
                     </div>                    
                    
-                    <div class="form-group col-md-3 col-xs-12">
+                    {{-- <div class="form-group col-md-3 col-xs-12">
                         <label>Identification</label>
                         <input type="file" class="form-control" placeholder="Enter ID" autocomplete="off" accept="image/*" name="identification">
-                    </div>
+                    </div> 
                     <div class="form-group col-md-3 col-xs-12">
                         <a class="inline-block" href="{{asset('global/photos/placeholder.png')}}" data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
                         <img class="img-fluid" src="{{asset('global/photos/placeholder.png')}}" alt="..." width="220">
                     </a>
-                    </div>
+                    </div>--}}
                     <div class="form-group col-12">
                         <h3>Account Information</h3>
                     </div>

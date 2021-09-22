@@ -9,5 +9,6 @@ return [
 	'affiliates' => [
 		0 => 'Super Agent',
 		1 => 'Agent'
-	]
+	],
+	'arena-status' => ['active', 'inactive']
 ];

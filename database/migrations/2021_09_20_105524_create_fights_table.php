@@ -16,6 +16,7 @@ class CreateFightsTable extends Migration
         Schema::create('fights', function (Blueprint $table) {
             $table->id();
             $table->integer('arena_id');
+            $table->integer('fight_no');
             $table->string('meron');
             $table->string('meron_lb')->nullable();
             $table->string('meron_wb')->nullable();

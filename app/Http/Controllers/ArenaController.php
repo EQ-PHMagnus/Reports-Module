@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Arena;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArenaRequest;
+use DB;
 
 class ArenaController extends Controller
 {
@@ -14,7 +16,9 @@ class ArenaController extends Controller
      */
     public function index()
     {
-        //
+        $arenas = Arena::orderBy('name')->paginate(10)->withQueryString();
+
+        return view('arenas.index',compact('arenas'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ArenaController extends Controller
      */
     public function create()
     {
-        //
+        return view('arenas.create');
     }
 
     /**
@@ -33,9 +37,21 @@ class ArenaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArenaRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $data = $request->except('_token');
+         
+            $arena = Arena::create($data);
+
+            DB::commit();
+            flashMessage('Arena created successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
     }
 
     /**
@@ -57,7 +73,7 @@ class ArenaController extends Controller
      */
     public function edit(Arena $arena)
     {
-        //
+        return view('arenas.edit',compact('arena'));
     }
 
     /**
@@ -67,9 +83,21 @@ class ArenaController extends Controller
      * @param  \App\Models\Arena  $arena
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Arena $arena)
+    public function update(ArenaRequest $request, Arena $arena)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $data =  $request->except('_token','_method');
+
+            $arena->update($data);
+
+            DB::commit();
+            flashMessage('Arena updated successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
     }
 
     /**
@@ -80,6 +108,15 @@ class ArenaController extends Controller
      */
     public function destroy(Arena $arena)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $arena->delete();
+
+            DB::commit();
+            return response()->json('Deleted successfully!.');
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : abort(400);
+        }
     }
 }

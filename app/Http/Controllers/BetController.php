@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bet;
 use Illuminate\Http\Request;
+use App\Http\Requests\BetRequest;
+use DB;
 
 class BetController extends Controller
 {
@@ -14,7 +16,12 @@ class BetController extends Controller
      */
     public function index()
     {
-        //
+        $bets = Bet::with(['arena','fight','fight.arena','affiliate'])
+            ->orderByDesc('created_at')
+            ->paginate(10)
+            ->withQueryString();
+        
+        return view('bets.index',compact('bets'));
     }
 
     /**
@@ -33,7 +40,7 @@ class BetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BetRequest $request)
     {
         //
     }
@@ -67,7 +74,7 @@ class BetController extends Controller
      * @param  \App\Models\Bet  $bet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bet $bet)
+    public function update(BetRequest $request, Bet $bet)
     {
         //
     }
