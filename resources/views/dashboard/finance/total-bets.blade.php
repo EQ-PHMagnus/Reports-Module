@@ -177,7 +177,7 @@ Total Bets
 		},
 		plugins: [
             Chartist.plugins.legend({
-            	legendNames: [ '2021'],
+            	legendNames: totalBetsPerYear['labels'],
         	})
         ]
 	};

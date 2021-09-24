@@ -53,4 +53,75 @@ trait Bets {
         
         return $collection;
     }
+
+    public function showTotalBets($bets,$view,$dashboardView){
+
+        
+        $totalBetsPerYear       = $bets->groupBy('year')->map->count();
+        $totalAmountBetsPerYear = $bets->groupBy('year')->map(function($perYear){
+            return $perYear->sum('bet_amount');
+        });
+
+        
+        $totalAmountBetsPerArena = $bets->groupBy('arena')->map(function($perYear){
+            return $perYear->sum('bet_amount');
+        });
+
+        $totalNumberBetsPerMonth = $bets->groupBy('year')->map(function($data,$year){
+             return $data->groupBy('month')->map(function($permonth){
+                return $permonth->count();
+             });
+        });
+      
+        $totalNumberBetsPerDay = $bets->groupBy('year')->map(function($data,$year){
+             return $data->groupBy('month_and_day')->map(function($permonth){
+                return $permonth->count();
+             });
+        });
+
+        $totalNumberBetsPerArena        = $bets->groupBy('arena')->map->count();
+        
+        $yearAndTotalAmountBetsPerMonth = $bets->groupBy('year')->map(function($data,$year){
+             return $data->groupBy('month')->map(function($permonth){
+                return $permonth->sum('bet_amount');
+             });
+        });
+
+        $yearAndTotalAmountBetsPerDay = $bets->groupBy('year')->map(function($data,$year){
+             return $data->groupBy('month_and_day')->map(function($permonth){
+                return $permonth->sum('bet_amount');
+             });
+        });
+
+        if($dashboardView == true){
+            
+            $totalBetsPerYear = $this->formatBar($totalBetsPerYear);
+            $totalAmountBetsPerYear = $this->formatBar($totalAmountBetsPerYear);
+            $totalAmountBetsPerArena = $this->formatBar($totalAmountBetsPerArena);
+
+            $totalNumberBetsPerMonth = $this->formatLine($totalNumberBetsPerMonth);
+            $totalNumberBetsPerDay = $this->formatLine($totalNumberBetsPerDay);
+            $yearAndTotalAmountBetsPerMonth = $this->formatLine($yearAndTotalAmountBetsPerMonth);
+            $yearAndTotalAmountBetsPerDay = $this->formatLine($yearAndTotalAmountBetsPerDay);
+            
+            $totalNumberBetsPerArena = $this->formatPie($totalNumberBetsPerArena);
+            
+            $view = 'dashboard.finance.total-bets';
+        }
+
+        // dd($yearAndTotalAmountBetsPerDay);
+        return view($view,compact(
+
+            'bets',
+            'totalAmountBetsPerYear',
+            'totalAmountBetsPerArena',
+            'yearAndTotalAmountBetsPerMonth',
+            'yearAndTotalAmountBetsPerDay',
+            'totalNumberBetsPerMonth',
+            'totalBetsPerYear',
+            'totalNumberBetsPerDay',
+            'totalNumberBetsPerArena',
+            
+        ));
+    }
 }
