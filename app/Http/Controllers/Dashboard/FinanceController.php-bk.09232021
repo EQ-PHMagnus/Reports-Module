@@ -4,34 +4,29 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Bet;
+use App\Models\PrototypeData;
 use App\Http\Traits\Chartist;
-use App\Http\Traits\Bets;
 
 class FinanceController extends Controller
 {
-    use Chartist, Bets;
+    use Chartist;
 
     public $model;
     public function __construct(){
-        $this->model = new Bet;
+        $this->model = new PrototypeData;
     }
 
     public function totalBets(){
         $view = 'tables.finance.total-bets';
         $dashboardView = request()->input('view',null) == 'dashboard';
-    
-        $bets     = $this->getBetData();
-
-        // dd($bets);
+        
+        $bets = $this->model->getBetsData();
 
         $totalBetsPerYear = $bets->groupBy('year')->map->count();
         $totalAmountBetsPerYear = $bets->groupBy('year')->map(function($perYear){
             return $perYear->sum('bet_amount');
         });
 
-        
-        
         $totalAmountBetsPerArena = $bets->groupBy('arena')->map(function($perYear){
             return $perYear->sum('bet_amount');
         });
@@ -41,7 +36,7 @@ class FinanceController extends Controller
                 return $permonth->count();
              });
         });
-      
+
         $totalNumberBetsPerDay = $bets->groupBy('year')->map(function($data,$year){
              return $data->groupBy('month_and_day')->map(function($permonth){
                 return $permonth->count();
@@ -86,8 +81,7 @@ class FinanceController extends Controller
             'totalNumberBetsPerMonth',
             'totalBetsPerYear',
             'totalNumberBetsPerDay',
-            'totalNumberBetsPerArena',
-            
+            'totalNumberBetsPerArena'
         ));
     }
 

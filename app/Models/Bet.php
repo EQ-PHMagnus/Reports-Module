@@ -15,7 +15,7 @@ class Bet extends Model
     }
 
     public function fight(){
-        return $this->belongsTo(\App\Models\Fight::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Fight::class)->with('arena')->withTrashed();
     }
 
     public function affiliate(){

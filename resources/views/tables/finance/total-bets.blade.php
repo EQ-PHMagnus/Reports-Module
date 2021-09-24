@@ -17,6 +17,7 @@ Total Bets
 @endsection
 
 @section('page-content')
+
 	<div class="row" data-plugin="matchHeight" data-by-row="true">
     <div class="col-xxl-3 col-lg-3">
         <div class="card card-shadow" >
@@ -25,6 +26,7 @@ Total Bets
             </div>
           	<div class="card-body">
             	<div class="table-responsive">
+                   
                     <table class="table table-sm">
                         <thead>
                             <tr>
@@ -33,18 +35,18 @@ Total Bets
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($totalAmountBetsPerYear as $key => $val)
                             <tr>
-                                <td>2020</td>
-                                <td>12</td>
+                                <td>{{$key}}</td>
+                                <td>{{number_format($val,2)}}</td>
                             </tr>
-                            <tr>
-                                <td>2021</td>
-                                <td>18</td>
-                            </tr>
+                        @endforeach
+                       
                             <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">30</td>
+                                <td class="font-weight-500">{{$bets->sum('amount')}}</td>
                             </tr>
+                       
                         </tbody>
                     </table>
                 </div>
@@ -65,31 +67,31 @@ Total Bets
                                 <th rowspan="2">Month</th>
                                 <th colspan="2">Year</th>
                             </tr>
-                            <tr>
-                                <th>2020</th>
-                                <th>2021</th>
-                            </tr>
+                            @foreach($totalNumberBetsPerMonth as $key => $val)
+                                <tr>
+                                    <th>{{$key}}</th>
+                                </tr>
+                            @endforeach
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>August</td>
-                                <td>8</td>
-                                <td>13</td>
-                            </tr>
-                            <tr>
-                                <td>January</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>March</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
+                           
+                            @foreach($totalNumberBetsPerMonth as $key => $val)
+                                @php $valDecode = json_decode($val) @endphp
+                                @foreach($valDecode as $keyMonth => $month)
+                                    <tr>
+                                        <td>{{$keyMonth}}</td>
+                                        <td>{{$month}}</td>
+                                    </tr>
+                                @endforeach
+                            @endforeach 
+                           
                             <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">12</td>
-                                <td class="font-weight-500">18</td>
+                               
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                               
                             </tr>
                         </tbody>
                     </table>
