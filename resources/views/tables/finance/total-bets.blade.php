@@ -17,6 +17,7 @@ Total Bets
 @endsection
 
 @section('page-content')
+
 	<div class="row" data-plugin="matchHeight" data-by-row="true">
     <div class="col-xxl-3 col-lg-3">
         <div class="card card-shadow" >
@@ -25,6 +26,7 @@ Total Bets
             </div>
           	<div class="card-body">
             	<div class="table-responsive">
+                   
                     <table class="table table-sm">
                         <thead>
                             <tr>
@@ -33,18 +35,18 @@ Total Bets
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($totalBetsPerYear as $key => $val)
                             <tr>
-                                <td>2020</td>
-                                <td>12</td>
+                                <td>{{$key}}</td>
+                                <td>{{number_format($val)}}</td>
                             </tr>
-                            <tr>
-                                <td>2021</td>
-                                <td>18</td>
-                            </tr>
+                        @endforeach
+                       
                             <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">30</td>
+                                <td class="font-weight-500">{{number_format($totalBetsPerYear->sum())}}</td>
                             </tr>
+                       
                         </tbody>
                     </table>
                 </div>
@@ -62,34 +64,39 @@ Total Bets
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                                <th rowspan="2">Month</th>
-                                <th colspan="2">Year</th>
+                                <th rowspan="{{count($totalNumberBetsPerMonth)}}">Month</th>
+                                <th @if(count($totalNumberBetsPerMonth) != 1) class="text-center" @endif colspan="{{count($totalNumberBetsPerMonth)}}">Year</th>
                             </tr>
                             <tr>
-                                <th>2020</th>
-                                <th>2021</th>
+                            @foreach($totalNumberBetsPerMonth as $key => $val)
+                                @if(count($totalNumberBetsPerMonth) == 1)
+                                    <th></th>
+                                @endif
+                                <th>{{$key}}</th>
+                            @endforeach
+                            </tr>
+                            <tr>
+                                @foreach(config('defaults.months') as $month => $monthVals)
+                                    <tr>
+                                        <td>{{$month}}</td>
+                                        @foreach($totalNumberBetsPerMonth as $key => $val)
+                                                @if(isset($val[$month]))
+                                                    <td>{{$val[$month]}}</td>  
+                                                @else
+                                                    <td>0</td>
+                                                @endif
+                                        
+                                        @endforeach
+                                    </tr>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>August</td>
-                                <td>8</td>
-                                <td>13</td>
-                            </tr>
-                            <tr>
-                                <td>January</td>
-                                <td>2</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>March</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">12</td>
-                                <td class="font-weight-500">18</td>
+                                @foreach($totalNumberBetsPerMonth as $key => $val)
+                                    <td class="font-weight-500">{{$totalNumberBetsPerMonth[$key]->sum()}}</td>   
+                                @endforeach
                             </tr>
                         </tbody>
                     </table>
@@ -106,57 +113,31 @@ Total Bets
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-sm">
+                        @foreach($totalNumberBetsPerDay as $key => $val)
+                        @php $decodeValPerDay = json_decode($val) @endphp
                         <thead>
                         	<tr>
-                                <th></th>
-                                <th colspan="2">Year</th>
-                                <th></th>
+                                <th colspan="2" class="text-center">{{$key}}</th>
                             </tr>
                             <tr>
-                                <th rowspan="2">Month and Day</th>
-                                <th class="text-center">2020</th>
-                                <th class="text-center">2021</th>
-                                <th class="text-center">Grand Total</th>
+                                <th>Month and Day</th>
+                                <th class="text-right">Total</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($decodeValPerDay as $keyPD => $valPD)
                             <tr>
-                                <td >August 19</td>
-                                <td class="text-right">1</td>
-                                <td class="text-right">1</td>
-                                <td class="text-right">2</td>
+                                <td >{{$keyPD}}</td>
+                                <td class="text-right">{{$valPD}}</td>
+                              
                             </tr>
-                            <tr>
-                                <td >August 23</td>
-                                <td class="text-right">6</td>
-                                <td class="text-right">10</td>
-                                <td class="text-right">16</td>
-                            </tr>
-                            <tr>
-                                <td >August 24</td>
-                                <td class="text-right">1</td>
-                                <td class="text-right">2</td>
-                                <td class="text-right">3</td>
-                            </tr>
-                            <tr>
-                                <td >January 1</td>
-                                <td class="text-right">2</td>
-                                <td class="text-right">2</td>
-                                <td class="text-right">4</td>
-                            </tr>
-                            <tr>
-                                <td >March 23</td>
-                                <td class="text-right">2</td>
-                                <td class="text-right">3</td>
-                                <td class="text-right">5</td>
-                            </tr>
+                            @endforeach
                             <tr>
                                 <td class="font-weight-500">Grant Total</td>
-                                <td class="font-weight-500 text-right">12</td>
-                                <td class="font-weight-500 text-right">18</td>
-                                <td class="font-weight-500 text-right">30</td>
+                                <td class="font-weight-500 text-right">{{number_format($totalNumberBetsPerDay[$key]->sum())}}</td>
                             </tr>
                         </tbody>
+                        @endforeach
                     </table>
                 </div>
             </div>
@@ -178,33 +159,15 @@ Total Bets
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($totalNumberBetsPerArena as $key => $val)
                             <tr>
-                                <td>Arena 1</td>
-                                <td>4</td>
+                                <td>{{$key}}</td>
+                                <td>{{number_format($val)}}</td>
                             </tr>
-                            <tr>
-                                <td>Arena 2</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 3</td>
-                                <td>4</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 4</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 5</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 6</td>
-                                <td>3</td>
-                            </tr>
+                        @endforeach
                             <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">30</td>
+                                <td class="font-weight-500">{{number_format($totalNumberBetsPerArena->sum())}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -228,18 +191,18 @@ Total Bets
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>2020</td>
-                                <td>₱10,600.00</td>
-                            </tr>
-                            <tr>
-                                <td>2021</td>
-                                <td>₱10,600.00</td>
-                            </tr>
+                            @foreach($totalAmountBetsPerYear as $key => $val)
+                                <tr>
+                                    <td>{{$key}}</td>
+                                    <td>₱{{number_format($val,2)}}</td>
+                                </tr>
+                            @endforeach
+                       
                             <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">₱21,200.00</td>
+                                <td class="font-weight-500">₱{{number_format($totalAmountBetsPerYear->sum(),2)}}</td>
                             </tr>
+                       
                         </tbody>
                     </table>
                 </div>
@@ -257,34 +220,39 @@ Total Bets
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                                <th rowspan="2">Month</th>
-                                <th colspan="2">Year</th>
+                                <th rowspan="{{count($yearAndTotalAmountBetsPerMonth)}}">Month</th>
+                                <th @if(count($yearAndTotalAmountBetsPerMonth) != 1) class="text-center" @endif colspan="{{count($yearAndTotalAmountBetsPerMonth)}}">Year</th>
                             </tr>
                             <tr>
-                                <th>2020</th>
-                                <th>2021</th>
+                            @foreach($yearAndTotalAmountBetsPerMonth as $key => $val)
+                                @if(count($yearAndTotalAmountBetsPerMonth) == 1)
+                                    <th></th>
+                                @endif
+                                <th>{{$key}}</th>
+                            @endforeach
+                            </tr>
+                            <tr>
+                                @foreach(config('defaults.months') as $month => $monthVals)
+                                    <tr>
+                                        <td>{{$month}}</td>
+                                        @foreach($yearAndTotalAmountBetsPerMonth as $key => $val)
+                                                @if(isset($val[$month]))
+                                                    <td>₱{{number_format($val[$month],2)}}</td>  
+                                                @else
+                                                    <td>₱0.00</td>
+                                                @endif
+                                        
+                                        @endforeach
+                                    </tr>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>August</td>
-                                <td>₱9,400.00</td>
-                                <td>₱9,100.00</td>
-                            </tr>
-                            <tr>
-                                <td>January</td>
-                                <td>₱600.00</td>
-                                <td>₱600.00</td>
-                            </tr>
-                            <tr>
-                                <td>March</td>
-                                <td>₱600.00</td>
-                                <td>₱900.00</td>
-                            </tr>
-                            <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">₱10,600.00</td>
-                                <td class="font-weight-500">₱10,600.00</td>
+                                @foreach($yearAndTotalAmountBetsPerMonth as $key => $val)
+                                    <td class="font-weight-500">₱{{number_format($yearAndTotalAmountBetsPerMonth[$key]->sum(),2)}}</td>   
+                                @endforeach
                             </tr>
                         </tbody>
                     </table>
@@ -301,57 +269,31 @@ Total Bets
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-sm">
+                        @foreach($yearAndTotalAmountBetsPerDay as $key => $val)
+                        @php $decodeValPerDay = json_decode($val) @endphp
                         <thead>
                         	<tr>
-                                <th></th>
-                                <th colspan="2">Year</th>
-                                <th></th>
+                                <th colspan="2" class="text-center">{{$key}}</th>
                             </tr>
                             <tr>
-                                <th rowspan="2">Month and Day</th>
-                                <th class="text-center">2020</th>
-                                <th class="text-center">2021</th>
-                                <th class="text-center">Grand Total</th>
+                                <th>Month and Day</th>
+                                <th class="text-right">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($decodeValPerDay as $keyPD => $valPD)
                             <tr>
-                                <td >August 19</td>
-                                <td class="text-right">₱300.00</td>
-                                <td class="text-right">₱500.00</td>
-                                <td class="text-right">₱800.00</td>
+                                <td >{{$keyPD}}</td>
+                                <td class="text-right">₱{{number_format($valPD,2)}}</td>
+                              
                             </tr>
-                            <tr>
-                                <td >August 23</td>
-                                <td class="text-right">₱8,800.00</td>
-                                <td class="text-right">₱8,000.00</td>
-                                <td class="text-right">₱16,800.00</td>
-                            </tr>
-                            <tr>
-                                <td >August 24</td>
-                                <td class="text-right">₱300.00</td>
-                                <td class="text-right">₱600.00</td>
-                                <td class="text-right">₱900.00</td>
-                            </tr>
-                            <tr>
-                                <td >January 1</td>
-                                <td class="text-right">₱600.00</td>
-                                <td class="text-right">₱600.00</td>
-                                <td class="text-right">₱1200.00</td>
-                            </tr>
-                            <tr>
-                                <td >March 23</td>
-                                <td class="text-right">₱600.00</td>
-                                <td class="text-right">₱900.00</td>
-                                <td class="text-right">₱1500.00</td>
-                            </tr>
+                            @endforeach
                             <tr>
                                 <td class="font-weight-500">Grant Total</td>
-                                <td class="font-weight-500 text-right">₱10,600.00</td>
-                                <td class="font-weight-500 text-right">₱10,600.00</td>
-                                <td class="font-weight-500 text-right">₱21,200.00</td>
+                                <td class="font-weight-500 text-right">₱{{number_format($yearAndTotalAmountBetsPerDay[$key]->sum(),2)}}</td>
                             </tr>
                         </tbody>
+                        @endforeach
                     </table>
                 </div>
             </div>
@@ -361,7 +303,7 @@ Total Bets
     <div class="col-xxl-3 col-lg-3">
         <div class="card card-shadow" >
             <div class="card-header text-center bg-primary">
-              Total Number of Bets per arena
+              Total Amount of Bets per arena
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -373,34 +315,18 @@ Total Bets
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Arena 1</td>
-                                <td>₱1,000.00</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 2</td>
-                                <td>₱2,900.00</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 3</td>
-                                <td>₱1,400.00</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 4</td>
-                                <td>₱3,500.00</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 5</td>
-                                <td>₱11,700.00</td>
-                            </tr>
-                            <tr>
-                                <td>Arena 6</td>
-                                <td>₱700.00</td>
-                            </tr>
+                            @foreach($totalAmountBetsPerArena as $key => $val)
+                                <tr>
+                                    <td>{{$key}}</td>
+                                    <td>₱{{number_format($val,2)}}</td>
+                                </tr>
+                            @endforeach
+                       
                             <tr>
                                 <td class="font-weight-500">Grand Total</td>
-                                <td class="font-weight-500">₱21,200.00</td>
+                                <td class="font-weight-500">₱{{number_format($totalAmountBetsPerArena->sum(),2)}}</td>
                             </tr>
+                       
                         </tbody>
                     </table>
                 </div>
