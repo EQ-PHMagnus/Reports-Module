@@ -16,7 +16,7 @@ class TransactionHistoryController extends Controller
     {
         $transactions = Transaction::with(['bet','agent'])
             ->processed()
-            ->cashIn()
+            ->cashInCashOut()
             ->orderByDesc('approved_date')
             ->paginate(10)
             ->withQueryString();

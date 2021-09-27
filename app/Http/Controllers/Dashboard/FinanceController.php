@@ -136,4 +136,48 @@ class FinanceController extends Controller
     public function superAgentAccounts(){
         return view('tables.finance.super-agent-accounts');
     }
+
+    public function getTaxComputations(){
+        $tb = Bet::sum('amount');
+        bcscale(4);
+        $grb = [
+            'tb' => $tb,
+            'grb' => bcmul($tb, '0.05')
+        ];
+
+        $gr = bcdiv($grb['grb'], '1.12');
+        $vat = bcmul($gr, '.12');
+        $grb_breakdown = [
+            'gr' => $gr,
+            'vat' => $vat,
+            'total_grb' => bcadd($gr,$vat)
+        ];
+        
+        $on_gc = [
+            'gr' => bcmul($gr, '.02'),
+            'tb' => bcmul($tb, '.02'),
+        ];
+
+        $gr_withholding = bcmul($on_gc['gr'],'0.1');
+        $tb_withholding = bcmul($on_gc['tb'],'0.1');
+        $on_nc = [
+            'gr' => [
+                'gc' => $on_gc['gr'],
+                'withholding' => $gr_withholding,
+                'nc' => bcsub($on_gc['gr'], $gr_withholding)
+            ],
+            'tb' => [
+                'gc' => $on_gc['tb'],
+                'withholding' => $tb_withholding,
+                'nc' => bcsub($on_gc['tb'], $tb_withholding)
+            ],
+        ];
+        
+        return view('tables.finance.tax-computations',compact(
+            'grb',
+            'grb_breakdown',
+            'on_gc',
+            'on_nc',
+        ));
+    }    
 }

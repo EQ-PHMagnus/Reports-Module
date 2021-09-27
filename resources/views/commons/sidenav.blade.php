@@ -29,6 +29,12 @@
                     </li>
                 </ul>
             </li>
+            <li class="site-menu-item {{request()->route()->named('dashboard.finance.tax-computations') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('dashboard.finance.tax-computations')}}">
+                    <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                    <span class="site-menu-title">Tax Computations</span>
+                </a>
+            </li>
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon fa-archive" aria-hidden="true"></i>

@@ -9,6 +9,6 @@ function flashMessage($message, $success = true){
     }
 }
 
-function moneyFormat($str){
-    return '₱' . number_format($str,2,".",",");
+function moneyFormat($str,$places = 2){
+    return '₱' . number_format($str,$places,".",",");
 }

@@ -5,7 +5,7 @@ return [
 	'system-users' => [ 'system_administrator', 'finance' ],
 	'affiliates' => ['super_agent','agent','bettor'],
 	'arena-status' => ['active', 'inactive'],
-	'transcation_type' => ['cash_in','cash_out','earnings','loses','withdrawal','deposit'],
+	'transcation_type' => ['cash_in','cash_out','earnings','loses'],
 	'transcation_status' => ['pending','approved','rejected','auto-generated'],
 	'picks' => ['meron', 'walla','draw'],
 	'bet_results' => ['waiting','defeated','winning'],

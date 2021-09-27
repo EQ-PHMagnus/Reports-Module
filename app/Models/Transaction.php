@@ -29,6 +29,10 @@ class Transaction extends Model
       return $query->where('type', 'cash_in');
    }
 
+   public function scopeCashInCashOut($query){
+      return $query->whereIn('type', ['cash_in','cash_out']);
+   }
+
    public function agent(){
       return $this->belongsTo(\App\Models\User::class,'user_id','id')->withTrashed(); // where role is agent
    }
