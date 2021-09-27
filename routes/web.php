@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FightController;
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\ArenaController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionHistoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +26,12 @@ Route::namespace('Dashboard')
     Route::get('/total-bets', [FinanceController::class, 'totalBets'])->name('dashboard.finance.total-bets');
     Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
     Route::get('/magnus-earnings', [FinanceController::class, 'magnusEarnings'])->name('dashboard.finance.magnus-earnings');
-    Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.super-agent-accounts');
+    Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.agent-accounts');
+});
+
+Route::group(['prefix' => 'transactions-history'], function() {
+    Route::get('agent-transactions', [TransactionHistoryController::class, 'getAgentTransactions'])->name('dashboard.transactions.agent-transactions');
+    Route::get('bettor-transactions', [TransactionHistoryController::class, 'getBettorsTransactions'])->name('dashboard.transactions.bettors-transactions');
 });
 
 Route::group(['prefix' => 'masterfile'], function() {
@@ -32,5 +39,6 @@ Route::group(['prefix' => 'masterfile'], function() {
     Route::resource('fights', FightController::class);
     Route::resource('bets', BetController::class);
     Route::resource('arenas', ArenaController::class);
+    Route::resource('transactions', TransactionController::class);
 });
 

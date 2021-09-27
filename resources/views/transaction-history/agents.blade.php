@@ -1,14 +1,14 @@
 @extends('commons.layout')
 @section('title')
-Bet History
+Agent/Super Agent Transaction History
 @endsection
 
 @section('page-title')
-Bet History
+Agent/Super Agent Transaction History
 @endsection
 
 @section('breadcrumbs')
-<li class="breadcrumb-item active">Bet History</li>
+<li class="breadcrumb-item active">Agent/Super Agent Transaction History</li>
 @endsection
 
 
@@ -17,9 +17,9 @@ Bet History
     <div class="col">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Bet List</h3>
+                <h3 class="panel-title">Agent/Super Agent Transaction History</h3>
                 <div class="panel-actions panel-actions-keep">
-                     <a class="panel-action" data-target="#filterBets" data-toggle="modal">
+                     <a class="panel-action" data-target="#filterHistory" data-toggle="modal">
                         <i class="icon wb-more-vertical" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -29,34 +29,23 @@ Bet History
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                                <th>Fight Schedule</th>
-                                <th>Fight no</th>
-                                <th>Arena</th>
-                                <th>Account</th>
-                                <th>Pick</th>
-                                <th>Odds</th>
-                                <th class="text-center">Bet Amount</th>
-                                <th class="text-center">Prize</th>
-                                <th>Result</th>
-                                <th>Bet Date</th>
-                                <th>Result Date</th>
+                                <th>Agent</th>
+                                <th>Transaction Type</th>
+                                <th class="text-center">Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>By:</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($bets as $key => $bet)
-
+                            @forelse($transactions as $key => $transaction)
                             <tr>
-                                <td>{{$bet->fight->schedule ?? ''}}</td>
-                                <td>{{$bet->fight->fight_no ?? ''}}</td>
-                                <td>{{$bet->fight->arena->name ?? ''}}</td>
-                                <td>{{$bet->affiliate->username ?? ''}}</td>
-                                <td>{{$bet->pick ?? ''}}</td>
-                                <td>{{$bet->odds ?? ''}}</td>
-                                <td class="text-right">{{$bet->amount ? moneyFormat($bet->amount): ''}}</td>
-                                <td class="text-right">{{$bet->prize ? moneyFormat($bet->prize): ''}}</td>
-                                <td>{{$bet->result ?? ''}}</td>
-                                <td>{{$bet->bet_date ?? ''}}</td>
-                                <td>{{$bet->result_date ?? ''}}</td>
+                                <td>{{$transaction->agent->username ?? ''}}</td>
+                                <td>{{strtoupper($transaction->type)}}</td>
+                                <td class="text-right">{{$transaction->amount ? moneyFormat($transaction->amount): ''}}</td>
+                                <td>{{$transaction->status ?? ''}}</td>
+                                <td>{{$transaction->approved_date ?? ''}}</td>
+                                <td>{{'Approving Officer'}}</td>
                             </tr>
                             @empty
                                 <tr><td class="text-center" colspan="5">No records found</td></tr>
@@ -68,11 +57,11 @@ Bet History
             <div class="panel-footer">
                 <div class="row "> 
                     <div class="col-12 d-flex justify-content-center">
-                        <p>Showing {{ $bets->firstItem() }} to {{ $bets->lastItem() }}
-                        of total {{$bets->total()}} entries</p>
+                        <p>Showing {{ $transactions->firstItem() }} to {{ $transactions->lastItem() }}
+                        of total {{$transactions->total()}} entries</p>
                     </div>
                     <div class="col-12 d-flex justify-content-center">
-                        {{ $bets->links() }}
+                        {{ $transactions->links() }}
                     </div>
                 </div>
             </div>
@@ -80,14 +69,14 @@ Bet History
     </div>
 </div>
 
-<div class="modal fade" id="filterBets" aria-labelledby="filterBets" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="filterHistory" aria-labelledby="filterHistory" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-simple modal-sidebar modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title">Filter Bets</h4>
+                    <h4 class="modal-title">Filter Transactions</h4>
                 </div>
                 <div class="modal-body">
                     <form method="GET" autocomplete="off">
