@@ -18,11 +18,11 @@ class CreateBetsTable extends Migration
             $table->id();
             $table->foreignIdFor(Fight::class);
             $table->foreignIdFor(User::class);
-            $table->string('pick');
+            $table->enum('pick',config('defaults.picks'));
             $table->double('odds',4,2);
             $table->double('amount',12,4);
             $table->double('prize',12,4);
-            $table->enum('result',['WAITING','DEFEATED','WINNING']);
+            $table->enum('result',config('defaults.bet_results'));
             $table->timestamp('bet_date');
             $table->timestamp('result_date');
             $table->timestamps();

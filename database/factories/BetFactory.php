@@ -27,11 +27,11 @@ class BetFactory extends Factory
         return [
             'fight_id' => $fight->id,
             'user_id' => \App\Models\User::inRandomOrder()->first(),
-            'pick' => $this->faker->randomElement(['MERON', 'WALA']),
+            'pick' => $this->faker->randomElement(config('defaults.picks')),
             'odds' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 0.1, $max = 2), 
-            'amount' => $this->faker->randomFloat($nbMaxDecimals = 0, $min = 300, $max = 900), 
-            'prize' => $this->faker->randomFloat($nbMaxDecimals = 0, $min = 300, $max = 900),
-            'result' => $this->faker->randomElement(['WAITING','DEFEATED','WINNING']), 
+            'amount' => $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900), 
+            'prize' => $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900),
+            'result' => $this->faker->randomElement(config('defaults.bet_results')), 
             'bet_date' => Carbon::parse($fight->schedule)->addDay(1)->toDateTimeString(),
             'result_date' => Carbon::parse($fight->schedule)->addDay(2)->toDateTimeString(),
         ];

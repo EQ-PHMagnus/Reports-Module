@@ -1,16 +1,14 @@
 <?php
 
 return [
-	'super-admin' => 'super admin',
-	'system-users' => [
-		0 => 'System Administrator',
-		1 => 'Finance'
-	],
-	'affiliates' => [
-		0 => 'Super Agent',
-		1 => 'Agent'
-	],
+	'super-admin' => 'super_admin',
+	'system-users' => [ 'system_administrator', 'finance' ],
+	'affiliates' => ['super_agent','agent','bettor'],
 	'arena-status' => ['active', 'inactive'],
+	'transcation_type' => ['cash_in','cash_out','earnings','loses'],
+	'transcation_status' => ['pending','approved','rejected','auto-generated'],
+	'picks' => ['meron', 'walla','draw'],
+	'bet_results' => ['waiting','defeated','winning'],
 	'months' => [
 		'January' => 0,
 		'February' => 1,
