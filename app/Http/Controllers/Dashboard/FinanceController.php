@@ -19,18 +19,31 @@ class FinanceController extends Controller
     }
 
     public function totalBets(Request $request){
-        // dd($this->searchFilterByDate($request));
         // CHARTS
         $chartView  = request()->input('view',null) == 'dashboard';
         if($chartView == true){
-            return view('dashboard.finance.total-bets');
+            return view('dashboard.bets.total-bets');
         }
         // DATA TABLE
         if(request()->ajax()) {
-            $result = $this->searchFilterByDate($request);
+            $result = $this->getTotalBets($request);
             return response()->json($result);
         }
-        return view('tables.finance.total-bets');
+        return view('tables.bets.total-bets');
+    }
+
+    public function totalBetsArena(Request $request){
+        // CHARTS
+        $chartView  = request()->input('view',null) == 'dashboard';
+        if($chartView == true){
+            return view('dashboard.bets.total-bets-arena');
+        }
+        // DATA TABLE
+        if(request()->ajax()) {
+            $result = $this->getTotalBetsArena($request);
+            return response()->json($result);
+        }
+        return view('tables.bets.total-bets-arena');
     }
 
     public function totalFights()
