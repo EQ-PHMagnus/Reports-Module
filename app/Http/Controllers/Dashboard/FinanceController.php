@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bet;
+use App\Models\PrototypeData;
 use App\Http\Traits\Chartist;
 use App\Http\Traits\Bets;
 
@@ -17,17 +18,19 @@ class FinanceController extends Controller
         $this->model = new Bet;
     }
 
-    public function totalBets(){
-
-
-        $view           = 'tables.finance.total-bets';
-        $dashboardView  = request()->input('view',null) == 'dashboard';
-        $bets           = $this->getBetData();
-        $result         = $this->showTotalBets($bets,$view,$dashboardView);
-        
-        // dd($bets);
-
-        return $result;
+    public function totalBets(Request $request){
+        // dd($this->searchFilterByDate($request));
+        // CHARTS
+        $chartView  = request()->input('view',null) == 'dashboard';
+        if($chartView == true){
+            return view('dashboard.finance.total-bets');
+        }
+        // DATA TABLE
+        if(request()->ajax()) {
+            $result = $this->searchFilterByDate($request);
+            return response()->json($result);
+        }
+        return view('tables.finance.total-bets');
     }
 
     public function totalFights()
