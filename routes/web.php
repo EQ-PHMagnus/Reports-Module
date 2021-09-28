@@ -21,7 +21,11 @@ Route::redirect('/','dashboard/total-bets');
 Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->group(function(){
+    //BETS
     Route::get('/total-bets', [FinanceController::class, 'totalBets'])->name('dashboard.finance.total-bets');
+    Route::get('/total-bets-arena', [FinanceController::class, 'totalBetsArena'])->name('dashboard.finance.total-bets-arena');
+    
+    
     Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
     Route::get('/magnus-earnings', [FinanceController::class, 'magnusEarnings'])->name('dashboard.finance.magnus-earnings');
     Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.super-agent-accounts');

@@ -9,11 +9,11 @@ Total Bets
 
 @section('breadcrumbs')
 <li class="breadcrumb-item breadcrumb-arrow">Finance Reports</li>
-<li class="breadcrumb-item active">Total Bets</li>
+<li class="breadcrumb-item active">Total Bets Arena</li>
 @endsection
 
 @section('page-header-actions')
-	<a href="{{route('dashboard.finance.total-bets')}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
+	<a href="{{route('dashboard.finance.total-bets-arena')}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -22,9 +22,19 @@ Total Bets
     <div class="col-xxl-6 col-lg-6">
         <div class="card card-shadow" >
           	<div class="card-body">
-        		<h4 class="text-center">Total Number of Bets</h4>
+        		<h4 class="text-center">Total Number of Bets per Arena</h4>
             	<div class="p-5 h-400">
             		<div class="number-bets"></div>
+	        	</div>
+        	</div>
+        </div>
+    </div>          
+    <div class="col-xxl-6 col-lg-6">
+        <div class="card card-shadow" >
+          	<div class="card-body">
+        		<h4 class="text-center">Total Amount of Bets per Arena</h4>
+            	<div class="p-5 h-400">
+            		<div class="amount-bets"></div>
 	        	</div>
         	</div>
         </div>

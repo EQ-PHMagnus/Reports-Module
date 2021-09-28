@@ -23,22 +23,14 @@ trait Chartist {
 	}
 
 	public function formatBar($data,$string = '',$type,$count){
+
 		$formatted = [
             'labels' => [],
             'series' => []
         ];
 
+
         if($type == 'yearly'){
-            $subSeries = [];
-            foreach($data as $key => $keyData ){
-                $keyString = $string .' '. $key; 
-                if(!in_array($keyString, $formatted['labels'])){
-                    $formatted['labels'][] = $keyString;
-                    $subSeries[] = $keyData;
-                }  
-            }
-            $formatted['series'][] = $subSeries;
-        }else{
             foreach($data as $key1 => $key1Data ){
                 $subSeries = [];
                 foreach($key1Data as $key2 => $key2Data){   
@@ -48,10 +40,13 @@ trait Chartist {
                 }
                 $formatted['series'][] = $subSeries;   
             }
+        }else{
+            foreach($data as $key => $val){
+                $decodeVal = json_decode($data);
+                $formatted['labels'][] = $key;
+                $formatted['series'] = $decodeVal;
+            }
         }
-
-
-        // dd($formatted);
         return $formatted;
 	}
 

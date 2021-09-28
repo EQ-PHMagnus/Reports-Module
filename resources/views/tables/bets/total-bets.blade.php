@@ -78,4 +78,6 @@ Total Bets
         </div>
     </div>
 @endsection
-
+@push('scripts')
+<script src="{{asset('app/js/finance/bets.js')}}"></script>
+@endpush

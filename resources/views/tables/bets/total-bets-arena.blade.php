@@ -4,16 +4,16 @@ Total Bets
 @endsection
 
 @section('page-title')
-Total Bets
+Total Bets Arena
 @endsection
 
 @section('breadcrumbs')
 <li class="breadcrumb-item breadcrumb-arrow">Finance Reports</li>
-<li class="breadcrumb-item active">Total Bets</li>
+<li class="breadcrumb-item active">Total Bets Arena</li>
 @endsection
 
 @section('page-header-actions')
-	<a href="{{route('dashboard.finance.total-bets') . '?view=dashboard'}}" class="btn btn-icon btn-primary" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
+	<a href="{{route('dashboard.finance.total-bets-arena') . '?view=dashboard'}}" class="btn btn-icon btn-primary" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -22,7 +22,7 @@ Total Bets
         <div class="col-xxl-6 col-lg-6">
             <div class="card card-shadow" >
                 <div class="card-header text-center bg-primary">
-                    Total Number of Bets
+                    Total Number of Bets per Arena
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -37,6 +37,7 @@ Total Bets
                             data-sort-order="desc">
                             <thead>
                                 <tr>
+                                    <th  class="text-left" data-field="arena">Arena </th>
                                     <th  class="text-left" data-field="date">Date </th>
                                     <th  class="text-left" data-field="count">Count</th>
                                 </tr>
@@ -50,7 +51,7 @@ Total Bets
         <div class="col-xxl-6 col-lg-6">
             <div class="card card-shadow" >
                 <div class="card-header text-center bg-primary">
-                    Total Amount of Bets
+                    Total Amount of Bets per Arena
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -67,35 +68,7 @@ Total Bets
                             data-count="false">
                             <thead>
                                 <tr>
-                                    <th  class="text-left" data-field="date">Date </th>
-                                    <th  class="text-left" data-field="sum">AMOUNT</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-6 col-lg-6">
-            <div class="card card-shadow" >
-                <div class="card-header text-center bg-primary">
-                    Total Amount of Bets per ARENA
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table  class="table-fit no-view "
-                            data-mobile-responsive="true"
-                            data-toggle="table"
-                            data-ajax="dataRequest"
-                            data-side-pagination="server"
-                            data-sortable="true"
-                            data-detail-formatter="detailFormatter"
-                            data-pagination="true"
-                            data-sort-order="desc"
-                            data-chart="false"
-                            data-count="false">
-                            <thead>
-                                <tr>
+                                    <th  class="text-left" data-field="arena">Arena </th>
                                     <th  class="text-left" data-field="date">Date </th>
                                     <th  class="text-left" data-field="sum">AMOUNT</th>
                                 </tr>
