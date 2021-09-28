@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('global/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('global/css/bootstrap-extend.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/site.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/fix.css')}}">
 
     <!-- Plugins -->
     <link rel="stylesheet" href="{{asset('global/vendor/animsition/animsition.css')}}">

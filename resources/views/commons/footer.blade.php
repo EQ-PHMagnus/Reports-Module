@@ -36,6 +36,12 @@
     <script src="{{asset('assets/js/Section/PageAside.js')}}"></script>
     <script src="{{asset('assets/js/Section/GridMenu.js')}}"></script>
 
+    <script src="{{asset('assets/vendor/bootstrap-table/bootstrap-table.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js')}}"></script>
+    <script src="{{asset('assets/vendor/bootstrap/bootstrap.min.js')}}"></script>
+    <script src="{{asset('app/js/filter.js')}}"></script>
+    <script src="{{asset('app/js/config.js')}}"></script>
+
     <!-- Config -->
     <script src="{{asset('global/js/config/colors.js')}}"></script>
     <script src="{{asset('assets/js/config/tour.js')}}"></script>
