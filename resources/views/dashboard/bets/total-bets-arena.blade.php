@@ -1,10 +1,10 @@
 @extends('commons.layout')
 @section('title')
-Total Bets
+Total Bets per Arena
 @endsection
 
 @section('page-title')
-Total Bets
+Total Bets Arena
 @endsection
 
 @section('breadcrumbs')

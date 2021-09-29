@@ -23,7 +23,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<h4 class="text-center">Total Number of Bets</h4>
-            	<div class="p-5 h-400">
+            	<div class="p-5 h-430">
             		<div class="number-bets"></div>
 	        	</div>
         	</div>
@@ -33,7 +33,7 @@ Total Bets
         <div class="card card-shadow" >
           	<div class="card-body">
         		<h4 class="text-center">Total Amount of Bets</h4>
-            	<div class="p-5 h-400">
+            	<div class="p-5 h-430">
             		<div class="amount-bets"></div>
 	        	</div>
         	</div>

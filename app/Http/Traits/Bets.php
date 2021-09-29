@@ -77,20 +77,12 @@ trait Bets {
         $offset         =    intval($request->input('offset', 0)); // pagination
         $collection     =    $this->getBetData($request); //getBetData
         $rows           =    []; // all array result to be display in data tables
-        $chartNumber    =    []; // all array result to be display in chart view
-        $arena          =    []; // collect per arena
+        $chartData      =    []; // all array result to be display in chart view
+        $yearCount          =   [];
+        $monthYearCount     =   [];
+        $yearAmount         =   [];
+        $monthYearAmount    =   [];
 
-        $totalBetsPerArena = $collection->groupBy('arena')->map(function($perArena){
-            return [ 'count' => $perArena->count(), 'sum' => $perArena->sum('bet_amount')];
-        });
-
-        foreach($totalBetsPerArena as $key => $val){
-            $arena[] = [
-                'arena'     => $key,
-                'count'     => $val['count'],
-                'sum'       => '₱ '.number_format($val['sum'],2)
-            ];
-        }
 
         // filter collections group by daily/monthly/yearly
         switch($type){
@@ -114,12 +106,15 @@ trait Bets {
                 }
                 break;
             case 'monthly';
-                $chartNumber = $collection->groupBy('month')->map(function($data,$year){
-                    return $data->groupBy('year')->map(function($permonth){
-                        return $permonth->count();
-                    });
-                });
-              
+
+                
+                $yearCount = $this->getCollection($collection,'yearcount');
+                $yearAmount = $this->getCollection($collection,'yearamount');
+                // 1. get collection group by year with months
+                $monthYearCount = $this->getCollection($collection,'monthcount');
+                $monthYearAmount = $this->getCollection($collection,'monthamount');
+               
+           
                 $groupDate = $collection->groupBy('year')->map(function($data,$year){
                     return $data->groupBy('month_and_year')->map(function($permonth){
                         return [ 'count' => $permonth->count(), 'sum' => $permonth->sum('bet_amount')];
@@ -137,7 +132,7 @@ trait Bets {
                 }
                 break;
             case 'yearly';
-                $chartNumber[] = $collection->groupBy('year')->map(function($data,$year){
+                $chartData[] = $collection->groupBy('year')->map(function($data,$year){
                     return $data->groupBy('year')->map(function($permonth){
                         return $permonth->count();
                     });
@@ -171,6 +166,7 @@ trait Bets {
                     }
                 }
         }
+   
         //determine offset and limit of rows for pagination
         $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
         $countRows   = count($rows);
@@ -179,7 +175,9 @@ trait Bets {
             'rows'                  =>   $result,
             'total'                 =>   $countRows,
             'totalNotFiltered'      =>   $countRows,
-            'chartBarNumber'        =>   $this->formatBar($chartNumber,null,$type,'count'),
+            'chartBarNumber'        =>   $this->formatBar($chartData,$yearCount,$monthYearCount,$type),
+            'chartBarAmount'        =>   $this->formatBar($chartData,$yearAmount,$monthYearAmount,$type),
+        
         ];
     }
 
@@ -191,8 +189,12 @@ trait Bets {
         $offset         =    intval($request->input('offset', 0)); // pagination
         $collection     =    $this->getBetData($request); //getBetData
         $rows           =    []; // all array result to be display in data tables
-        $chartNumber    =    []; // all array result to be display in chart view
-        $arena          =    []; // collect per arena
+        $chartData      =    []; // all array result to be display in chart view
+        $yearCount          =   [];
+        $monthYearCount     =   [];
+        $yearAmount         =   [];
+        $monthYearAmount    =   [];
+        $arena              =   []; // collect per arena
 
         $totalBetsPerArena = $collection->groupBy('arena')->map(function($perArena){
             return [ 'count' => $perArena->count(), 'sum' => $perArena->sum('bet_amount')];
@@ -228,11 +230,12 @@ trait Bets {
                 }
                 break;
             case 'monthly';
-                $chartNumber[] = $collection->groupBy('arena')->map(function($data,$year){
-                    return $data->groupBy('month')->map(function($permonth){
-                        return $permonth->count();
-                    });
-                });
+                $yearCount = $this->getCollection($collection,'yearcount');
+                $yearAmount = $this->getCollection($collection,'yearamount');
+                // 1. get collection group by year with months
+                $monthYearCount = $this->getCollection($collection,'monthcount');
+                $monthYearAmount = $this->getCollection($collection,'monthamount');
+
                 $groupDate = $collection->groupBy('arena')->map(function($data,$year){
                     return $data->groupBy('month_and_year')->map(function($permonth){
                         return [ 'count' => $permonth->count(), 'sum' => $permonth->sum('bet_amount')];
@@ -251,9 +254,9 @@ trait Bets {
                 }
                 break;
             case 'yearly';
-                $chartNumber[] = $collection->groupBy('arena')->map(function($data,$year){
-                    return $data->groupBy('year')->map(function($peryear){
-                        return $peryear->count();
+               $chartData[] = $collection->groupBy('year')->map(function($data,$year){
+                    return $data->groupBy('year')->map(function($permonth){
+                        return $permonth->count();
                     });
                 });
               
@@ -302,7 +305,44 @@ trait Bets {
             'rows'                  =>   $result,
             'total'                 =>   $countRows,
             'totalNotFiltered'      =>   $countRows,
-            'chartBarNumber'        =>   $this->formatBar($chartNumber,null,$type,'count'),
+            'chartBarNumber'        =>   $this->formatBar($chartData,$yearCount,$monthYearCount,$type),
+            'chartBarAmount'        =>   $this->formatBar($chartData,$yearAmount,$monthYearAmount,$type),
+        
         ];
+    }
+
+    public function getCollection($collection,$collect){
+        switch($collect){
+            case 'yearcount';
+                return $collection->groupBy('month')->map(function($data,$year){
+                    return $data->groupBy('year')->map(function($permonth){
+                        return $permonth->count();
+                    });
+                });
+                break;
+            case 'monthcount';
+                return $collection->groupBy('year')->map(function($data,$year){
+                    return $data->groupBy('month')->map(function($permonth){
+                        return $permonth->count();
+                    });
+                });
+                break;
+
+            case 'yearamount';
+                return $collection->groupBy('month')->map(function($data,$year){
+                    return $data->groupBy('year')->map(function($permonth){
+                        return $permonth->sum('bet_amount');
+                    });
+                });
+                break;
+            case 'monthamount';
+                return $collection->groupBy('year')->map(function($data,$year){
+                    return $data->groupBy('month')->map(function($permonth){
+                        return $permonth->sum('bet_amount');
+                    });
+                });
+                break;
+
+        }
     }
 }

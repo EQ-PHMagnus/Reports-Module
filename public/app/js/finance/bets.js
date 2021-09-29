@@ -13,13 +13,21 @@ $(document).ready(function () {
             currency: 'PHP',
         });
 
-        let barGraphOptions = {
-            axisY: {
-                onlyInteger : true
+        lineGraphOptions = {
+            low: 0,
+            showArea: true,
+            height: '300px',
+           
+            chartPadding: {
+                left: 30
             },
-            height: '300px'
+            // plugins: [
+            //     Chartist.plugins.legend(),
+            //     Chartist.plugins.tooltip()
+            // ]
         };
-        // CHARTS
+        
+        // CHARTS - COUNT
         $.get(adminUrl + "dashboard/total-bets?search=&count=true",{
             from: $('input[name="from"]').val(),
             to: $('input[name="to"]').val(),
@@ -27,53 +35,27 @@ $(document).ready(function () {
             chart: $('input[name="chart"]').val()
         }).done(function(data){
             // TOTAL BETS - NUMBER 
-            console.log(data.chartBarNumber);
-            new Chartist.Bar('.number-bets',  
-            {
-                labels: data.chartBarNumber.labels,
-                series: [
-                    [5, 4, 3, 7],
-                    [3, 2, 9, 5],
-                    [1, 5, 8, 4],
-                    [2, 3, 4, 6],
-                    [4, 1, 2, 1]
-                  ]
-            },  {
-            showLabel: false,
-            // plugins: [
-            //     Chartist.plugins.legend(),
-            //     Chartist.plugins.tooltip()
-            // ]
-            });
+            new Chartist.Line('.number-bets',  
+            data.chartBarNumber,lineGraphOptions);
+
+            new Chartist.Line('.amount-bets',  
+            data.chartBarAmount,{  low: 0,
+                showArea: true,
+                height: '300px',
+               
+                chartPadding: {
+                    left: 30
+                }, axisY: {
+                labelInterpolationFnc: function(value,idx) {
+                    return formatter.format(value);     
+                }
+            },});
         });
+  
+      
 
 
-        $.get(adminUrl + "dashboard/total-bets?search=&count=true",{
-            from: $('input[name="from"]').val(),
-            to: $('input[name="to"]').val(),
-            group: $('select[name="group"]').val(),
-            chart: $('input[name="chart"]').val()
-        }).done(function(data){
-            // TOTAL BETS - NUMBER 
-            console.log(data.chartBarNumber);
-            new Chartist.Bar('.amount-bets',  
-            {
-                labels: data.chartBarNumber.labels,
-                series: [
-                    [5, 4, 3, 7],
-                    [3, 2, 9, 5],
-                    [1, 5, 8, 4],
-                    [2, 3, 4, 6],
-                    [4, 1, 2, 1]
-                  ]
-            },  {
-            showLabel: false,
-            // plugins: [
-            //     Chartist.plugins.legend(),
-            //     Chartist.plugins.tooltip()
-            // ]
-            });
-        });
+     
     }
     // filter functions
     $('.btn-filter-table').on('click',function () {
