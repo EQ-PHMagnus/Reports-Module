@@ -43,3 +43,8 @@ function destroyModel(e){
 	e.stopPropagation();
 }
 
+function exportTable(e){
+	const form = $(this).closest('form');
+	const exportField = form.find('#export').val('true');
+	form.submit();
+}
