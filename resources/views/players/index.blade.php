@@ -23,7 +23,7 @@ Players Management
                 <h3 class="panel-title">Players List</h3>
                 <div class="panel-actions panel-actions-keep">
                      <a class="panel-action" data-target="#filterPlayer" data-toggle="modal">
-                        <i class="icon wb-more-vertical" aria-hidden="true"></i>
+                        <i class="icon fa-filter font-size-20" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>

@@ -22,8 +22,8 @@ Agents Management
             <div class="panel-heading">
                 <h3 class="panel-title">Agents List</h3>
                 <div class="panel-actions panel-actions-keep">
-                     <a class="panel-action" data-target="#filterAgents" data-toggle="modal">
-                        <i class="icon wb-more-vertical" aria-hidden="true"></i>
+                     <a class="panel-action" data-target="#filterAgents" data-toggle="modal" title="Search and Filters">
+                        <i class="icon fa-filter font-size-20" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
