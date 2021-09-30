@@ -4,7 +4,7 @@ function dataRequest(params) {
     $('.filters').each(function(){
         obj[$(this).attr('name')] = $(this).val();
     });
-    params.data['filters'] = obj;
+    params.data = obj;
     var operator = '?';
     var loc = window.location.href
     if(window.location.href.indexOf('?') > -1){

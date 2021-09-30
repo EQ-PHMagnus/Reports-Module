@@ -58,7 +58,9 @@ trait Chartist {
                 'labels' => [],
                 'series' => $arraySeries
             ];
-            foreach($yearCollection as $key => $data){
+            
+            $labels = json_decode($yearCollection);
+            foreach($labels as $key => $data){
                 $formatted['labels'][] = $key;
             }
 
@@ -71,9 +73,12 @@ trait Chartist {
                
             if(!in_array($key2, $formatted['labels']))
                 $formatted['labels'][] = $key2;
-                $subSeries[] = $key2Data[$key2];
+                $subSeries[] = [
+                    "name" => $key2,
+                    "data" => array($key2Data[$key2])
+                ];
             }
-            $formatted['series'][] = $subSeries;   
+            $formatted['series'] = $subSeries;   
         }
 
         return $formatted;

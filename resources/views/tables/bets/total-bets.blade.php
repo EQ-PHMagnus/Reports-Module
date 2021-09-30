@@ -6,14 +6,14 @@ Total Bets
 @section('page-title')
 Total Bets
 @endsection
-
+@push('css')
+<link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.css')}}">
+@endpush
 @section('breadcrumbs')
 <li class="breadcrumb-item breadcrumb-arrow">Finance Reports</li>
 <li class="breadcrumb-item active">Total Bets</li>
-@endsection
-
-@section('page-header-actions')
-	<a href="{{route('dashboard.finance.total-bets') . '?view=dashboard'}}" class="btn btn-icon btn-primary" title="toggle to dashboard view"><i class="icon wb-dashboard" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -49,6 +49,17 @@ Total Bets
         <br>
         <div class="col-xxl-6 col-lg-6">
             <div class="card card-shadow" >
+                <div class="card-body">
+                    <h4 class="text-center">Total Number of Bets</h4>
+                    <div class="p-5 h-430">
+                        <div class="number-bets"></div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <br>
+        <div class="col-xxl-6 col-lg-6">
+            <div class="card card-shadow" >
                 <div class="card-header text-center bg-primary">
                     Total Amount of Bets
                 </div>
@@ -76,8 +87,24 @@ Total Bets
                 </div>
             </div>
         </div>
+        <br>
+        <div class="col-xxl-6 col-lg-6">
+        <div class="card card-shadow" >
+          	<div class="card-body">
+        		<h4 class="text-center">Total Amount of Bets</h4>
+            	<div class="p-5 h-430">
+            		<div class="amount-bets"></div>
+	        	</div>
+        	</div>
+        </div>
+    </div>     
     </div>
 @endsection
 @push('scripts')
+<script src="{{asset('global/vendor/chartist/chartist.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.js"></script>
+<script src="https://htmlstream.com/preview/nova-v1.2/assets/vendor/chartist-bar-labels/src/scripts/chartist-bar-labels.js"></script>
+<script src="https://htmlstream.com/preview/nova-v1.2/assets/vendor/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
 <script src="{{asset('app/js/finance/bets.js')}}"></script>
 @endpush

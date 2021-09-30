@@ -19,11 +19,7 @@ class FinanceController extends Controller
     }
 
     public function totalBets(Request $request){
-        // CHARTS
-        $chartView  = request()->input('view',null) == 'dashboard';
-        if($chartView == true){
-            return view('dashboard.bets.total-bets');
-        }
+        
         // DATA TABLE
         if(request()->ajax()) {
             $result = $this->getTotalBets($request);

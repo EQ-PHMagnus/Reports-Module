@@ -2,15 +2,16 @@
 namespace App\Http\Traits;
 use DB;
 trait Bets {
+    
 
 	public function getBetData($request){
 
         $bets       =    [];
         $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
         $order      =    $request->input('order', 'desc');
-        $from       =    date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
-        $to         =    date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
-        $chartView  =    $request->input('filters.chart');
+        $from       =    date('Y-m-d h:i:s', strtotime($request->input('from')));
+        $to         =    date('Y-m-d h:i:s', strtotime($request->input('to'))) ?? $from;
+    
 
         $data = DB::table('bets as bet')
         ->leftJoin('fights as fight', 'fight.id', '=', 'bet.fight_id')
@@ -27,17 +28,14 @@ trait Bets {
             arena.name as arena,
             fight.fight_no as fight_no,
             user.name as name
-        ')->whereNull('bet.deleted_at');
-  
-   
-        if($chartView == "false"){
-            $data->when($sort, function($query, $sort) use ($order){
-                return $query->orderBy('bet.'.$sort, $order);
-            })
-            ->when($from, function ($query , $from) use ($to) {
-                return $query->whereBetween('bet.bet_date', [$from, $to]);
-            });
-        }
+        ')
+        ->when($sort, function($query, $sort) use ($order){
+            return $query->orderBy('bet.'.$sort, $order);
+        })
+        ->when($from, function ($query , $from) use ($to) {
+            return $query->whereBetween('bet.bet_date', [$from, $to]);
+        })
+        ->whereNull('bet.deleted_at');
 
         foreach($data->get() as $key => $val){
             
@@ -71,8 +69,7 @@ trait Bets {
 
     public function getTotalBets($request){
 
-        $type           =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
-        $arenaCheck     =    $request->input('arena');
+        $type           =    $request->input('group'); // select type if daily/montly/yearly
         $limit          =    intval($request->input('limit', 10)); // pagination
         $offset         =    intval($request->input('offset', 0)); // pagination
         $collection     =    $this->getBetData($request); //getBetData
@@ -113,7 +110,7 @@ trait Bets {
                 // 1. get collection group by year with months
                 $monthYearCount = $this->getCollection($collection,'monthcount');
                 $monthYearAmount = $this->getCollection($collection,'monthamount');
-               
+            
            
                 $groupDate = $collection->groupBy('year')->map(function($data,$year){
                     return $data->groupBy('month_and_year')->map(function($permonth){
@@ -166,7 +163,7 @@ trait Bets {
                     }
                 }
         }
-   
+ 
         //determine offset and limit of rows for pagination
         $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
         $countRows   = count($rows);
@@ -183,8 +180,7 @@ trait Bets {
 
     public function getTotalBetsArena($request){
 
-        $type           =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
-        $arenaCheck     =    $request->input('arena');
+        $type           =    $request->input('group'); // select type if daily/montly/yearly
         $limit          =    intval($request->input('limit', 10)); // pagination
         $offset         =    intval($request->input('offset', 0)); // pagination
         $collection     =    $this->getBetData($request); //getBetData
