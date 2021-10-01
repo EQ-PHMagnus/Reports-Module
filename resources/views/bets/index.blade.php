@@ -20,7 +20,7 @@ Bet History
                 <h3 class="panel-title">Bet List</h3>
                 <div class="panel-actions panel-actions-keep">
                      <a class="panel-action" data-target="#filterBets" data-toggle="modal">
-                        <i class="icon wb-more-vertical" aria-hidden="true"></i>
+                        <i class="icon fa-filter font-size-20" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>

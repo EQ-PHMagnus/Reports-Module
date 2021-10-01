@@ -73,8 +73,10 @@
                     }
             });
             $('.btn-destroy-model').click(destroyModel);
+            $('.btn-export').click(exportTable);
         });
       })(document, window, jQuery);
+
     </script>
 @stack('scripts')
 </body>

@@ -13,6 +13,17 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    public function scopeAgents($query){
+      return $query->whereIn('role',['agent','super_agent']);
+   }
+
+   public function scopeBettors($query){
+      return $query->whereIn('role',['bettor']);
+   }
+
+   public function agent(){
+      return $this->belongsTo(\App\Models\User::class,'agent_id','id')->withTrashed(); // where role is agent
+   }
     /**
      * The attributes that are mass assignable.
      *

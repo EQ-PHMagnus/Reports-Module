@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\FinanceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FightController;
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\ArenaController;
@@ -41,7 +43,10 @@ Route::group(['prefix' => 'transactions-history'], function() {
 });
 
 Route::group(['prefix' => 'masterfile'], function() {
-    Route::resource('users', UserController::class);
+    Route::resource('players', PlayerController::class);
+    
+    Route::get('search-agent', [AgentController::class,'searchAgent'])->name('search-agent');
+    Route::resource('agents', AgentController::class);
     Route::resource('fights', FightController::class);
     Route::resource('bets', BetController::class);
     Route::resource('arenas', ArenaController::class);
