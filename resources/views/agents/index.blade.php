@@ -114,6 +114,14 @@ Agents Management
                                 <input type="text" class="form-control" name="search" placeholder="Agent Code, Username or Full name" value="{{request('search')}}" autocomplete="off">
                             </div>
                             <div class="form-group col-12">
+                                <label>Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="" {{request('type') == "" ? "selected" : ""}}>All</option>
+                                    <option value="agent" {{request('type') == "agent" ? "selected" : ""}}>Agent</option>
+                                    <option value="super_agent" {{request('type') == "super_agent" ? "selected" : ""}}>Super Agent</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12">
                                 <label>From</label>
                                 <input type="date" class="form-control" name="from" value="{{request()->input('from',\Carbon\Carbon::now()->subDays('30')->format('Y-m-d'))}}" autocomplete="off">
                             </div>

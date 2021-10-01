@@ -24,6 +24,8 @@ class AgentController extends Controller
         $to = $request->input('to', date('Y-m-d'));
         $search = $request->input('search',false);
         $export = $request->input('export',false);
+        $type = $request->input('type',false);
+
 
         $agentsQuery = User::with('agent')
             ->orderByDesc('created_at')
@@ -32,6 +34,9 @@ class AgentController extends Controller
                 return $query->where('agent_code','LIKE',$_search)
                     ->orWhere('username','LIKE',$_search)
                     ->orWhere('name','LIKE',$_search);
+            })
+            ->when($type,function($query,$type){
+                return $query->where('role',$type);  
             })
             ->whereBetween(DB::raw('date(created_at)'),[$from,$to])
             ->agents()
