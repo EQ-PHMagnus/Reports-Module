@@ -19,7 +19,8 @@ class AgentController extends Controller
      */
     public function index(Request $request)
     {
-        $from = $request->input('from', Carbon::now()->startOfMonth()->format('Y-m-d'));
+
+        $from = $request->input('from', Carbon::now()->subDays('30')->format('Y-m-d'));
         $to = $request->input('to', date('Y-m-d'));
         $search = $request->input('search',false);
         $export = $request->input('export',false);

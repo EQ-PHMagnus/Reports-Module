@@ -22,7 +22,10 @@ Players Management
             <div class="panel-heading">
                 <h3 class="panel-title">Players List</h3>
                 <div class="panel-actions panel-actions-keep">
-                     <a class="panel-action" data-target="#filterPlayer" data-toggle="modal">
+                    <a class="panel-action btn-export" title="Export filtered resuts">
+                         <i class="icon wb-download font-size-20" aria-hidden="true"></i>
+                     </a>
+                     <a class="panel-action" data-target="#filterModal" data-toggle="modal">
                         <i class="icon fa-filter font-size-20" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -55,6 +58,20 @@ Players Management
                                 <td>{{$player->mobile_number ?? ''}}</td>
                                 <td>{{$player->created_at->toDateTimeString() ?? ''}}</td>
                                 <td>
+                                    @php
+                                        $giid = $player->identification;
+                                        if(strpos($giid, 'picsum') === false){
+                                            $giid = asset('storage/'. $player->identification);
+                                        }
+
+                                        $recent_photo = $player->recent_photo;
+                                        if(strpos($recent_photo, 'picsum') === false){
+                                            $recent_photo = asset('storage/'. $player->recent_photo);
+                                        }
+                                    @endphp
+                                    <button class="btn btn-icon btn-primary btn-outline view-gallery" title="View GIID" data-giid="{{$giid}}" data-rp="{{$recent_photo}}">
+                                        <i class="icon wb-gallery" aria-hidden="true"></i>
+                                    </button>
                                     <a href="{{route('players.edit',$player->id)}}" class="btn btn-icon btn-default btn-outline" data-toggle="tooltip" data-title="Edit this player"><i class="icon wb-pencil" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-icon btn-danger btn-outline btn-destroy-model" data-toggle="tooltip" data-title="Delete this player" data-url="{{route('players.destroy',$player->id)}}"><i class="icon wb-trash" aria-hidden="true"></i></button>
                                     {{-- <button type="button" class="btn btn-icon btn-primary btn-outline" data-toggle="tooltip" data-title="Transact" ><i class="icon fa-money" aria-hidden="true"></i></button> --}}
@@ -82,7 +99,7 @@ Players Management
     </div>
 </div>
 
-<div class="modal fade" id="filterPlayer" aria-labelledby="filterPlayer" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="filterModal" aria-labelledby="filterModal" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-simple modal-sidebar modal-sm">
             <form  method="GET" autocomplete="off" id="filterForm">
                 <div class="modal-content">
@@ -100,7 +117,7 @@ Players Management
                             </div>
                             <div class="form-group col-12">
                                 <label>From</label>
-                                <input type="date" class="form-control" name="from" value="{{request()->input('from',\Carbon\Carbon::now()->startOfMonth()->format('Y-m-d'))}}" autocomplete="off">
+                                <input type="date" class="form-control" name="from" value="{{request()->input('from',\Carbon\Carbon::now()->subDays('30')->format('Y-m-d'))}}" autocomplete="off">
                             </div>
                             <div class="form-group col-12">
                                 <label>To</label>
@@ -113,7 +130,38 @@ Players Management
                         <button type="submit" class="btn btn-success btn-block">Submit</button>
                         <a href="{{route('players.index')}}" class="btn btn-secondary btn-block">Reset</a>
                         <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary btn-block btn-export">Export</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="galleryModal" aria-labelledby="galleryModal" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-simple modal-sm">
+            <form  method="GET" autocomplete="off" id="filterForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title">Gallery</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-12 gallery-giid">
+                            <label>GIID</label>
+                            <a class="inline-block mt-10"  data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
+                              <img class="img-fluid"  alt="..." width="220">
+                            </a>
+                        </div>
+                        <div class="form-group col-12 gallery-rp">
+                            <label>Recent Photo</label>
+                            <a class="inline-block mt-10" data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
+                              <img class="img-fluid" width="150" height="150"  alt="...">
+                            </a>
+                        </div>   
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </form>
@@ -121,3 +169,34 @@ Players Management
     </div>
 </div>
 @endsection
+@push('css')
+<link rel="stylesheet" href="{{asset('global/vendor/magnific-popup/magnific-popup.css')}}">
+@endpush
+@push('scripts')
+<script src="{{asset('global/vendor/magnific-popup/jquery.magnific-popup.js')}}"></script>
+<script src="{{asset('global/js/Plugin/magnific-popup.js')}}"></script>
+<script type="text/javascript">
+    $(".view-gallery").click(function (e) {
+        e.preventDefault();
+        const giid = $(this).data('giid');
+        const rp = $(this).data('rp');
+        const modal = $("#galleryModal");
+
+        modal.on('show.bs.modal',function(){
+            //GIID
+            const giidThumb = modal.find('.gallery-giid');
+
+            giidThumb.find('a').prop('href',giid);
+            giidThumb.find('img').prop('src',giid);
+
+            //GIID
+            const rpThumb = modal.find('.gallery-rp');
+
+            rpThumb.find('a').prop('href',rp);
+            rpThumb.find('img').prop('src',rp);
+        });
+        modal.modal('show');
+    });
+</script>
+@endpush
+
