@@ -1,6 +1,8 @@
 $(document).ready(function () {
-    
+
     initializeCharts();
+
+
     // initialize charts
     function initializeCharts(){
         const formatter = new Intl.NumberFormat('en-US', {
@@ -67,18 +69,21 @@ $(document).ready(function () {
         ];
         
         // CHARTS - COUNT
-        $.get(adminUrl + "dashboard/total-bets?search=&count=true",{
+        var currentUrl = window.location.href;
+        $.get(currentUrl + "?search=&count=true",{
             from: $('input[name="from"]').val(),
             to: $('input[name="to"]').val(),
             group: $('select[name="group"]').val(),
             chart: $('input[name="chart"]').val()
         }).done(function(data){
             // TOTAL BETS - NUMBER 
-            new Chartist.Bar('.number-bets',  
+            new Chartist.Bar('.count-bets',  
             data.chartBarNumber,barGraphOptions,barGraphMobileSettings);
 
-            new Chartist.Line('.amount-bets',  
+            new Chartist.Line('.sum-bets',  
             data.chartBarAmount,lineGraphOptions);
+
+
         });
      
     }

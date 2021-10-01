@@ -8,6 +8,7 @@ use App\Http\Controllers\BetController;
 use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionHistoryController;
+use App\Http\Controllers\ReportsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,9 @@ Route::redirect('/','dashboard/total-bets');
 Route::namespace('Dashboard')
     ->prefix('dashboard')
     ->group(function(){
-    //BETS
-    Route::get('/total-bets', [FinanceController::class, 'totalBets'])->name('dashboard.finance.total-bets');
-    Route::get('/total-bets-arena', [FinanceController::class, 'totalBetsArena'])->name('dashboard.finance.total-bets-arena');
+ 
+    // Route::get('/total-bets', [FinanceController::class, 'totalBets'])->name('dashboard.finance.total-bets');
+    // Route::get('/total-bets-arena', [FinanceController::class, 'totalBetsArena'])->name('dashboard.finance.total-bets-arena');
     
     
     Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
@@ -47,3 +48,13 @@ Route::group(['prefix' => 'masterfile'], function() {
     Route::resource('transactions', TransactionController::class);
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Reports
+|--------------------------------------------------------------------------
+|
+*/
+Route::group(['prefix' => 'reports'], function() {
+    Route::get('/bets/{type}', [ReportsController::class, 'index'])->name('reports.bets.index');
+});
