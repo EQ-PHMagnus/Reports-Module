@@ -4,7 +4,7 @@ use DB;
 trait Reports {
 
 
-    public function getBetsArena($request){
+    public function getArena($request,$reportType){
 
         $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
         $limit              =    intval($request->input('limit', 10)); // pagination
@@ -18,6 +18,11 @@ trait Reports {
         $yearAmount         =    [];
         $monthYearAmount    =    [];
         $arena              =    []; // collect per arena
+
+        if($reportType == 'total-count-fights-arena'){
+            $collectionTable    =    $this->getFightData($request,'table'); 
+            $collectionChart    =    $this->getFightData($request,'chart'); 
+        }
         
         $totalBetsPerArena = $collectionTable->groupBy('arena')->map(function($perArena){
             return [ 'count' => $perArena->count(), 'sum' => $perArena->sum('bet_amount')];

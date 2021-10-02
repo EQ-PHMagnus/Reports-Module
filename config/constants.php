@@ -40,6 +40,13 @@ return [
                     'type'                  =>  'count',
                     'route'                 =>  'reports/fights/total-count-fights'
                 ],
+                'total-count-fights-arena'    =>  [
+                    'title'                 =>  'Total Fights Count per Arena ',
+                    'content_title'         =>  'Total Count of Fights per Arena',
+                    'type'                  =>  'sum',
+                    'name'                  =>  'arena',
+                    'route'                 =>  'reports/fights/total-count-fights-arena'
+                ],
                
         ]
     ]
