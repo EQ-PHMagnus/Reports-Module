@@ -360,7 +360,7 @@ trait Reports {
        
         $data = DB::table('bets as bet')
         ->leftJoin('fights as fight', 'fight.id', '=', 'bet.fight_id')
-        ->leftJoin('arenas as arena', 'arena.id', '=', 'bet.arena_id')
+        ->leftJoin('arenas as arena', 'arena.id', '=', 'fight.arena_id')
         ->leftJoin('users as user', 'user.id', '=', 'bet.user_id')
         ->selectRaw('
             bet.bet_date,
