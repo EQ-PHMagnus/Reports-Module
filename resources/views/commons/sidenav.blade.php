@@ -3,11 +3,29 @@
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i>
-                    <span class="site-menu-title">Bet Reports</span>
+                    <span class="site-menu-title">Bets Report</span>
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.bets') as $key => $val)
+                    <li class="site-menu-item {{request()->route()->named('reports.bets.index') ?  'active' : ''}}">
+                        <a class="animsition-link" href="{{url($val['route'])}}">
+                            <span class="site-menu-title">{{$val['title']}}</span>
+                        </a>
+                    </li>
+                @empty
+                @endforelse
+                </ul>
+               
+            </li>
+            <li class="site-menu-item has-sub">
+                <a href="javascript:void(0)">
+                    <i class="site-menu-icon wb-flag" aria-hidden="true"></i>
+                    <span class="site-menu-title">Fights Report</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                @forelse(config('constants.menu.fights') as $key => $val)
                     <li class="site-menu-item {{request()->route()->named('reports.bets.index') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{url($val['route'])}}">
                             <span class="site-menu-title">{{$val['title']}}</span>

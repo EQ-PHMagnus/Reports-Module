@@ -31,6 +31,16 @@ return [
                 'name'                  =>  'arena',
                 'route'                 =>  'reports/bets/total-amount-bets-arena'
             ],
+        ],
+
+        'fights' => [
+                'total-count-fights'    =>  [
+                    'title'                 =>  'Total Fights Count ',
+                    'content_title'         =>  'Total Count of Fights',
+                    'type'                  =>  'count',
+                    'route'                 =>  'reports/fights/total-count-fights'
+                ],
+               
         ]
     ]
 ];

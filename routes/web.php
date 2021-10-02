@@ -61,5 +61,6 @@ Route::group(['prefix' => 'masterfile'], function() {
 |
 */
 Route::group(['prefix' => 'reports'], function() {
-    Route::get('/bets/{type}', [ReportsController::class, 'index'])->name('reports.bets.index');
+    Route::get('/bets/{type}', [ReportsController::class, 'bets'])->name('reports.bets.bets');
+    Route::get('/fights/{type}', [ReportsController::class, 'fights'])->name('reports.bets.fights');
 });

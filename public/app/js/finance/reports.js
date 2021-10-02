@@ -9,8 +9,6 @@ $(document).ready(function () {
             style: 'currency',
             currency: 'PHP',
         });
-        
-
         lineGraphOptions = {  low: 0,
             low: 0,
             showArea: true,
@@ -28,7 +26,6 @@ $(document).ready(function () {
                 Chartist.plugins.tooltip()
             ],
         }
-
 
         barGraphOptions = {
             // Default mobile configuration
@@ -76,14 +73,11 @@ $(document).ready(function () {
             group: $('select[name="group"]').val(),
             chart: $('input[name="chart"]').val()
         }).done(function(data){
-            // TOTAL BETS - NUMBER 
             new Chartist.Bar('.count-bets',  
             data.chartBarNumber,barGraphOptions,barGraphMobileSettings);
 
             new Chartist.Line('.sum-bets',  
             data.chartBarAmount,lineGraphOptions);
-
-
         });
      
     }

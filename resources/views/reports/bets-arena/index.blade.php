@@ -33,5 +33,5 @@ Total Bets
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.js"></script>
 <script src="https://htmlstream.com/preview/nova-v1.2/assets/vendor/chartist-bar-labels/src/scripts/chartist-bar-labels.js"></script>
 <script src="https://htmlstream.com/preview/nova-v1.2/assets/vendor/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="{{asset('app/js/finance/bets.js')}}"></script>
+<script src="{{asset('app/js/finance/reports.js')}}"></script>
 @endpush
