@@ -22,7 +22,10 @@ Agents Management
             <div class="panel-heading">
                 <h3 class="panel-title">Agents List</h3>
                 <div class="panel-actions panel-actions-keep">
-                     <a class="panel-action" data-target="#filterAgents" data-toggle="modal" title="Search and Filters">
+                     <a class="panel-action btn-export" title="Export filtered resuts">
+                         <i class="icon wb-download font-size-20" aria-hidden="true"></i>
+                     </a>
+                     <a class="panel-action" data-target="#filterModal" data-toggle="modal" title="Search and Filters">
                         <i class="icon fa-filter font-size-20" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -53,6 +56,20 @@ Agents Management
                                 <td class="text-center">{{$agent->points ? moneyFormat($agent->points): ''}}</td>
                                 <td>{{$agent->created_at->toDateTimeString() ?? ''}}</td>
                                 <td>
+                                    @php
+                                        $giid = $agent->identification;
+                                        if(strpos($giid, 'picsum') === false){
+                                            $giid = asset('storage/'. $agent->identification);
+                                        }
+
+                                        $recent_photo = $agent->recent_photo;
+                                        if(strpos($recent_photo, 'picsum') === false){
+                                            $recent_photo = asset('storage/'. $agent->recent_photo);
+                                        }
+                                    @endphp
+                                    <button class="btn btn-icon btn-primary btn-outline view-gallery" title="View GIID" data-giid="{{$giid}}" data-rp="{{$recent_photo}}">
+                                        <i class="icon wb-gallery" aria-hidden="true"></i>
+                                    </button>
                                     <a href="{{route('agents.edit',$agent->id)}}" class="btn btn-icon btn-default btn-outline" title="Edit this agent"><i class="icon wb-pencil" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-icon btn-danger btn-outline btn-destroy-model" title="Delete this agent" data-url="{{route('agents.destroy',$agent->id)}}"><i class="icon wb-trash" aria-hidden="true"></i></button>
                                     {{-- <button type="button" class="btn btn-icon btn-primary btn-outline" data-toggle="tooltip" data-title="Transact" ><i class="icon fa-money" aria-hidden="true"></i></button> --}}
@@ -80,7 +97,7 @@ Agents Management
     </div>
 </div>
 
-<div class="modal fade" id="filterAgents" aria-labelledby="filterAgents" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="filterModal" aria-labelledby="filterModal" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-simple modal-sidebar modal-sm">
             <form  method="GET" autocomplete="off" id="filterForm">
                 <div class="modal-content">
@@ -97,8 +114,16 @@ Agents Management
                                 <input type="text" class="form-control" name="search" placeholder="Agent Code, Username or Full name" value="{{request('search')}}" autocomplete="off">
                             </div>
                             <div class="form-group col-12">
+                                <label>Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="" {{request('type') == "" ? "selected" : ""}}>All</option>
+                                    <option value="agent" {{request('type') == "agent" ? "selected" : ""}}>Agent</option>
+                                    <option value="super_agent" {{request('type') == "super_agent" ? "selected" : ""}}>Super Agent</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12">
                                 <label>From</label>
-                                <input type="date" class="form-control" name="from" value="{{request()->input('from',\Carbon\Carbon::now()->startOfMonth()->format('Y-m-d'))}}" autocomplete="off">
+                                <input type="date" class="form-control" name="from" value="{{request()->input('from',\Carbon\Carbon::now()->subDays('30')->format('Y-m-d'))}}" autocomplete="off">
                             </div>
                             <div class="form-group col-12">
                                 <label>To</label>
@@ -111,7 +136,39 @@ Agents Management
                         <button type="submit" class="btn btn-success btn-block">Submit</button>
                         <a href="{{route('agents.index')}}" class="btn btn-secondary btn-block">Reset</a>
                         <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary btn-block btn-export">Export</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="galleryModal" aria-labelledby="galleryModal" role="dialog" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-simple modal-sm">
+            <form  method="GET" autocomplete="off" id="filterForm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title">Gallery</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-12 gallery-giid">
+                            <label>GIID</label>
+                            <a class="inline-block mt-10"  data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
+                              <img class="img-fluid"  alt="..." width="220">
+                            </a>
+                        </div>
+                        <div class="form-group col-12 gallery-rp">
+                            <label>Recent Photo</label>
+                            <a class="inline-block mt-10" data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
+                              <img class="img-fluid" width="150" height="150"  alt="...">
+                            </a>
+                        </div>   
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </form>
@@ -119,3 +176,33 @@ Agents Management
     </div>
 </div>
 @endsection
+@push('css')
+<link rel="stylesheet" href="{{asset('global/vendor/magnific-popup/magnific-popup.css')}}">
+@endpush
+@push('scripts')
+<script src="{{asset('global/vendor/magnific-popup/jquery.magnific-popup.js')}}"></script>
+<script src="{{asset('global/js/Plugin/magnific-popup.js')}}"></script>
+<script type="text/javascript">
+    $(".view-gallery").click(function (e) {
+        e.preventDefault();
+        const giid = $(this).data('giid');
+        const rp = $(this).data('rp');
+        const modal = $("#galleryModal");
+
+        modal.on('show.bs.modal',function(){
+            //GIID
+            const giidThumb = modal.find('.gallery-giid');
+
+            giidThumb.find('a').prop('href',giid);
+            giidThumb.find('img').prop('src',giid);
+
+            //GIID
+            const rpThumb = modal.find('.gallery-rp');
+
+            rpThumb.find('a').prop('href',rp);
+            rpThumb.find('img').prop('src',rp);
+        });
+        modal.modal('show');
+    });
+</script>
+@endpush

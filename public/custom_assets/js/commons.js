@@ -44,7 +44,7 @@ function destroyModel(e){
 }
 
 function exportTable(e){
-	const form = $(this).closest('form');
+	const form = $("#filterModal").find('form');
 	const exportField = form.find('#export').val('true');
 	form.submit();
 }
