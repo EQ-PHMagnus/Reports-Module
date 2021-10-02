@@ -7,17 +7,16 @@
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub">
-                    <li class="site-menu-item {{request()->route()->named('dashboard.finance.total-bets') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('dashboard.finance.total-bets')}}">
-                            <span class="site-menu-title">Total Bets</span>
+                @forelse(config('constants.menu.bets') as $key => $val)
+                    <li class="site-menu-item {{request()->route()->named('reports.bets.index') ?  'active' : ''}}">
+                        <a class="animsition-link" href="{{url($val['route'])}}">
+                            <span class="site-menu-title">{{$val['title']}}</span>
                         </a>
                     </li>
-                    <li class="site-menu-item {{request()->route()->named('dashboard.finance.total-bets-arena') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('dashboard.finance.total-bets-arena')}}">
-                            <span class="site-menu-title">Total Bets Arena</span>
-                        </a>
-                    </li>
+                @empty
+                @endforelse
                 </ul>
+               
             </li>
             <li class="site-menu-item {{request()->route()->named('dashboard.finance.tax-computations') ?  'active' : ''}}">
                 <a class="animsition-link" href="{{route('dashboard.finance.tax-computations')}}">
