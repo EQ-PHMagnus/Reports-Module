@@ -8,8 +8,8 @@
                 </a>
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.bets') as $key => $val)
-                    <li class="site-menu-item {{request()->route()->named('reports.bets.index') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{url($val['route'])}}">
+                    <li class="site-menu-item ">
+                        <a class="animsition-link" href="{{route('reports.bets.bets',$val['route'])}}">
                             <span class="site-menu-title">{{$val['title']}}</span>
                         </a>
                     </li>
@@ -26,8 +26,8 @@
                 </a>
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.fights') as $key => $val)
-                    <li class="site-menu-item {{request()->route()->named('reports.bets.index') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{url($val['route'])}}">
+                    <li class="site-menu-item ">
+                        <a class="animsition-link" href="{{route('reports.bets.fights',$val['route'])}}">
                             <span class="site-menu-title">{{$val['title']}}</span>
                         </a>
                     </li>
