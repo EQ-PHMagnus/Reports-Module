@@ -28,37 +28,84 @@
       <div class="w-full container mx-auto">
         <div class="w-full flex items-center justify-between">
           <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">Magnus</span>
+            <span class="sr-only">Magnus</span>
+            <img class="h-20 w-auto " src="{{asset('landing/main-logo.png')}}" alt="">
           </a>
         </div>
       </div>
 
-      <!--Main-->
+       
       <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
           <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
-            Main
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-              Hero Message
-            </span>
-            to sell yourself!
+            Empowering players to efficiently bet on cockfight matches using a user-centric design app
           </h1>
-          <button
-                class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                type="button"
+          <a
+                class="bg-red-600 text-white font-bold mt-5 py-2 px-4 w-1/2 text-center rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out self-center"
+                href="https://sir.vosa.dev"
               >
-                Sign Up
-              </button>
+                Start Playing
+              </a>
         </div>
 
-        <!--Footer-->
-        <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-          <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; App 2020</a>
-          - Template by
-          <a class="text-gray-500 no-underline hover:no-underline" href="https://www.tailwindtoolbox.com">TailwindToolbox.com</a>
+        <!--Right Col-->
+        <div class="w-full xl:w-3/5 p-12 overflow-hidden">
+          <img class="mx-auto w-full  transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src="{{asset('landing/sample2.png')}}" />
+        </div>
+      <!--Main-->
+      </div>
+    </div>
+
+    <div class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+          <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            A better way to play
+          </p>
+        </div>
+
+        <div class="mt-10">
+          <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+            <div class="relative">
+              <dt>
+                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-300 text-white">
+                  <span class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+                    1
+                  </span>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Side-by-side betting while watching the current fight</p>
+              </dt>
+            </div>
+
+            <div class="relative">
+              <dt>
+                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-300 text-white">
+                  <span class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+                    2
+                  </span>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Easy navigation to see fight details, user's points, payouts per fights, and betting status</p>
+              </dt>
+            </div>
+            <div class="relative">
+              <dt>
+                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-300 text-white">
+                  <span class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+                    3
+                  </span>
+                </div>
+                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Bigger fight video screen</p>
+              </dt>
+            </div>
+          </dl>
         </div>
       </div>
+    </div>
+
+    <!--Footer-->
+    <div class="sticky bottom-0 p-5 text-white text-sm text-center md:text-left">
+      &copy; {{date('Y')}} Magnus Gaming. All rights reserved.
     </div>
   </body>
 </html>
