@@ -15,7 +15,7 @@ class FinanceController extends Controller
 
     public $model;
     public function __construct(){
-        $this->model = new Bet;
+        $this->model = new PrototypeData;
     }
 
     // public function totalBets(Request $request){

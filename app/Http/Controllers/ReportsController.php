@@ -39,7 +39,7 @@ class ReportsController extends Controller
     public function fights(Request $request,$type){
         try{
             if(request()->ajax()){
-                if($type == 'total-amount-fights-arena' || $type == 'total-count-figths-arena'){
+                if($type == 'total-amount-fights-arena' || $type == 'total-count-fights-arena'){
                     $result = $this->getArena($request,$type); 
                     return response()->json($result);
                 }else{

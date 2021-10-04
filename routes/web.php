@@ -11,6 +11,8 @@ use App\Http\Controllers\ArenaController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionHistoryController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,7 @@ use App\Http\Controllers\ReportsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::view('/','landing');
 Route::prefix('raven')
@@ -33,10 +36,16 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('/', function () {
+        return redirect('login');
+    });
+
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy']);  
     Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
     Route::get('/magnus-earnings', [FinanceController::class, 'magnusEarnings'])->name('dashboard.finance.magnus-earnings');
     Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.agent-accounts');
     Route::get('/tax-computations', [FinanceController::class, 'getTaxComputations'])->name('dashboard.finance.tax-computations');
+
 
 
     Route::group(['prefix' => 'transactions-history'], function() {
@@ -57,5 +66,25 @@ Route::prefix('raven')
     
     Route::resource('arenas', ArenaController::class);
     Route::resource('transactions', TransactionController::class);
+
+     /*
+    |--------------------------------------------------------------------------
+    | User Management
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    Route::group(['prefix' => 'users'], function() {
+        Route::resource('users', UserController::class)->middleware(['auth']);
+    });
+
+
+
+    Route::get('/', function () {
+        return redirect('reports/bets/total-count-bets');
+    })->middleware(['auth'])->name('reports');
+
 });
+
+require __DIR__.'/auth.php';
 
