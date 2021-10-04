@@ -81,7 +81,7 @@ Route::prefix('raven')
 
 
     Route::get('/', function () {
-        return redirect('reports/bets/total-count-bets');
+        return redirect('raven/bets/total-count-bets');
     })->middleware(['auth'])->name('reports');
 
 });
