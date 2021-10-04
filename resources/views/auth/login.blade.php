@@ -1,7 +1,9 @@
 <x-guest-layout >
     <x-auth-card>
         <x-slot name="logo">
-            <img class="h-24 w-auto" src="{{asset('landing/main-logo.png')}}">
+            <a href="{{url('/')}}">
+                <img class="h-24 w-auto" src="{{asset('landing/main-logo.png')}}">
+            </a>
         </x-slot>
 
         <!-- Session Status -->

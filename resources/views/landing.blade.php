@@ -25,8 +25,8 @@
   <body class="leading-normal tracking-normal text-white-400 m-6 bg-cover bg-fixed">
     <div class="h-full">
       <!--Nav-->
-      <div class="w-full container mx-auto">
-        <div class="w-full flex items-center justify-between">
+      <div class="sticky top-0 w-full container mx-auto">
+        <div class=" w-full flex items-center justify-between">
           <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
             <span class="sr-only">Magnus</span>
             <img class="h-20 w-auto " src="{{asset('landing/main-logo.png')}}" alt="">
@@ -35,7 +35,7 @@
       </div>
 
        
-      <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+      <div class="container w-full pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
           <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
@@ -50,7 +50,7 @@
         </div>
 
         <!--Right Col-->
-        <div class="w-full xl:w-3/5 p-12 overflow-hidden">
+        <div class="w-full xl:w-3/5 overflow-hidden">
           <img class="mx-auto w-full  transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src="{{asset('landing/sample2.png')}}" />
         </div>
       <!--Main-->
@@ -104,7 +104,7 @@
     </div>
 
     <!--Footer-->
-    <div class="sticky bottom-0 p-5 text-white text-sm text-center md:text-left">
+    <div class="sticky bottom-0 p-5 text-white text-sm text-center md:text-left bg-blue-900 bg-opacity-50">
       &copy; {{date('Y')}} Magnus Gaming. All rights reserved.
     </div>
   </body>
