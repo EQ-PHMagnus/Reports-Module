@@ -13,25 +13,25 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
 
-        <form method="POST" action="{{ route('raven.login') }}">
+        <form method="POST" action="{{ route('raven.login') }}" autocomplete="off">
             @csrf
 
             <!-- Username -->
             <div>
                 <x-label for="username" :value="__('Username')" />
 
-                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="off"/>
+                <x-input id="username" class="block mt-1 w-full rounded-md focus:outline-none ring-2 ring-blue-900" type="text" name="username" :value="old('username')" required autofocus autocomplete="off"/>
             </div>
 
             <!-- Password -->
             <div class="mt-4 ">
                 <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block mt-1 w-full"
+                <x-input id="password" class="block mt-1 w-full "
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" 
-                                autocomplete="new-password"
+                                autocomplete="off"
                                 />
             </div>
 

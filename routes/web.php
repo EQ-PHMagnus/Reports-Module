@@ -43,9 +43,7 @@ Route::prefix('raven')
     |
     */
     // Route::redirect('/','raven/masterfile/agents');
-    Route::get('/', function () {
-        return redirect('bets/total-count-bets');
-    })->name('reports');
+    Route::redirect('/', 'raven/bets/total-count-bets')->name('reports');
     Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('raven.logout');  
     
 
