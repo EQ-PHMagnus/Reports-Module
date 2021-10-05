@@ -22,14 +22,14 @@
     </style>
   </head>
 
-  <body class="leading-normal tracking-normal text-white-400 m-6 bg-cover bg-fixed">
+  <body class="leading-normal tracking-normal text-white-400  bg-cover bg-fixed">
     <div class="h-full">
       <!--Nav-->
-      <div class="sticky top-0 w-full container mx-auto">
+      <div class="sticky top-0 w-full p-5 bg-indigo-200 bg-opacity-50">
         <div class=" w-full flex items-center justify-between">
           <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
             <span class="sr-only">Magnus</span>
-            <img class="h-20 w-auto " src="{{asset('landing/main-logo.png')}}" alt="">
+            <img class="h-14 w-auto " src="{{asset('/assets/images/log-full.PNG')}}" alt="">
           </a>
         </div>
       </div>
@@ -39,7 +39,7 @@
         <!--Left Col-->
         <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
           <h1 class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
-            Empowering players to efficiently bet on cockfight matches using a user-centric design app
+            Empowering players on a whole new gaming experience
           </h1>
           <a
                 class="bg-red-600 text-white font-bold mt-5 py-2 px-4 w-1/2 text-center rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out self-center"
@@ -105,7 +105,7 @@
 
     <!--Footer-->
     <div class="sticky bottom-0 p-5 text-white text-sm text-center md:text-left bg-blue-900 bg-opacity-50">
-      &copy; {{date('Y')}} Magnus Gaming. All rights reserved.
+      &copy; {{date('Y')}} Magnus Gaming Systems Inc. All rights reserved.
     </div>
   </body>
 </html>

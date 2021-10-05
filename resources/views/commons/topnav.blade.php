@@ -9,8 +9,8 @@
                 <i class="icon wb-more-horizontal" aria-hidden="true"></i>
             </button>
             <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-                {{-- <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark"> --}}
-                <span class="navbar-brand-text hidden-xs-down"> PHMagnus</span>
+                <img class="navbar-brand-logo h-40" src="{{asset('/assets/images/log-full.PNG')}}" title="PHMagnus">
+                <span class="navbar-brand-text hidden-xs-down"></span>
             </div>
             <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
                 <span class="sr-only">Toggle Search</span>

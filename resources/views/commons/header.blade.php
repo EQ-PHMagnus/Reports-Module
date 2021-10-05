@@ -11,8 +11,8 @@
 
     <title>@yield('title') | PHMagnus</title>
 
-    <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
-    <link rel="shortcut icon" href="../assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="{{asset('assets/images/apple-icon-120x120.png')}}">
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon-16x16.png')}}">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{asset('global/css/bootstrap.min.css')}}">
