@@ -17,12 +17,19 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/register', [RegisteredUserController::class, 'store'])
 //                 ->middleware('guest');
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+Route::get('raven/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
-                ->name('login');
+                ->name('raven.login');
+Route::post('raven/login', [AuthenticatedSessionController::class, 'store'])
+                ->middleware('guest')
+                ->name('raven.login');
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-                ->middleware('guest');
+// Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+//                 ->middleware('guest')
+//                 ->name('login');
+
+// Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+//                 ->middleware('guest');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
@@ -59,6 +66,6 @@ Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])
 Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
                 ->middleware('auth');
 
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->middleware('auth')
-                ->name('logout');
+// Route::post('raven/logout', [AuthenticatedSessionController::class, 'destroy'])
+//                 ->middleware('auth')
+//                 ->name('raven.logout');
