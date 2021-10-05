@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'name'          => 'Super Admin',
-            'nickname'      => 'superadmin',
+            'dob'      => date('Y-m-d H:i:s'),
             'username'      => 'superadmin',
             'password'      =>  bcrypt('magnus2k'.date('y').'!'),
             'mobile_number' => 123  ,
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'name'          => 'System Admin',
-            'nickname'      => 'systemadmin',
+            'dob'      => date('Y-m-d H:i:s'),
             'username'      => 'system_admin',
             'password'      =>  bcrypt('password'),
             'mobile_number' => 123   ,
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'name'          => 'Super Agent',
-            'nickname'      => 'superagent',
+            'dob'      => date('Y-m-d H:i:s'),
             'username'      => 'super_agent',
             'password'      =>  bcrypt('password'),
             'mobile_number' => 123 ,
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'name'          => 'Agent',
-            'nickname'      => 'agent',
+            'dob'      => date('Y-m-d H:i:s'),
             'username'      => 'agent',
             'password'      =>  bcrypt('password'),
             'mobile_number' => 123 ,
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'name'          => 'Bettor',
-            'nickname'      => 'bettor',
+            'dob'      => date('Y-m-d H:i:s'),
             'username'      => 'bettor',
             'password'      =>  bcrypt('password'),
             'mobile_number' => 123 ,
