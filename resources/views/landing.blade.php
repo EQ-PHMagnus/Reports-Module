@@ -51,7 +51,7 @@
 
         <!--Right Col-->
         <div class="w-full xl:w-3/5 overflow-hidden">
-          <img class="mx-auto w-full  transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src="{{asset('landing/sample2.png')}}" />
+          <img class="mx-auto w-full  transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src="{{asset('landing/magnus1.png')}}" />
         </div>
       <!--Main-->
       </div>
