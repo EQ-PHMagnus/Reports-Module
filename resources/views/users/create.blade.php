@@ -1,15 +1,15 @@
 @extends('commons.layout')
 @section('title')
-Create Affiliates
+Create User
 @endsection
 
 @section('page-title')
-Create Affiliates 
+Create User 
 @endsection
 
 @section('breadcrumbs')
-<li class="breadcrumb-item"><a href="{{route('users.index')}}">Affiliates Management</a></li>
-<li class="breadcrumb-item active">Create Affiliates</li>
+<li class="breadcrumb-item"><a href="{{route('users.index')}}">User Management</a></li>
+<li class="breadcrumb-item active">Create User</li>
 @endsection
 
 @section('page-content')
