@@ -70,9 +70,11 @@ trait Reports {
                         return [ 'count' => $permonth->count(), 'amount' => $permonth->sum('bet_amount')];
                     });
                 });
+              
                 // create array format to show date and count for table rows
                 foreach($groupDate as $key => $val){
                     foreach($val as $keyDate => $valCount){
+                      
                         $rows[] = [
                             'arena' => $key,
                             'date'  => $keyDate,
