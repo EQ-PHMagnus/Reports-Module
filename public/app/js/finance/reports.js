@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    initializeCharts();
+  
 
 
     // initialize charts
@@ -73,14 +73,20 @@ $(document).ready(function () {
             group: $('select[name="group"]').val(),
             chart: $('input[name="chart"]').val()
         }).done(function(data){
-            new Chartist.Bar('.count-bets',  
-            data.chartBarNumber,barGraphOptions,barGraphMobileSettings);
-
-            new Chartist.Line('.sum-bets',  
-            data.chartBarAmount,lineGraphOptions);
+            
+            if(document.querySelector('.count-bets') != null){
+                new Chartist.Bar('.count-bets',  
+                data.chartBarNumber,barGraphOptions,barGraphMobileSettings);
+            }
+            if(document.querySelector('.sum-bets') != null){
+                new Chartist.Line('.sum-bets',  
+                data.chartBarAmount,lineGraphOptions);
+            }
+           
         });
      
     }
+    initializeCharts();
     // filter functions
     $('.btn-filter').on('click',function () {
         $('table[data-toggle="table"]').bootstrapTable('refresh');

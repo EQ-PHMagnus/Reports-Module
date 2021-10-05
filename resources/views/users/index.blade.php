@@ -1,18 +1,18 @@
 @extends('commons.layout')
 @section('title')
-Affiliates
+User
 @endsection
 
 @section('page-title')
-Affiliates Management
+User Management
 @endsection
 
 @section('breadcrumbs')
-<li class="breadcrumb-item active">Affiliates Management</li>
+<li class="breadcrumb-item active">User Management</li>
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('users.create')}}" type="button" class="btn btn-icon btn-primary btn-outline"><i class="icon wb-plus" aria-hidden="true"></i> Add Affiliate</a>   
+    <a href="{{route('users.create')}}" type="button" class="btn btn-icon btn-primary btn-outline"><i class="icon wb-plus" aria-hidden="true"></i> Add User</a>   
 @endsection
 
 @section('page-content')
@@ -20,7 +20,7 @@ Affiliates Management
     <div class="col">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Affiliates List</h3>
+                <h3 class="panel-title">User List</h3>
                 <div class="panel-actions panel-actions-keep">
                      <a class="panel-action" data-target="#filterUsers" data-toggle="modal">
                         <i class="icon wb-more-vertical" aria-hidden="true"></i>
@@ -53,7 +53,7 @@ Affiliates Management
                                 <td>
                                     <a href="{{route('users.edit',$user->id)}}" class="btn btn-icon btn-default btn-outline" data-toggle="tooltip" data-title="Edit this user"><i class="icon wb-pencil" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-icon btn-danger btn-outline btn-destroy-model" data-toggle="tooltip" data-title="Delete this user" data-url="{{route('users.destroy',$user->id)}}"><i class="icon wb-trash" aria-hidden="true"></i></button>
-                                    <button type="button" class="btn btn-icon btn-primary btn-outline" data-toggle="tooltip" data-title="Transact" ><i class="icon fa-money" aria-hidden="true"></i></button>
+                                    <!-- <button type="button" class="btn btn-icon btn-primary btn-outline" data-toggle="tooltip" data-title="Transact" ><i class="icon fa-money" aria-hidden="true"></i></button> -->
                                 </td>
                             </tr>
                             @empty
