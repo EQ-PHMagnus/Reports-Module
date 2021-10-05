@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         ini_set('max_execution_time', '0'); // for infinite time of execution 
 
         $this->call([
-            // RolesAndPermissions::class,
+            RolesAndPermissionsSeeder::class,
+            UserSeeder::class,
         ]);
 
         \App\Models\User::factory(1000)->create();

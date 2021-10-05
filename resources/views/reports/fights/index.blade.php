@@ -19,10 +19,10 @@
 @section('page-content')
 @include('filters.finance.filter-date')
 <div class="row" data-plugin="matchHeight" data-by-row="true">
-    <div class="col-xxl-6 col-lg-6">
+    <div class="col-xxl-6 col-lg-6  div-table">
         @include('reports.fights.table')
     </div>
-    <div class="col-xxl-6 col-lg-6">
+    <div class="col-xxl-6 col-lg-6  div-chart">
         @include('reports.fights.chart')
     </div>
 </div>
