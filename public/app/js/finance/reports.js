@@ -91,6 +91,17 @@ $(document).ready(function () {
     $('.btn-filter').on('click',function () {
         $('table[data-toggle="table"]').bootstrapTable('refresh');
         initializeCharts();
+
+        let groupFilter = $('select[name="group"]').val();
+
+        if(groupFilter == 'daily'){
+            $('.div-chart').hide();
+             $('.div-table').attr('class','col-xxl-12 col-lg-12  div-table');
+        }else{
+            $('.div-chart').show();
+            $('.div-table').attr('class','col-xxl-6 col-lg-6  div-table');
+        }
+
     }); 
    
 });
