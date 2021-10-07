@@ -74,7 +74,7 @@ Create User
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Role</label>
                         <select class="form-control" name="role">
-                            @forelse(config('defaults.affiliates') as $role)
+                            @forelse(config('defaults.system-users') as $role)
                                 <option value="{{$role}}" {{$role == old('role') ? 'selected' : ''}}>{{$role}}</option>
                             @empty
                             @endforelse

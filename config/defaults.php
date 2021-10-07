@@ -3,7 +3,8 @@
 return [
 	'super-admin' => 'super_admin',
 	'system-users' => [ 'system_administrator', 'finance' ],
-	'affiliates' => ['super_agent','agent','bettor'],
+	'affiliates' => ['agent','super_agent'],
+	'agent_levels' => [1,2,3,4],
 	'arena-status' => ['active', 'inactive'],
 	'transcation_type' => ['cash_in','cash_out','earnings','loses'],
 	'transcation_status' => ['pending','approved','rejected','auto-generated'],

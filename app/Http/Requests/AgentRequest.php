@@ -36,7 +36,8 @@ class AgentRequest extends FormRequest
                 'agent_id' => 'required',
                 'identification' => 'required',
                 'recent_photo' => 'required',
-                'dob' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears('21')->format('Y-m-d')
+                'dob' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears('21')->format('Y-m-d'),
+                'level' => 'required'
             ];
         }
         if ($this->isMethod('put')) {
@@ -52,7 +53,8 @@ class AgentRequest extends FormRequest
                 'mobile_number' => 'digits:11',
                 'agent_code' => 'required',
                 'agent_id' => 'required',
-                'dob' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears('21')->format('Y-m-d')
+                'dob' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears('21')->format('Y-m-d'),
+                'level' => 'required'
             ];
         }
         

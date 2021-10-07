@@ -81,19 +81,23 @@ Create Player
                     </div>
                     
                     <input type="hidden" name="role" value="bettor">
-                    
-                    <div class="form-group col-md-4 col-xs-12">
+                     <div class="form-group col-md-6 col-xs-12">
+                        <label>Role</label>
+                        <input readonly type="text" class="form-control" autocomplete="off" value="Bettor">
+                        
+                    </div>
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Assign To</label>
                         <input type="text" class="form-control" id="assignTo" autocomplete="off" placeholder="Enter name of the agent/superagent">
                         <input type="hidden" name="agent_id" id="agent_id">
                     </div>
 
-                    <div class="form-group col-md-4 col-xs-12">
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Points</label>
                         <input type="number" class="form-control" autocomplete="off" name="points" value="{{old('points',100)}}" min="0">
                     </div>
                     
-                    <div class="form-group col-md-4 col-xs-12">
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Agent Code</label>
                         <input type="text" class="form-control" placeholder="Agent Code" autocomplete="off" name="agent_code" value="{{old('agent_code')}}">
                     </div>

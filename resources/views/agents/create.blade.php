@@ -76,11 +76,20 @@ Create Agent
                     <div class="form-group col-12">
                         <h3>Account Information</h3>
                     </div>
-                    <div class="form-group col-md-3 col-xs-12">
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Role</label>
                         <select class="form-control" name="role">
                             @forelse(config('defaults.affiliates') as $role)
                                 <option value="{{$role}}" {{$role == old('role') ? 'selected' : ''}}>{{$role}}</option>
+                            @empty
+                            @endforelse
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 col-xs-12">
+                        <label>Level</label>
+                        <select class="form-control" name="level">
+                            @forelse(config('defaults.agent_levels') as $level)
+                                <option value="{{$level}}" {{$level == old('level') ? 'selected' : ''}}>{{$level}}</option>
                             @empty
                             @endforelse
                         </select>
@@ -91,7 +100,7 @@ Create Agent
                         <input type="hidden" name="agent_id" id="agent_id">
                     </div>
 
-                    <div class="form-group col-md-4 col-xs-12">
+                    <div class="form-group col-md-3 col-xs-12">
                         <label>Points</label>
                         <input type="number" class="form-control" autocomplete="off" name="points" value="{{old('points',100)}}" min="0">
                     </div>

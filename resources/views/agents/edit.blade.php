@@ -94,11 +94,20 @@ Edit Agent
                     <div class="form-group col-12">
                         <h3>Account Information</h3>
                     </div>
-                    <div class="form-group col-md-3 col-xs-12">
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Role</label>
                         <select class="form-control" name="role">
                             @forelse(config('defaults.affiliates') as $role)
                                 <option value="{{$role}}" {{$role == old('role',$agent->role) ? 'selected' : ''}}>{{$role}}</option>
+                            @empty
+                            @endforelse
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 col-xs-12">
+                        <label>Level</label>
+                        <select class="form-control" name="level">
+                            @forelse(config('defaults.agent_levels') as $level)
+                                <option value="{{$level}}" {{$level == old('level',$agent->level) ? 'selected' : ''}}>{{$level}}</option>
                             @empty
                             @endforelse
                         </select>
@@ -108,7 +117,7 @@ Edit Agent
                         <input type="text" class="form-control" id="assignTo" autocomplete="off" placeholder="Enter name of the agent/superagent" value="{{old('role',$agent->agent->agent_code)}}">
                         <input type="hidden" name="agent_id" id="agent_id" value="{{old('role',$agent->agent->id)}}">
                     </div>
-                    <div class="form-group col-md-4 col-xs-12">
+                    <div class="form-group col-md-3 col-xs-12">
                         <label>Points</label>
                         <input type="number" class="form-control" autocomplete="off" name="points" value="{{old('points',$agent->points)}}" min="0">
                     </div>
