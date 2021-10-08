@@ -60,13 +60,22 @@ class UserSeeder extends Seeder
             'agent_code'    => 'Agent 5'   
         ]);
 
+        DB::table('users')->insert([
+            'name'          => 'Master Cashier',
+            'dob'      => date('Y-m-d H:i:s'),
+            'username'      => 'master_cashier',
+            'password'      =>  bcrypt('password'),
+            'mobile_number' => 123 ,
+            'agent_code'    => 'Agent 6'   
+        ]);
+
         // Assign roles to preinserted accounts.
         $super_admin        = \App\Models\User::find(1)->assignRole('Super Admin');
         $system_admin       = \App\Models\User::find(2)->assignRole('System Admin');
         $super_agent        = \App\Models\User::find(3)->assignRole('Super Agent');
         $agent              = \App\Models\User::find(4)->assignRole('Agent');
         $bettor             = \App\Models\User::find(5)->assignRole('Bettor');
-       
+        $master_cashier     = \App\Models\User::find(6)->assignRole('Master Cashier');
 
         // factory(App\User::class, 100)->create();
     }

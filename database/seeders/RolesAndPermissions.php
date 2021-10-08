@@ -34,5 +34,6 @@ class RolesAndPermissions extends Seeder
         $super_agent = Role::create(['name' => 'Super Agent']);
         $agent = Role::create(['name' => 'Agent']);
         $bettor = Role::create(['name' => 'Bettor']);
+        $master_cashier = Role::create(['name' => 'Master Cashier']);
     }
 }

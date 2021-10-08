@@ -2,7 +2,7 @@
 
 return [
 	'super-admin' => 'super_admin',
-	'system-users' => [ 'system_administrator', 'finance' ],
+	'system-users' => [ 'system_administrator', 'finance' ,'master_cashier'],
 	'affiliates' => ['agent','super_agent'],
 	'agent_levels' => [1,2,3,4],
 	'arena-status' => ['active', 'inactive'],
