@@ -7,6 +7,10 @@ return [
 	'agent_levels' => [1,2,3,4],
 	'arena-status' => ['active', 'inactive'],
 	'transcation_type' => ['cash_in','cash_out','earnings','loses'],
+	'agen_deposit_status' => [
+		'pending'	=> 1,
+		'approved'	=> 2,
+		'rejected'	=> 3],
 	'transcation_status' => ['pending','approved','rejected','auto-generated'],
 	'picks' => ['meron', 'walla','draw'],
 	'bet_results' => ['waiting','defeated','winning'],

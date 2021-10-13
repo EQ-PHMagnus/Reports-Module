@@ -39,6 +39,7 @@
     <script src="{{asset('assets/vendor/bootstrap-table/bootstrap-table.min.js')}}"></script>
     <script src="{{asset('assets/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js')}}"></script>
     <script src="{{asset('assets/vendor/bootstrap/bootstrap.min.js')}}"></script>
+    <script src="{{asset('app/js/action.js')}}"></script>
     <script src="{{asset('app/js/filter.js')}}"></script>
     <script src="{{asset('app/js/config.js')}}"></script>
 

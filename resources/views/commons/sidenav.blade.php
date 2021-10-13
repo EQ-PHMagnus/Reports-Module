@@ -105,5 +105,11 @@
                 <i class="site-menu-icon wb-user" aria-hidden="true"></i><span class="site-menu-title">User Management</span>
                 </a>
             </li>
+
+            <li class="site-menu-item {{request()->route()->named('agent-deposits.index') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('agent-deposits.index')}}">
+                <i class="site-menu-icon wb-briefcase" aria-hidden="true"></i><span class="site-menu-title">Agent Deposits</span>
+                </a>
+            </li>
         </ul>
     </div>

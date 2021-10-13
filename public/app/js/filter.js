@@ -1,5 +1,6 @@
 
 function dataRequest(params) {
+
     var obj = {};
     $('.filters').each(function(){
         obj[$(this).attr('name')] = $(this).val();
@@ -14,3 +15,12 @@ function dataRequest(params) {
         params.success(res);
     });
 }
+
+// GENERAL FILTER
+$(document).on('click','.btn-filter-search',function () {
+    $('table[data-toggle="table"]').bootstrapTable('refresh');
+});
+
+$(document).on('click','.btn-filter-refresh',function () {
+    location.reload();
+});

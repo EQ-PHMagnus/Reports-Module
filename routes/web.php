@@ -12,7 +12,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionHistoryController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-
+use App\Http\Controllers\AgentDepositController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -120,6 +120,19 @@ Route::prefix('raven')
     */
     Route::group(['prefix' => 'users'], function() {
         Route::resource('users', UserController::class);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Agent Deposits
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::group(['prefix' => 'agent-deposits'], function() {
+        Route::resource('agent-deposits', AgentDepositController::class)->names([
+            'destroy' => 'agent-deposits.destroy',
+            'update'  => 'agent-deposits.update',
+        ]);
     });
 
    

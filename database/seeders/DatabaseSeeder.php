@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Fight::factory(100)->create();
         \App\Models\Bet::factory(1000)->create();
         \App\Models\Transaction::factory(1000)->create();
+     
 
         Cache::flush();
     }
