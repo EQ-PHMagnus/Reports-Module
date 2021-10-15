@@ -9,7 +9,7 @@
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.bets') as $key => $val)
                     <li class="site-menu-item ">
-                        <a class="animsition-link" href="{{route('reports.bets.bets',$val['route'])}}">
+                        <a class="animsition-link" href="{{$val['url']}}">
                             <span class="site-menu-title">{{$val['title']}}</span>
                         </a>
                     </li>
@@ -27,7 +27,7 @@
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.fights') as $key => $val)
                     <li class="site-menu-item ">
-                        <a class="animsition-link" href="{{route('reports.bets.fights',$val['route'])}}">
+                        <a class="animsition-link" href="{{$val['url']}}">
                             <span class="site-menu-title">{{$val['title']}}</span>
                         </a>
                     </li>
@@ -106,10 +106,24 @@
                 </a>
             </li>
 
-            <li class="site-menu-item {{request()->route()->named('agent-deposits.index') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{route('agent-deposits.index')}}">
-                <i class="site-menu-icon wb-briefcase" aria-hidden="true"></i><span class="site-menu-title">Agent Deposits</span>
+            
+            <li class="site-menu-item has-sub">
+                <a href="javascript:void(0)">
+                    <i class="site-menu-icon wb-flag" aria-hidden="true"></i>
+                    <span class="site-menu-title">Agent Deposits</span>
+                    <span class="site-menu-arrow"></span>
                 </a>
+                <ul class="site-menu-sub">
+                @forelse(config('constants.menu.agent-deposits') as $key => $val)
+                    <li class="site-menu-item ">
+                        <a class="animsition-link" href="{{$val['url']}}">
+                            <span class="site-menu-title">{{$val['title']}}</span>
+                        </a>
+                    </li>
+                @empty
+                @endforelse
+                </ul>
+               
             </li>
         </ul>
     </div>

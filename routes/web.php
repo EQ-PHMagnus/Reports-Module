@@ -128,12 +128,13 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
+ 
     Route::group(['prefix' => 'agent-deposits'], function() {
-        Route::resource('agent-deposits', AgentDepositController::class)->names([
-            'destroy' => 'agent-deposits.destroy',
-            'update'  => 'agent-deposits.update',
-        ]);
+        Route::get('/pending', [AgentDepositController::class, 'pending']);
+        Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
+        Route::get('/processed', [AgentDepositController::class, 'processed']);
     });
+    
 
    
 });

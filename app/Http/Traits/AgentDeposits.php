@@ -5,7 +5,7 @@ use DB;
 trait AgentDeposits {
     
 
-    public function getAgentDeposits($request) {
+    public function getAgentDeposits($request,$type) {
     
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
@@ -36,6 +36,12 @@ trait AgentDeposits {
                         // ->whereNull('ad.deleted_at')
                         ;
 
+        if($type == 'pending'){
+            $data->where('ad.status',config('defaults.agent_deposit_status')['pending']);
+        }else{
+            $data->where('ad.status','!=',config('defaults.agent_deposit_status')['pending']);
+        }
+
         $dataCount  = $data->count();
         $formData   = $data->skip(intval(request()->input('offset', 0)))
                             ->limit(intval(request()->input('limit', 10)))
@@ -52,15 +58,20 @@ trait AgentDeposits {
                         data-url="'.route('agent-deposits.update',$data->id).'" 
                         class="btn btn-icon btn-primary btn-outline btn-confirmation" data-toggle="tooltip" data-title="Approve this deposit">
                         <i class="icon wb-thumb-up" aria-hidden="true"></i> 
-                    </button>';
-
-            if($data->status == 'approved'){
-                $action = '<button type="button" 
+                    </button>
+                    <button type="button" 
                             data-type="rejected"
                             data-url="'.route('agent-deposits.update',$data->id).'" 
                             class="btn btn-icon btn-danger btn-outline btn-confirmation" data-toggle="tooltip" data-title="Decline this deposit">
                             <i class="icon wb-thumb-down" aria-hidden="true"></i> 
                         </button>';
+
+            if($data->status == 'approved'){
+                $status = '<span class="badge badge-success">Approved</span>';
+            }else if($data->status == 'rejected'){
+                $status = '<span class="badge badge-danger">Rejected</span>';
+            }else{
+                $status = '<span class="badge badge-warning">Pending</span>';
             }
 
             $finalData[] = [
@@ -72,10 +83,11 @@ trait AgentDeposits {
                 'source_details' => $data->source_details,
                 'date_deposited' => date('m-d-Y',strtotime($data->date_deposited)),
                 'date_approved'  => date('m-d-Y',strtotime($data->date_approved)),
-                'status'         => $data->status,
+                'status'         => $status,
                 'action'         => $action
         
             ];
+            
         }
 
         return [

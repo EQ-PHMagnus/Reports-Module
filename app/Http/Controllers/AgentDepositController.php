@@ -16,11 +16,31 @@ class AgentDepositController extends Controller
      */
     public function index(Request $request)
     {
+        //
+    }
+
+    public function pending(Request $request)
+    {
+        $type = 'pending';
         if(request()->ajax()){
-            $result = $this->getAgentDeposits($request); 
+            $result = $this->getAgentDeposits($request,$type); 
             return response()->json($result);
         }
-        return view('agent-deposits.index');
+        // render components
+        $data = config('constants.menu.agent-deposits')[$type];
+        return view('agent-deposits.index',compact('data'));
+    }
+
+    public function processed(Request $request)
+    {
+        $type = 'processed';
+        if(request()->ajax()){
+            $result = $this->getAgentDeposits($request,$type); 
+            return response()->json($result);
+        }
+        // render components
+        $data = config('constants.menu.agent-deposits')[$type];
+        return view('agent-deposits.index',compact('data'));
     }
 
     /**
@@ -76,7 +96,7 @@ class AgentDepositController extends Controller
     public function update(Request $request, $id)
     {
         try{  
-            AgentDeposit::find($id)->update(['status' => config('defaults.agen_deposit_status')[$request->type]]);
+            AgentDeposit::find($id)->update(['status' => config('defaults.agent_deposit_status')[$request->type]]);
         }catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         } 

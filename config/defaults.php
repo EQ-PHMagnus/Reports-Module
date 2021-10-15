@@ -7,7 +7,7 @@ return [
 	'agent_levels' => [1,2,3,4],
 	'arena-status' => ['active', 'inactive'],
 	'transcation_type' => ['cash_in','cash_out','earnings','loses'],
-	'agen_deposit_status' => [
+	'agent_deposit_status' => [
 		'pending'	=> 1,
 		'approved'	=> 2,
 		'rejected'	=> 3],

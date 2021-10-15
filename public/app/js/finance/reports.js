@@ -1,8 +1,7 @@
 $(document).ready(function () {
 
   
-
-
+    initializeCharts()
     // initialize charts
     function initializeCharts(){
         const formatter = new Intl.NumberFormat('en-US', {
@@ -86,9 +85,9 @@ $(document).ready(function () {
         });
      
     }
-    initializeCharts();
+    
     // filter functions
-    $('.btn-filter').on('click',function () {
+    $(document).on('click','.btn-filter',function () {
         $('table[data-toggle="table"]').bootstrapTable('refresh');
         initializeCharts();
 
