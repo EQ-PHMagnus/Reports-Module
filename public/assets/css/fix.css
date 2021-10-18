@@ -52,3 +52,27 @@
 }
 
 
+.permissons-page {
+    height: 50vh !important;
+}
+.ms-container {
+     width: 100% !important;
+    height : inherit !important;
+}
+
+.ms-container .ms-selectable, .ms-container .ms-selection{
+    height : inherit !important;
+}
+.ms-container .ms-list {
+  position: relative !important;
+  height: inherit !important;
+  padding: 3px !important;
+  overflow-y: auto !important;
+  border: 1px solid #e4eaec !important;
+  border-radius: .215rem !important;
+  transition: border linear .2s, box-shadow linear .2s !important;
+}
+
+a.cursor-pointer {
+    cursor: pointer !important;
+}

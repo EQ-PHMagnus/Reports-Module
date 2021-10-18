@@ -123,6 +123,14 @@
                 @empty
                 @endforelse
                 </ul>
+
+                @if(auth()->user()->hasPermissionTo('view role'))
+                <li class="site-menu-item {{request()->is('raven/roles-and-permissions') ?  'active' : ''}}">
+                    <a class="animsition-link" href="{{url('raven/roles-and-permissions')}}">
+                        <i class="site-menu-icon wb-user" aria-hidden="true"></i><span class="site-menu-title">Roles and permissions</span>
+                    </a>
+                </li>
+                @endif
                
             </li>
         </ul>

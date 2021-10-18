@@ -7,6 +7,7 @@
     <script src="{{asset('global/vendor/jquery/jquery.js')}}"></script>
     <script src="{{asset('global/vendor/popper-js/umd/popper.min.js')}}"></script>
     <script src="{{asset('global/vendor/bootstrap/bootstrap.js')}}"></script>
+    <script src="{{asset('global/vendor/axios/axios.min.js')}}"></script>
     <script src="{{asset('global/vendor/animsition/animsition.js')}}"></script>
     <script src="{{asset('global/vendor/mousewheel/jquery.mousewheel.js')}}"></script>
     <script src="{{asset('global/vendor/asscrollbar/jquery-asScrollbar.js')}}"></script>
@@ -41,6 +42,7 @@
     <script src="{{asset('assets/vendor/bootstrap/bootstrap.min.js')}}"></script>
     <script src="{{asset('app/js/action.js')}}"></script>
     <script src="{{asset('app/js/filter.js')}}"></script>
+    <script src="{{asset('app/js/util.js')}}"></script>
     <script src="{{asset('app/js/config.js')}}"></script>
 
     <!-- Config -->

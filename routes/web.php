@@ -13,6 +13,8 @@ use App\Http\Controllers\TransactionHistoryController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AgentDepositController;
+use App\Http\Controllers\RolesAndPermissionController;
+use App\Http\Controllers\PermissionsAndRoutesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -134,7 +136,18 @@ Route::prefix('raven')
         Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
         Route::get('/processed', [AgentDepositController::class, 'processed']);
     });
-    
+
+    /*
+    |--------------------------------------------------------------------------
+    | Roles And Permissions
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::resource('roles-and-permissions', RolesAndPermissionController::class);
+    Route::resource('permissions-and-actions',PermissionsAndRoutesController::class);
+    Route::get('roles-and-permissions/get-permission-names',[RolesAndPermissionController::class, 'getPermissionsViaRoles']);
+    Route::post('roles-and-permissions/assign-permissions',[RolesAndPermissionController::class, 'assignPermissions'])->name('roles-and-permissions.assign-permissions')->middleware('permission:assign permission');
+    Route::post('permissions-and-actions/assign-permissions',[PermissionsAndRoutesController::class,'assignPermissions'])->name('permissions-and-actions.assign-permissions');
 
    
 });
