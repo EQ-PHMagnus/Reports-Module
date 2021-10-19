@@ -130,9 +130,9 @@ Route::prefix('raven')
     */
  
     Route::group(['prefix' => 'agent-deposits'], function() {
-        Route::get('/pending', [AgentDepositController::class, 'pending']);
+        Route::get('/pending', [AgentDepositController::class, 'pending'])->name('agent-deposits.pending');
         Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
-        Route::get('/processed', [AgentDepositController::class, 'processed']);
+        Route::get('/processed', [AgentDepositController::class, 'processed'])->name('agent-deposits.processed');
     });
     
 

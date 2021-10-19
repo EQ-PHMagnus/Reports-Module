@@ -10,7 +10,7 @@
                 @forelse(config('constants.menu.bets') as $key => $val)
                     <li class="site-menu-item ">
                         <a class="animsition-link" href="{{$val['url']}}">
-                            <span class="site-menu-title">{{$val['title']}}</span>
+                            <span class="site-menu-title">{{$val['nav_title']}}</span>
                         </a>
                     </li>
                 @empty
@@ -28,7 +28,7 @@
                 @forelse(config('constants.menu.fights') as $key => $val)
                     <li class="site-menu-item ">
                         <a class="animsition-link" href="{{$val['url']}}">
-                            <span class="site-menu-title">{{$val['title']}}</span>
+                            <span class="site-menu-title">{{$val['nav_title']}}</span>
                         </a>
                     </li>
                 @empty
@@ -117,7 +117,7 @@
                 @forelse(config('constants.menu.agent-deposits') as $key => $val)
                     <li class="site-menu-item ">
                         <a class="animsition-link" href="{{$val['url']}}">
-                            <span class="site-menu-title">{{$val['title']}}</span>
+                            <span class="site-menu-title">{{$val['nav_title']}}</span>
                         </a>
                     </li>
                 @empty
