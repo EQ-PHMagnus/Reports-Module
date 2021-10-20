@@ -21,14 +21,7 @@ Agents Management
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">Agents List</h3>
-                <div class="panel-actions panel-actions-keep">
-                     <a class="panel-action btn-export" title="Export filtered resuts">
-                         <i class="icon wb-download font-size-20" aria-hidden="true"></i>
-                     </a>
-                     <a class="panel-action" data-target="#filterModal" data-toggle="modal" title="Search and Filters">
-                        <i class="icon fa-filter font-size-20" aria-hidden="true"></i>
-                    </a>
-                </div>
+                @include('filters.general.filter-table')
             </div>
             <div class="panel-body">
                 <div class="table-responsive">

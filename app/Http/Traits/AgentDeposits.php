@@ -10,6 +10,9 @@ trait AgentDeposits {
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
+        $from           = date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
+        $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
+        $stat           =  request()->input('filters.status');
 
         $data   = DB::table('agent_deposits as ad')
                         ->leftJoin('users as agent','agent.id', '=','ad.agent_id')
@@ -29,8 +32,14 @@ trait AgentDeposits {
                             ->orWhere('source', 'like' ,'%'.$search.'%')
                             ->orWhere('source_details', 'like' ,'%'.$search.'%');
                         })
+                        ->when($from, function ($query , $from) use ($to) {
+                            return $query->whereBetween('ad.date_deposited', [$from, $to]);
+                        })
                         ->when($sort, function($query, $sort) use ($order){
                             return $query->orderBy('ad.'.$sort, $order);
+                        })
+                        ->when($stat, function($query,$stat){
+                            return $query->where('status', $stat);
                         })
                         // ->where('role', 'Super Agent')
                         // ->whereNull('ad.deleted_at')
@@ -78,7 +87,7 @@ trait AgentDeposits {
               
                 'id'            => $offset++ ,
                 'name'          => $data->name,
-                'amount'        => $data->amount,
+                'amount'        =>  $data->amount ? moneyFormat($data->amount): '',
                 'source'         => $data->source,
                 'source_details' => $data->source_details,
                 'date_deposited' => date('m-d-Y',strtotime($data->date_deposited)),
