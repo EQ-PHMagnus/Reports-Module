@@ -13,6 +13,10 @@
                             <label>Search</label>
                             <input type="text" class="form-control filters" name="search" placeholder="Name, Source or Source Details" value="{{request('search')}}" autocomplete="off">
                         </div>
+                        <div class="form-group col-12">
+                            <label>Amount</label>
+                            <input type="number" class="form-control filters" name="amount" placeholder="0.00" value="{{request('amount')}}" autocomplete="off">
+                        </div>
                         @if(request()->route()->named('agent-deposits.processed'))
                         <div class="form-group col-12">
                             <label>Status</label>

@@ -10,6 +10,7 @@ trait AgentDeposits {
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
+        $amount         = request()->input('filters.amount');
         $from           = date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
         $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
@@ -28,9 +29,11 @@ trait AgentDeposits {
                         ad.status')
                         ->when($search, function($query,$search){
                             return $query->where('name', 'like' ,'%'.$search.'%')
-                            ->orWhere('amount', 'like' ,'%'.$search.'%')
                             ->orWhere('source', 'like' ,'%'.$search.'%')
                             ->orWhere('source_details', 'like' ,'%'.$search.'%');
+                        })
+                        ->when($amount, function($query,$amount){
+                            return $query->where('amount' , '<=' ,$amount);
                         })
                         ->when($from, function ($query , $from) use ($to) {
                             return $query->whereBetween('ad.date_deposited', [$from, $to]);
