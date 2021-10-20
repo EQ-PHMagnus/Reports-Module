@@ -18,10 +18,11 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('agent_id')->nullable();
             $table->string('name');
             $table->string('username')->unique();
+            $table->string('email')->nullable();
             $table->string('password');
             $table->string('mobile_number',11);
             $table->string('occupation')->nullable();
-            $table->string('agent_code');
+            $table->string('agent_code')->nullable();
             $table->text('address')->nullable();
             $table->timestamp('dob');
             $table->string('nationality')->nullable();
@@ -29,12 +30,14 @@ class CreateUsersTable extends Migration
             $table->bigInteger('points')->default(0);
             $table->text('recent_photo')->nullable();
             $table->text('identification')->nullable();
-            $table->double('commission',8,4)->default(0);
+            $table->double('commission',12,4)->default(0);
+            $table->integer('added_by')->default(0);
+            $table->timestamp('deactivated_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
             //temp
-            $table->enum('role',config('defaults.affiliates'));
+            $table->string('role')->nullable();
             $table->unsignedInteger('level')->default(1);
         });
     }

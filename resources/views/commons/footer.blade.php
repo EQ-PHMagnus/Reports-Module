@@ -67,7 +67,7 @@
         'use strict';
 
         var Site = window.Site;
-        
+
         $(document).ready(function(){
             Site.run();
             $.ajaxSetup({
@@ -77,6 +77,7 @@
             });
             $('.btn-destroy-model').click(destroyModel);
             $('.btn-export').click(exportTable);
+            $('.btn-show-pass').click(showPass);
         });
       })(document, window, jQuery);
 

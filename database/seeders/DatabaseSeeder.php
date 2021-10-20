@@ -21,11 +21,15 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        \App\Models\User::factory(1000)->create();
+        \App\Models\User::factory(20)->create();
         \App\Models\Arena::factory(10)->create();
-        \App\Models\Fight::factory(100)->create();
-        \App\Models\Bet::factory(1000)->create();
-        \App\Models\Transaction::factory(1000)->create();
+        \App\Models\Fight::factory(20)->create();
+        \App\Models\Bet::factory(20)->create();
+        \App\Models\Transaction::factory(20)->create();
+
+        $this->call([
+            AgentDepositSeeder::class,
+        ]);
 
 
         Cache::flush();

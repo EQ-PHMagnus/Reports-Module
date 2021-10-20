@@ -1,9 +1,8 @@
 <?php
 
 return [
-	'super-admin' => 'super_admin',
-	'system-users' => [ 'system_administrator', 'finance' ,'master_cashier'],
-	'affiliates' => ['agent','super_agent'],
+	'system-users' => ['finance user' ,'master cashier','finance admin'],
+	'affiliates' => ['agent','super agent'],
 	'agent_levels' => [1,2,3,4],
 	'arena-status' => ['active', 'inactive'],
 	'transcation_type' => ['cash_in','cash_out','earnings','loses'],

@@ -16,12 +16,12 @@
 				<div class="panel">
 					<header class="panel-heading">
 						<h3 class="panel-title">Roles</h3>
-					
-						@if(auth()->user()->hasPermissionTo('create role'))
+
+
 						<div class="panel-actions">
 	                  		<button class="btn btn-sm btn-outline btn-primary" id="add-role-btn" data-title="Add new role" aria-hidden="true">Add role</button>
 		                </div>
-						@endif
+
 					</header>
 					<div class="panel-body">
 						<div class="wrap">
@@ -36,23 +36,17 @@
 														<i class="icon wb-user " aria-hidden="true"></i><span class="role-name">{{$role->name}}</span>
 													</a>
 													<div class="btn-group float-right">
-														@if(auth()->user()->hasPermissionTo('assign permission'))
 														<button class="btn btn-icon btn-sm btn-pure assign-permission" title="Assign Permission" data-url="{{url('raven/roles-and-permissions/'.$role->id .'/edit')}}">
 															<i class="icon wb-plus" aria-hidden="true"></i>
 														</button>
-														@endif
-														@if(auth()->user()->hasPermissionTo('update role'))
 														<button class="btn btn-icon btn-sm btn-pure edit-role" data-id="{{$role->id}}" data-name="{{$role->name}}" title="Change role name">
 															<i class="icon wb-edit" aria-hidden="true"></i>
 														</button>
-														@endif
-														@if(auth()->user()->hasPermissionTo('delete role'))
 														<button class="btn btn-icon btn-sm btn-pure delete-role-btn" title="Remove role" data-url="{{ url('raven/roles-and-permissions/' . $role->id) }}">
 															<i class="icon wb-trash" aria-hidden="true"></i>
 														</button>
-														@endif
 													</div>
-												
+
 
 												</li>
 											@empty
@@ -97,6 +91,7 @@
 @endsection
 @push('scripts')
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script> const baseUrl = "{{asset('/raven/')}}";</script>
 	<script src="{{asset('app/js/admin/users/roles.js')}}"></script>
 	<script src="{{asset('app/js/admin/users/users-management.js')}}"></script>
 @endpush

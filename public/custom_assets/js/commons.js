@@ -14,7 +14,7 @@ function destroyModel(e){
 	  	if (result.isConfirmed) {
 		    const deleteModel = new Promise((resolve,reject) => {
 				$.ajax({
-			        url, 
+			        url,
 			        type: 'DELETE',
 			        dataType: "JSON",
 			        success:(data) => { resolve(data) },
@@ -39,7 +39,7 @@ function destroyModel(e){
 	    	})
 	  	}
 	});
-	
+
 	e.stopPropagation();
 }
 
@@ -47,4 +47,18 @@ function exportTable(e){
 	const form = $("#filterModal").find('form');
 	const exportField = form.find('#export').val('true');
 	form.submit();
+}
+
+function showPass(e){
+	const cont = $(this).closest('div.form-group');
+	cont.toggleClass('show-pass');
+
+
+	if(cont.is('.show-pass')){
+		cont.find('input.form-control').attr('type','text');
+		cont.find('i.icon').removeClass('wb-eye-close').addClass('wb-eye');
+	}else{
+		cont.find('input.form-control').attr('type','password');
+		cont.find('i.icon').removeClass('wb-eye').addClass('wb-eye-close');
+	}
 }

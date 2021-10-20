@@ -23,12 +23,8 @@ class RolesAndPermissionController extends Controller
     public function index()
     {
 
-        $roles = Role::whereNotIn('name',['Super Admin'])->get();
-        if(auth()->user()->hasPermissionTo('view role')){
+        $roles = Role::get();
         return view('roles-permissions.roles',compact('roles'));
-        }else{
-        abort(404);
-        }
     }
 
     /**
@@ -51,7 +47,7 @@ class RolesAndPermissionController extends Controller
     {
 
 		try{
-		
+
 			$role = Role::create(['name' => $request->role_name]);
 			return new ResponseResource($role);
 		} catch( \Exception $e){
@@ -98,9 +94,9 @@ class RolesAndPermissionController extends Controller
     public function update(Request $request, $id)
     {
       try{
-       
+
         $role = Role::updateOrCreate(['id' => $id],['name' => $request->role_name]);
-      
+
         return new ResponseResource($role);
       } catch( \Exception $e){
         return response()->json(['error' => $e->getMessage()],500);
@@ -128,7 +124,7 @@ class RolesAndPermissionController extends Controller
 		try{
 			$role           = Role::find($request->role_id);
 			$oldPermission  = $role->getAllPermissions()->pluck('id');
-			
+
       app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 			$permissions    = $role->syncPermissions($request->permissions);
 			$newPermission  = $role->getAllPermissions()->pluck('id');

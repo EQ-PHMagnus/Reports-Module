@@ -4,7 +4,7 @@ Edit User
 @endsection
 
 @section('page-title')
-Edit User 
+Edit User
 @endsection
 
 @section('breadcrumbs')
@@ -20,84 +20,63 @@ Edit User
             @method('PUT')
             <div class="panel-body">
                 <div class="row ">
-            		<div class="form-group col-12">
+                    <div class="form-group col-12">
                         <h3>Personal Information</h3>
                     </div>
                     <div class="form-group col-md-6 col-xs-12">
-            			<label>Name</label>
-            			<input type="text" class="form-control" placeholder="Enter Name" autocomplete="off" name="name" value="{{old('name',$user->name)}}">
-            		</div>
-                    <div class="form-group col-md-3 col-xs-12">
+                        <label>Name</label>
+                        <input  type="text" class="form-control" placeholder="Enter Name" autocomplete="off" name="name" value="{{old('name',$user->name)}}">
+                    </div>
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Username</label>
                         <input type="text" class="form-control" placeholder="Enter Username" autocomplete="off" name="username" value="{{old('username',$user->username)}}">
                     </div>
-                    <div class="form-group col-md-3 col-xs-12">
-                        <label>Nickname</label>
-                        <input type="text" class="form-control" placeholder="Enter Nickname" autocomplete="off" name="nickname" value="{{old('nickname',$user->nickname)}}">
-                    </div>
                     <div class="form-group col-md-6 col-xs-12">
-                        <label>Address</label>
-                        <textarea class="form-control" name="address">{{old('name',$user->address)}}</textarea>
+                        <label>Email</label>
+                        <input type="text" class="form-control" placeholder="Enter Email" autocomplete="off" name="email" value="{{old('email',$user->email)}}">
                     </div>
-                    <div class="form-group col-md-3 col-xs-12">
+
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Mobile Number</label>
                         <input type="text" class="form-control" placeholder="Enter Mobile Number" autocomplete="off" name="mobile_number" value="{{old('mobile_number',$user->mobile_number)}}">
                     </div>
-                    <div class="form-group col-md-3 col-xs-12">
-                        <label>Date of Birth</label>
-                        <input type="date" class="form-control" autocomplete="off" name="dob" value="{{old('dob',$user->dob->format('Y-m-d'))}}">
-                    </div>
-                    <div class="form-group col-md-6 col-xs-12">
-                        <label>Facebook</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <span aria-hidden="true">https://facebook.com/</span>
-                                </div>
-                            </div>
-                        <input type="text" class="form-control" autocomplete="off" name="facebook" value="{{old('facebook',$user->facebook)}}">
-                    </div>
-                        
-                    </div>
-                    <div class="form-group col-md-6 col-xs-12">
-                        <label>Occupation</label>
-                        <input type="text" class="form-control" placeholder="Enter Occupation" autocomplete="off" name="occupation" value="{{old('occupation',$user->occupation)}}">
-                    </div>                    
-                   
-                    {{-- <div class="form-group col-md-3 col-xs-12">
-                        <label>Identification</label>
-                        <input type="file" class="form-control" placeholder="Enter ID" autocomplete="off" accept="image/*" name="identification">
-                    </div> 
-                    <div class="form-group col-md-3 col-xs-12">
-                        <a class="inline-block" href="{{asset('global/photos/placeholder.png')}}" data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
-                        <img class="img-fluid" src="{{asset('global/photos/placeholder.png')}}" alt="..." width="220">
-                    </a>
-                    </div>--}}
+
+
                     <div class="form-group col-12">
                         <h3>Account Information</h3>
+                    </div>
+
+                    <div class="form-group col-md-6 col-xs-12">
+                        <label>Password <br /><small>Leave blank to retain old password</small></label>
+                        <div class="input-group ">
+                            <input type="password" class="form-control" placeholder="New Password" autocomplete="off" name="password">
+                            <span class="input-group-btn">
+                                <button tabindex="-1"  type="button" class="btn btn-primary btn-show-pass"><i class="icon wb-eye-close" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 col-xs-12">
+                        <label>Confirm Password <br /><small>Leave blank to retain old password</small></label>
+                        <div class="input-group ">
+                            <input type="password" class="form-control" placeholder="Confirm New Password" autocomplete="off" name="password_confirmation">
+                            <span class="input-group-btn">
+                                <button tabindex="-1"  type="button" class="btn btn-primary btn-show-pass"><i class="icon wb-eye-close" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Role</label>
                         <select class="form-control" name="role">
-                            @forelse(config('defaults.affiliates') as $role)
+                            @forelse(config('defaults.system-users') as $role)
                                 <option value="{{$role}}" {{$role == old('role',$user->role) ? 'selected' : ''}}>{{$role}}</option>
                             @empty
                             @endforelse
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-xs-12">
-                        <label>Points</label>
-                        <input type="number" class="form-control" autocomplete="off" name="points" value="{{old('points',$user->points)}}" min="0">
-                    </div>
-                    
-                    <div class="form-group col-md-2 col-xs-12">
-                        <label>Agent Code</label>
-                        <input type="text" class="form-control" placeholder="Agent Code" autocomplete="off" name="agent_code" value="{{old('agent_code',$user->agent_code)}}">
-                    </div>
-                	</div>
+                </div>
             </div>
             <div class="panel-footer">
-                <div class="row"> 
+                <div class="row">
                     <div class="col-12 text-right">
                         <a href="{{route('users.index')}}" class="btn btn-default btn-outline">Back</a>
                         <button class="btn btn-success btn-outline btn-submit-form">Submit</button>

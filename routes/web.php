@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AgentDepositController;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\PermissionsAndRoutesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,28 +27,24 @@ use App\Http\Controllers\PermissionsAndRoutesController;
 |
 */
 Route::view('/','landing');
+Route::view('raven/login', 'auth.login')->name('raven.login');
 
-Route::group(['prefix' => 'raven'], function() {
-    Route::get('/login', function () {
-        return view('auth.login')->name('raven.login');
-    });
-});
 
 Route::prefix('raven')
     ->middleware(['auth'])
     ->group(function(){
-    
-  
+
+
     /*
     |--------------------------------------------------------------------------
     | Auth
     |--------------------------------------------------------------------------
     |
     */
-    // Route::redirect('/','raven/masterfile/agents');
-    Route::redirect('/', 'raven/bets/total-count-bets')->name('reports');
-    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('raven.logout');  
-    
+    Route::get('/', [AuthenticatedSessionController::class, 'handleRedirectToHome']);
+
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('raven.logout');
+
 
 
     /*
@@ -81,7 +78,7 @@ Route::prefix('raven')
     |
     */
     Route::resource('players', PlayerController::class);
-    
+
 
     /*
     |--------------------------------------------------------------------------
@@ -101,8 +98,8 @@ Route::prefix('raven')
     */
     Route::get('/fights/{type}', [ReportsController::class, 'fights'])->name('reports.bets.fights');
     Route::get('/bets/{type}', [ReportsController::class, 'bets'])->name('reports.bets.bets');
-   
-    
+
+
     /*
     |--------------------------------------------------------------------------
     | MAIN
@@ -120,9 +117,7 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-    Route::group(['prefix' => 'users'], function() {
-        Route::resource('users', UserController::class);
-    });
+    Route::resource('users', UserController::class);
 
     /*
     |--------------------------------------------------------------------------
@@ -130,7 +125,7 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
- 
+
     Route::group(['prefix' => 'agent-deposits'], function() {
         Route::get('/pending', [AgentDepositController::class, 'pending'])->name('agent-deposits.pending');
         Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
@@ -146,10 +141,10 @@ Route::prefix('raven')
     Route::resource('roles-and-permissions', RolesAndPermissionController::class);
     Route::resource('permissions-and-actions',PermissionsAndRoutesController::class);
     Route::get('roles-and-permissions/get-permission-names',[RolesAndPermissionController::class, 'getPermissionsViaRoles']);
-    Route::post('roles-and-permissions/assign-permissions',[RolesAndPermissionController::class, 'assignPermissions'])->name('roles-and-permissions.assign-permissions')->middleware('permission:assign permission');
+    Route::post('roles-and-permissions/assign-permissions',[RolesAndPermissionController::class, 'assignPermissions'])->name('roles-and-permissions.assign-permissions');
     Route::post('permissions-and-actions/assign-permissions',[PermissionsAndRoutesController::class,'assignPermissions'])->name('permissions-and-actions.assign-permissions');
 
-   
+
 });
 
 require __DIR__.'/auth.php';

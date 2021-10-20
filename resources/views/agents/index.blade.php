@@ -12,7 +12,7 @@ Agents Management
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('agents.create')}}" type="button" class="btn btn-icon btn-primary btn-outline"><i class="icon wb-plus" aria-hidden="true"></i> Add Agent</a>   
+    <a href="{{route('agents.create')}}" type="button" class="btn btn-icon btn-primary btn-outline"><i class="icon wb-plus" aria-hidden="true"></i> Add Agent</a>
 @endsection
 
 @section('page-content')
@@ -33,7 +33,9 @@ Agents Management
                                 <th class="text-center">Agent Level</th>
                                 <th>Player Account</th>
                                 <th>Player Name</th>
+                                @can('view super agent credits')
                                 <th class="text-center">Current Credits</th>
+                                @endcan
                                 <th>Joined Date</th>
                                 <th>Actions</th>
                             </tr>
@@ -46,7 +48,9 @@ Agents Management
                                 <td class="text-center">{{$agent->level ?? ''}}</td>
                                 <td>{{$agent->username ?? ''}}</td>
                                 <td>{{$agent->name ?? ''}}</td>
+                                @can('view super agent credits')
                                 <td class="text-center">{{$agent->points ? moneyFormat($agent->points): ''}}</td>
+                                @endcan
                                 <td>{{$agent->created_at->toDateTimeString() ?? ''}}</td>
                                 <td>
                                     @php
@@ -76,7 +80,7 @@ Agents Management
                 </div>
             </div>
             <div class="panel-footer">
-                <div class="row "> 
+                <div class="row ">
                     <div class="col-12 d-flex justify-content-center">
                         <p>Showing {{ $agents->firstItem() }} to {{ $agents->lastItem() }}
                         of total {{$agents->total()}} entries</p>
@@ -158,7 +162,7 @@ Agents Management
                             <a class="inline-block mt-10" data-plugin="magnificPopup" data-main-class="mfp-img-mobile">
                               <img class="img-fluid" width="150" height="150"  alt="...">
                             </a>
-                        </div>   
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>

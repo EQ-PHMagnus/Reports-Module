@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 			let newPermission =  axios({
 				method: 'post',
-				url: `${baseUrl}/permissions-and-actions`,
+				url: `${baseUrl}permissions-and-actions`,
 				data: params,
 			}).then(res =>{
 				let permission = res.data.data;

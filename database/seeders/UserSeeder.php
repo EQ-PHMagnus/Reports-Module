@@ -13,69 +13,90 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
-        DB::table('users')->insert([
-            'name'          => 'Super Admin',
-            'dob'      => date('Y-m-d H:i:s'),
-            'username'      => 'superadmin',
-            'password'      =>  bcrypt('magnus2k'.date('y').'!'),
-            'mobile_number' => 123  ,
-            'agent_code'    => 'Agent 1' 
-        ]);
-
-
         DB::table('users')->insert([
             'name'          => 'System Admin',
             'dob'      => date('Y-m-d H:i:s'),
-            'username'      => 'system_admin',
-            'password'      =>  bcrypt('password'),
-            'mobile_number' => 123   ,
-            'agent_code'    => 'Agent 2' 
+            'username'      => 'sa_phmagnus',
+            'password'      =>  bcrypt('PHmagnus2k21!'),
+            'mobile_number' => '9190000000',
+            'email'         => 'sa@phmagnus.com',
+            'agent_code'    => 'sa_phmagnus',
+            'created_at'    => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('users')->insert([
+            'name'          => 'Finance Admin',
+            'dob'           => date('Y-m-d H:i:s'),
+            'username'      => 'finance_admin',
+            'password'      =>  bcrypt('secret'),
+            'mobile_number' => '9191111111',
+            'email'         => 'finance.admin@phmagnus.com',
+            'agent_code'    => 'finance_admin',
+            'created_at'    => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('users')->insert([
+            'name'          => 'Master Cashier',
+            'dob'           => date('Y-m-d H:i:s'),
+            'username'      => 'master_cashier',
+            'password'      =>  bcrypt('secret'),
+            'mobile_number' => '9192222222',
+            'email'         => 'master.cashier@phmagnus.com',
+            'agent_code'    => 'master_cashier',
+            'created_at'    => date('Y-m-d H:i:s')
+        ]);
+
+        DB::table('users')->insert([
+            'name'          => 'Finance User',
+            'dob'           => date('Y-m-d H:i:s'),
+            'username'      => 'finance_user',
+            'password'      =>  bcrypt('secret'),
+            'mobile_number' => '9193333333',
+            'email'         => 'finance.user@phmagnus.com',
+            'agent_code'    => 'finance',
+            'created_at'    => date('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
             'name'          => 'Super Agent',
-            'dob'      => date('Y-m-d H:i:s'),
+            'dob'           => date('Y-m-d H:i:s'),
             'username'      => 'super_agent',
-            'password'      =>  bcrypt('password'),
-            'mobile_number' => 123 ,
-            'agent_code'    => 'Agent 3'   
+            'password'      =>  bcrypt('secret'),
+            'mobile_number' => '9194444444' ,
+            'agent_code'    => 'super_agent',
+            'created_at'    => date('Y-m-d H:i:s')
         ]);
 
         DB::table('users')->insert([
             'name'          => 'Agent',
             'dob'      => date('Y-m-d H:i:s'),
             'username'      => 'agent',
-            'password'      =>  bcrypt('password'),
-            'mobile_number' => 123 ,
-            'agent_code'    => 'Agent 4'   
+            'password'      =>  bcrypt('secret'),
+            'mobile_number' => '9195555555' ,
+            'agent_code'    => 'agent',
+            'created_at'    => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('users')->insert([
-            'name'          => 'Bettor',
-            'dob'      => date('Y-m-d H:i:s'),
-            'username'      => 'bettor',
-            'password'      =>  bcrypt('password'),
-            'mobile_number' => 123 ,
-            'agent_code'    => 'Agent 5'   
-        ]);
+        // DB::table('users')->insert([
+        //     'name'          => 'Bettor',
+        //     'dob'      => date('Y-m-d H:i:s'),
+        //     'username'      => 'bettor',
+        //     'password'      =>  bcrypt('secret'),
+        //     'mobile_number' => '9191111111' ,
+        //     'agent_code'    => 'Agent 5'
+        // ]);
 
-        DB::table('users')->insert([
-            'name'          => 'Master Cashier',
-            'dob'      => date('Y-m-d H:i:s'),
-            'username'      => 'master_cashier',
-            'password'      =>  bcrypt('password'),
-            'mobile_number' => 123 ,
-            'agent_code'    => 'Agent 6'   
-        ]);
+
 
         // Assign roles to preinserted accounts.
-        $super_admin        = \App\Models\User::find(1)->assignRole('Super Admin');
-        $system_admin       = \App\Models\User::find(2)->assignRole('System Admin');
-        $super_agent        = \App\Models\User::find(3)->assignRole('Super Agent');
-        $agent              = \App\Models\User::find(4)->assignRole('Agent');
-        $bettor             = \App\Models\User::find(5)->assignRole('Bettor');
-        $master_cashier     = \App\Models\User::find(6)->assignRole('Master Cashier');
+        $system_admin       = \App\Models\User::find(1)->assignRole('system admin');
+        $finance_admin      = \App\Models\User::find(2)->assignRole('finance admin');
+        $master_cashier     = \App\Models\User::find(3)->assignRole('master cashier');
+        $finance_user       = \App\Models\User::find(4)->assignRole('finance user');
+        $super_agent        = \App\Models\User::find(5)->assignRole('super agent');
+        $agent              = \App\Models\User::find(6)->assignRole('agent');
+        // $bettor             = \App\Models\User::find(7)->assignRole('Bettor');
+
 
         // factory(App\User::class, 100)->create();
     }

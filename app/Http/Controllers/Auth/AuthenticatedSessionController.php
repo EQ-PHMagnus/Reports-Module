@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         // return redirect()->intended(RouteServiceProvider::HOME);
-        return redirect('raven/bets/total-count-bets');
+        return $this->handleRedirectToHome();
     }
 
     /**
@@ -50,5 +50,27 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::route('raven.login');
+    }
+
+    /**
+     * Handle redirect to home
+     *
+     * @return \Illuminate\View\View
+     */
+    public function handleRedirectToHome()
+    {
+        if(auth()->user()->can('view reports')){
+            return redirect()->route('reports.bets.bets','total-count-bets');
+        }
+
+        if(auth()->user()->can('manage users')){
+            return redirect()->route('users.index');
+        }
+
+        if(auth()->check()){
+            // go to profile
+        }
+        abort(403);
+
     }
 }

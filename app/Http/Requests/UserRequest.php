@@ -25,10 +25,11 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
             'password' => 'sometimes|required|min:4|confirmed',
             'mobile_number' => 'digits:11',
-            'agent_code' => 'required',
-            'dob' => 'date'
+            'role' => 'required',
         ];
     }
 }

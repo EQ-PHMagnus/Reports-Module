@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use DB;
 
@@ -16,7 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderByDesc('created_at')->paginate(10)->withQueryString();
+        $users = User::orderByDesc('created_at')
+            ->with('roles')
+            ->role(config('defaults.system-users'))
+            ->whereNotIn('id',[auth()->user()->id,1])
+            ->paginate(10)
+            ->withQueryString();
 
         return view('users.index',compact('users'));
     }
@@ -37,18 +45,34 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
         try{
-            $data = $request->except('_token','password_confirmation');
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+                'username' => 'required|unique:users',
+                'email' => 'email',
+                'password' => 'required|min:4|confirmed',
+                'mobile_number' => 'digits:11',
+                'role' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
             //TODO
             //Handle File uploads
-            $user = User::create($data);
+            $user = User::create($validator->validated());
+            $user->assignRole($request->role);
 
             DB::commit();
             flashMessage('User created successfully!');
-            return redirect()->back();
+            return redirect()->route('users.edit',$user->id);
         } catch( \Exception $e){
             DB::rollback();
             return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
@@ -90,10 +114,29 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try{
-            $data =  $request->except('_token','_method');
-            //TODO
-            //Handle File uploads
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+                'username' => [
+                    'required',
+                    Rule::unique('users')->ignore($id),
+                ],
+                'email' => 'email',
+                'password' => 'nullable|min:4|confirmed',
+                'mobile_number' => 'digits:11',
+                'role' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $data = array_filter($validator->validated());
+
             $user = User::updateOrCreate(['id' => $id],$data);
+            $user->syncRoles([$request->role]);
 
             DB::commit();
             flashMessage('User updated successfully!');
