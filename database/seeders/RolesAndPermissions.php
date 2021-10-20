@@ -23,14 +23,35 @@ class RolesAndPermissions extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        //Roles
-        // $super_admin = Role::create(['name' => 'Super Admin']);
-        // $system_admin = Role::create(['name' => 'System Admin']);
-        // $finance = Role::create(['name' => 'Finance']);
-        // $superagent = Role::create(['name' => 'Finance']);
+        // Create initial permissions
+        $user = [
+            'create user',
+            'update user',
+            'delete user',
+            'view user',
+        ];
+        $role = [
+            'create role',
+            'update role',
+            'delete role',
+            'view role',
+       ];
+       $permission = [
+            'create permission',
+            'update permission',
+            'delete permission',
+            'view   permission',
+            'assign permission'
+       ];
 
-        $super_admin = Role::create(['name' => 'Super Admin']);
-        $system_admin = Role::create(['name' => 'System Admin']);
+        $permissions = array_merge($user, $role, $permission);
+        foreach($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
+
+        // Set permissions
+        $super_admin = Role::create(['name' => 'Super Admin'])->givePermissionTo($permissions);
+        $system_admin = Role::create(['name' => 'System Admin'])->givePermissionTo($permissions);
         $super_agent = Role::create(['name' => 'Super Agent']);
         $agent = Role::create(['name' => 'Agent']);
         $bettor = Role::create(['name' => 'Bettor']);
