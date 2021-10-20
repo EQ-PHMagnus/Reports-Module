@@ -23,8 +23,8 @@ class CreateBetsTable extends Migration
             $table->double('amount',12,4);
             $table->double('prize',12,4);
             $table->enum('result',config('defaults.bet_results'));
-            $table->timestamp('bet_date');
-            $table->timestamp('result_date');
+            $table->timestamp('bet_date')->nullable();
+            $table->timestamp('result_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

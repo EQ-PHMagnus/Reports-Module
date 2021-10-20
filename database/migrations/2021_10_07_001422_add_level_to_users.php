@@ -13,9 +13,12 @@ class AddLevelToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('level');
-        });
+        if(!Schema::hasColumn('users','level')){
+            Schema::table('users', function (Blueprint $table) {
+                $table->integer('level');
+            });
+        }
+
     }
 
     /**

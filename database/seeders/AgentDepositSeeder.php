@@ -13,6 +13,6 @@ class AgentDepositSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\AgentDeposit::factory(1000)->create();
+        \App\Models\AgentDeposit::factory(100)->create();
     }
 }

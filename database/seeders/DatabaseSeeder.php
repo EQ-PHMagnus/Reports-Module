@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        ini_set('max_execution_time', '0'); // for infinite time of execution 
+        ini_set('max_execution_time', '0'); // for infinite time of execution
 
         $this->call([
-            RolesAndPermissionsSeeder::class,
+            RolesAndPermissions::class,
             UserSeeder::class,
         ]);
 
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Fight::factory(100)->create();
         \App\Models\Bet::factory(1000)->create();
         \App\Models\Transaction::factory(1000)->create();
-     
+
 
         Cache::flush();
     }

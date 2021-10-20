@@ -22,16 +22,16 @@ class AgentDepositFactory extends Factory
     public function definition()
     {
         return [
-           
+
             'agent_id'       =>  \App\Models\User::inRandomOrder()->first()->id,
             'amount'         =>  $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900),
-            'source'         =>  $this->faker->text($maxNbChars = 10),
+            'source'         =>  $this->faker->randomElement(['Bank Transfer','E - Wallet']),
             'source_details' =>  $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'remarks'        =>  $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'date_deposited' =>  $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
             'date_approved'  =>  $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
             'status'         =>  $this->faker->randomElement(['pending','approved','rejected'])
-        
+
         ];
     }
 }
