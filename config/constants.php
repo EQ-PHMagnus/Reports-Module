@@ -43,7 +43,7 @@ return [
                     'nav_title'             =>  'Total Fights Count',
                     'content_title'         =>  'Total Count of Fights',
                     'type'                  =>  'count',
-                    'url'                       =>  'fights/total-count-fights'
+                    'url'                       =>  'total-count-fights'
                 ],
                 'total-count-fights-arena'    =>  [
                     'title'                 =>  'Total Fights Count per Arena ',
@@ -51,7 +51,7 @@ return [
                     'content_title'         =>  'Total Count of Fights per Arena',
                     'type'                  =>  'count',
                     'name'                  =>  'arena',
-                    'url'                       =>  'fights/total-count-fights-arena'
+                    'url'                       =>  'total-count-fights-arena'
                 ],
 
         ],

@@ -49,7 +49,7 @@ User Management
                                 <td>{{$user->roles->first()->name ?? ''}}</td>
                                 <td>{{$user->email ?? ''}}</td>
                                 <td>{{$user->mobile_number ?? ''}}</td>
-                                <td>{{$user->created_at->toDateTimeString()}}</td>
+                                <td>{{$user->created_at}}</td>
                                 <td>
                                     <a href="{{route('users.edit',$user->id)}}" class="btn btn-icon btn-default btn-outline" data-toggle="tooltip" data-title="Edit this user"><i class="icon wb-pencil" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-icon btn-danger btn-outline btn-destroy-model" data-toggle="tooltip" data-title="Delete this user" data-url="{{route('users.destroy',$user->id)}}"><i class="icon wb-trash" aria-hidden="true"></i></button>
