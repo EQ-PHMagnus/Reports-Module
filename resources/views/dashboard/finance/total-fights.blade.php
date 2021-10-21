@@ -13,7 +13,7 @@ Total Fights
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('dashboard.finance.total-fights') . '?view=table'}}" class="btn btn-icon btn-primary"><i class="icon wb-grid-9" aria-hidden="true"></i></a>
+    <a href="{{route('dashboard.finance.total-fights')}}" class="btn btn-icon btn-primary" title="toggle to table view"><i class="icon wb-table" aria-hidden="true"></i></a>
 @endsection
 
 @section('page-content')
@@ -22,7 +22,7 @@ Total Fights
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Fights per YEAR</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
                     <div class="total-fights-year"></div>
 	        	</div>
         	</div>
@@ -33,7 +33,7 @@ Total Fights
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Fights per MONTH</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
                     <div class="total-fights-month"></div>
 	        	</div>
         	</div>
@@ -46,7 +46,7 @@ Total Fights
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Fights per DAY (August 2021)</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
                     <div class="total-fights-day"></div>
 	        	</div>
         	</div>
@@ -57,7 +57,7 @@ Total Fights
         <div class="card card-shadow" >
           	<div class="card-body">
         		<p>Total Number of Fights per arena</p>
-            	<div class="p-5 h-300">
+            	<div class="p-5 h-400">
                     <div class="total-fights-arena"></div>
 	        	</div>
         	</div>
@@ -66,27 +66,21 @@ Total Fights
 </div>
 @endsection
 
+@push('css')
+<link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css')}}">
+<link rel="stylesheet" href="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.css')}}">
+@endpush
 @push('scripts')
+<script src="{{asset('global/vendor/chartist/chartist.min.js')}}"></script>
+<script src="{{asset('global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.js')}}"></script>
+<script src="{{asset('global/vendor/chartist-plugin-legend/chartist-plugin-legend.js')}}"></script>
 <script>
-    let totalFightsPerYearData= {!! json_encode($totalFightsPerYear) !!};
-    let totalNumberFightsPerMonth = {!! json_encode($totalNumberFightsPerMonth) !!};
+    let totalFightsPerYear= {!! json_encode($totalFightsPerYear) !!};
     let totalNumberFightsPerDay = {!! json_encode($totalNumberFightsPerDay) !!};
     let totalNumberFightsPerArena = {!! json_encode($totalNumberFightsPerArena) !!};
 
-    let barGraphData = {
-        labels: [],
-        series: []
-    };
-    let series = [];
-    
-    for (var key in totalFightsPerYearData) {
-        if (totalFightsPerYearData.hasOwnProperty(key)) {
-            barGraphData.labels.push(key);
-            series.push(totalFightsPerYearData[key]);
-        }
-    }
-    
-    barGraphData.series.push(series);
+    let totalNumberFightsPerMonth = {!! json_encode($totalNumberFightsPerMonth) !!};
 
     let barGraphOptions = {
         axisY: {
@@ -101,15 +95,18 @@ Total Fights
         },
         low: 0,
         showArea: true,
-        height: '300px'
+        height: '300px',
+        plugins: [
+            Chartist.plugins.legend({
+                legendNames: ['2020', '2021'],
+            })
+        ]
     };
 
-    new Chartist.Bar('.total-fights-year',barGraphData,barGraphOptions);
+    new Chartist.Bar('.total-fights-year',totalFightsPerYear,barGraphOptions);
+    new Chartist.Bar('.total-fights-day',totalNumberFightsPerDay, barGraphOptions);
+    new Chartist.Bar('.total-fights-arena', totalNumberFightsPerArena , barGraphOptions);
 
     new Chartist.Line('.total-fights-month',totalNumberFightsPerMonth, lineGraphOptions);
-
-    new Chartist.Bar('.total-fights-day',totalNumberFightsPerDay, barGraphOptions);
-
-    new Chartist.Bar('.total-fights-arena', totalNumberFightsPerArena , barGraphOptions);
 </script>
 @endpush
