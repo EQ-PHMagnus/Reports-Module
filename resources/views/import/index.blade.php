@@ -27,14 +27,11 @@ Import Data
                                                 <span class="load"> Upload {{ucwords($import)}}</span>
                                             </p>
                                         </header>
-                                        <div class="body body-{{$import}}" id="drop">
-                                    
+                                        <div class="body body-{{$import}}" id="drop-{{$import}}">
                                             <i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+                                            <p class="pointer-none"><b>Drag and drop</b> files here <br /> or <a href="#" class="{{$import}}">browse</a>.</p>
                                             <input name="{{$import}}" type="file" id="{{$import}}" /> 
-                                            <p class="pointer-none"><b>Drag and drop</b> files here <br /> or <a href="#" class="{{$import}}">browse</a>to begin the upload</p>
-                                            
                                         </div>
-                                        
                                         <footer>
                                             <div class="list-{{$import}} list-files">
                                                 <!--   template   -->

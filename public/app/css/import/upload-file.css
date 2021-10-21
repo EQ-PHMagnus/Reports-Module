@@ -56,9 +56,9 @@
 .upload .upload-files .body.hidden {
   display: none;
 }
-/* .upload .upload-files .body input {
+.upload .upload-files .body input {
   display: none;
-} */
+}
 .upload .upload-files .body i {
   font-size: 65px;
   color: lightgray;

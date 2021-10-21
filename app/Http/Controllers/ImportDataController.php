@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Rap2hpoutre\FastExcel\FastExcel;
-use App\Models\User;
+use App\Http\Traits\Imports;
+use DB;
 
 class ImportDataController extends Controller
 {
+    use Imports;
     /**
      * Display a listing of the resource.
      *
@@ -36,18 +37,17 @@ class ImportDataController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(request()->file('bets'));
-        $filePath = $request->file('bets')->path();
-        $newFilePath =  $filePath . '.' . $request->file('bets')->getClientOriginalExtension();
-        move_uploaded_file($filePath, $newFilePath);
-
-
-        $users = (new FastExcel)->import($newFilePath, function ($line) {
-            return User::create([
-                'name' => $line['name'],
-                'email' => $line['email']
-            ]);
-        });
+        try{
+            DB::beginTransaction();
+            $this->uploadFile($request);
+            DB::commit();
+            flashMessage('Data uploaded successfully!');
+            return redirect()->back();
+        } catch( \Exception $e){
+            DB::rollback();
+            return config('app.debug') ? dd($e) : flashMessage($e->getMessage,400);
+        }
+     
     }
 
     /**

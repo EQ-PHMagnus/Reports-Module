@@ -92,9 +92,7 @@ class FightController extends Controller
         DB::beginTransaction();
         try{
             $data =  $request->except('_token','_method');
-
             $fight->update($data);
-
             DB::commit();
             flashMessage('Fight updated successfully!');
             return redirect()->back();
