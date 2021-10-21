@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AgentDepositController;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\PermissionsAndRoutesController;
+use App\Http\Controllers\ImportDataController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,8 +37,6 @@ Route::group(['prefix' => 'raven'], function() {
 Route::prefix('raven')
     ->middleware(['auth'])
     ->group(function(){
-    
-  
     /*
     |--------------------------------------------------------------------------
     | Auth
@@ -48,8 +47,7 @@ Route::prefix('raven')
     Route::redirect('/', 'raven/bets/total-count-bets')->name('reports');
     Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('raven.logout');  
     
-
-
+    
     /*
     |--------------------------------------------------------------------------
     | FINANCE
@@ -61,6 +59,7 @@ Route::prefix('raven')
     Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.agent-accounts');
     Route::get('/tax-computations', [FinanceController::class, 'getTaxComputations'])->name('dashboard.finance.tax-computations');
 
+    
     /*
     |--------------------------------------------------------------------------
     | Transactions
@@ -149,6 +148,13 @@ Route::prefix('raven')
     Route::post('roles-and-permissions/assign-permissions',[RolesAndPermissionController::class, 'assignPermissions'])->name('roles-and-permissions.assign-permissions')->middleware('permission:assign permission');
     Route::post('permissions-and-actions/assign-permissions',[PermissionsAndRoutesController::class,'assignPermissions'])->name('permissions-and-actions.assign-permissions');
 
+    /*
+    |--------------------------------------------------------------------------
+    | Import Data
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::resource('import-data', ImportDataController::class);
    
 });
 
