@@ -71,7 +71,7 @@ let ImportFile = (function(){
 
 	function validateFile(type,fileName){
 		if(openFile(fileName) != 'excel'){
-			alert('Invalid File Format! File format must be csv or xlsx')
+			alert(fileName + '; File format is not valid')
 		}else{
 			// hide drop and show progress file and file name
 			$('.list-'+type).show();
