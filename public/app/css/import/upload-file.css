@@ -5,7 +5,7 @@
   box-sizing: border-box;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  padding-bottom: 20px;
+  padding-bottom: 1px;
   background: #fff;
   -webkit-animation: fadeup 0.5s 0.5s ease both;
           animation: fadeup 0.5s 0.5s ease both;
@@ -72,7 +72,10 @@
 .upload .upload-files .body p a {
   color: #3e8ef7;
 }
-.upload .upload-files .body.active {
+/* .upload .upload-files .body.active {
+  border: dashed 2px #3e8ef7;
+} */
+div.upload .active {
   border: dashed 2px #3e8ef7;
 }
 .upload .upload-files .body.active i {

@@ -9,8 +9,7 @@ return [
 	'transcation_type' => ['cash_in','cash_out','earnings','loses'],
 	'imports'	=> [
 		1 => 'bets', 
-		2 => 'fights', 
-		3 => 'tax'],
+		2 => 'fights'],
 	'agent_deposit_status' => [
 		'pending'	=> 1,
 		'approved'	=> 2,
