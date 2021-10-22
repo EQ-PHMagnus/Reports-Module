@@ -383,6 +383,10 @@ trait Reports {
         ')
         ->whereNull('bet.deleted_at');
 
+        if($type == 'excel'){
+            return $data->get();
+        }
+
         if($type == 'table'){
             
             $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
@@ -414,6 +418,10 @@ trait Reports {
             fight.fight_no as fight_no
         ')
         ->whereNull('fight.deleted_at');
+
+        if($type == 'excel'){
+            return $data->get();
+        }
 
         if($type == 'table'){
             

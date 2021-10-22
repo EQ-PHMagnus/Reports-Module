@@ -15,14 +15,20 @@ class ReportsController extends Controller
 
     public function bets(Request $request,$type){
         try{
+            if($type == 'total-amount-bets-arena' || $type == 'total-count-bets-arena'){
+                $result = $this->getArena($request,$type); 
+            }else{
+                $result = $this->getBets($request); 
+            }
             if(request()->ajax()){
-                if($type == 'total-amount-bets-arena' || $type == 'total-count-bets-arena'){
-                    $result = $this->getArena($request,$type); 
-                    return response()->json($result);
-                }else{
-                    $result = $this->getBets($request); 
-                    return response()->json($result);
-                }
+                return response()->json($result);
+            }
+            // export file
+            $export = $request->input('export',false);
+            if($export === 'true'){
+                $exportQuery    = $this->getBetData($request,'excel');
+                $exportFileName = '_Bets_Reports.xlsx';
+                return exportFiles($exportQuery,$exportFileName);
             }
             // render components
             $data = config('constants.menu.bets')[$type];
@@ -47,6 +53,13 @@ class ReportsController extends Controller
                     return response()->json($result);
                 }
             }
+             // export file
+             $export = $request->input('export',false);
+             if($export === 'true'){
+                 $exportQuery    = $this->getFightData($request,'excel');
+                 $exportFileName = '_Fights_Reports.xlsx';
+                 return exportFiles($exportQuery,$exportFileName);
+             }
             // render components
             $data = config('constants.menu.fights')[$type];
             if($type == 'total-amount-fights-arena' || $type == 'total-count-fights-arena'){
