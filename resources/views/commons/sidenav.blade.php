@@ -144,7 +144,7 @@
                         <i class="site-menu-icon wb-upload" aria-hidden="true"></i><span class="site-menu-title">Import Data</span>
                     </a>
                 </li>
-                @endif
+                @endcan
                
             </li>
         </ul>
