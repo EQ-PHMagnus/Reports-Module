@@ -9,59 +9,6 @@ async function fetchInfo(url) {
     })
 }
 
-// Delete Item
-async function deleteItem(url, token, isReload = true) {
-    return await swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this action.",
-        icon: 'warning',
-        buttons: {
-            cancel: true,
-            confirm: true,
-        },
-    }).then(function (result) {
-        if (result) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {
-                    _token: token,
-                    _method: 'DELETE'
-                },
-                statusCode: {
-                    204: function (xhr) {
-                        swal({
-                            title: "Success",
-                            text: "Review is successfully deleted.",
-                            icon:"success"
-                        }).then(function (confirm) {
-                            if (isReload) {
-                                window.location.reload();
-                            }
-
-                            return true;
-                        });
-                    },
-                    500: function (xhr) {
-                        swal({
-                            title: "Error!",
-                            type: "error"
-                        }).then(function (confirm) {
-                            if (isReload) {
-                                window.location.reload();
-                            }
-
-                            return false;
-                        });
-                    }
-                }
-            });
-            return result;
-        }
-
-    });
-}
-
 function isEmpty(obj) {
     for (var key in obj) {
         if (obj.hasOwnProperty(key))
@@ -69,16 +16,6 @@ function isEmpty(obj) {
     }
     return true;
 }
-
-// const access_token = Cookie._get('session');
-//Create axios instance;
-// const apiRequest = axios.create({
-//     baseURL: `${baseURL}/`,
-//     timeout: 1000,
-//     headers: {
-//         'Authorization': Cookie._get('session')
-//     }
-// });
 
 function formatMoney(n, c, d, t) {
     c = isNaN(c = Math.abs(c)) ? 2 : c;
@@ -107,58 +44,6 @@ function computeSum(e) {
 
 function isNormalInteger(str) {
     return /^\+?[1-9]\d*$/.test(str);
-}
-
-// Delete Item
-async function deleteItem(url, token, isReload = true) {
-    return await swal({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this",
-        type: 'warning',
-        buttons: {
-            confirm: true,
-            cancel: true,
-        },
-    }).then(function (result) {
-        if (result) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {
-                    _token: token,
-                    _method: 'DELETE'
-                },
-                statusCode: {
-                    204: function (xhr) {
-                        swal({
-                            title:"Success",
-                            text:"Review is successfully deleted.",
-                            icon: "success"
-                        }).then(function (confirm) {
-                            if (isReload) {
-                                window.location.reload();
-                            }
-
-                            return true;
-                        });
-                    },
-                    500: function (xhr) {
-                        swal({
-                            title: "Error!",
-                            type: "error"
-                        }).then(function (confirm) {
-                            if (isReload) {
-                                window.location.reload();
-                            }
-                            return false;
-                        });
-                    }
-                }
-            });
-            return result;
-        }
-
-    });
 }
 
 // Approve Item
@@ -283,22 +168,9 @@ async function rejectItem(url, token, isReload = true) {
     });
 }
 
-$(document).ready(function () {
-    $(".btn-link").click(function (event) {
-        var link = $(this).data('href');
-        window.location.href = link;
-    });
-
-    $(".numbers-only").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode
-        return !(charCode > 31 && (charCode < 48 || charCode > 57));
-    });
-});
-
 String.prototype.leftTrim = function () {
     return this.replace(/^\s+/, "");
 }
-
 
 function formatDate(date) {
     var d = new Date(date),
@@ -332,22 +204,6 @@ function getDateToday(val){
 
 }
 
-function validateEmptyFields(){
-    $('table').find('td.na').each (function() {
-   
-        if($(this).text() == '' || $(this).text() == null ){
-            $(this).text('N/A');
-        }
-    });   
-
-    $('table').find('td.na_file').each (function() {
-        if($(this).html() == ''){
-            $(this).html('N/A');
-        }
-    });   
-}
-
-
 function openFile(file) {
 
     if(file !== undefined || file !== '' || file !== null){
@@ -358,6 +214,9 @@ function openFile(file) {
     }
 
     switch(extension) {
+        case 'csv':
+        case 'xlsx':
+            return 'excel';  
         case 'jpg':
         case 'png':
         case 'gif':
@@ -385,3 +244,6 @@ function openFile(file) {
         }
     });
   })(document, window, jQuery);
+
+
+  

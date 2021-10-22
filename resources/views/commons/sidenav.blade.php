@@ -139,8 +139,13 @@
                         <i class="site-menu-icon wb-user" aria-hidden="true"></i><span class="site-menu-title">Roles and permissions</span>
                     </a>
                 </li>
-                @endcan
-
+                <li class="site-menu-item {{request()->is('raven/import-data') ?  'active' : ''}}">
+                    <a class="animsition-link" href="{{url('raven/import-data')}}">
+                        <i class="site-menu-icon wb-upload" aria-hidden="true"></i><span class="site-menu-title">Import Data</span>
+                    </a>
+                </li>
+                @endif
+               
             </li>
         </ul>
     </div>

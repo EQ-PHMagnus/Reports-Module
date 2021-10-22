@@ -10,6 +10,9 @@ class Bet extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $guarded  = ['id'];
+    protected $fillable = ['fight_id', 'user_id', 'pick','odds','amount','prize','result','bet_date','result_date'];
+
     public function arena(){
         return $this->belongsTo(\App\Models\Arena::class)->withTrashed();
     }
