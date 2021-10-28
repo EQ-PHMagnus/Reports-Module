@@ -16,11 +16,21 @@ function dataRequest(params) {
     });
 }
 
+function exportReports() {
+
+    var params       = {};
+    var obj          = {};
+    params['data']   = {};
+    $('.filters').each(function(){
+        obj[$(this).attr('name')] = $(this).val();
+    });
+    params.data['filters'] = obj;
+    return location.href = window.location.href + '?' + $.param(params.data) + '&export=true';
+}
+
 // GENERAL FILTER
 $(document).on('click','.btn-filter-search',function () {
     $('table[data-toggle="table"]').bootstrapTable('refresh');
 });
 
-$(document).on('click','.btn-filter-refresh',function () {
-    location.reload();
-});
+$(document).on('click', '.btn-filter-export', exportReports);

@@ -4,7 +4,7 @@ use DB;
 trait Reports {
 
 
-    public function getArena($request,$reportType){
+    public function getArena($request,$reportType,$format){
 
         $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
         $limit              =    intval($request->input('limit', 10)); // pagination
@@ -129,6 +129,10 @@ trait Reports {
                 }
         }
 
+        if($format == 'excel'){
+            return $rows;
+        }
+
         
         //determine offset and limit of rows for pagination
         $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
@@ -144,7 +148,7 @@ trait Reports {
         ];
     }
     
-    public function getBets($request){
+    public function getBets($request,$format){
 
         $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
         $limit              =    intval($request->input('limit', 10)); // pagination
@@ -238,6 +242,12 @@ trait Reports {
                     }
                 }
         }
+
+       
+      
+        if($format == 'excel'){
+            return $rows;
+        }
  
         //determine offset and limit of rows for pagination
         $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
@@ -253,7 +263,7 @@ trait Reports {
         ];
     }
 
-    public function getFights($request){
+    public function getFights($request,$format){
 
         $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
         $limit              =    intval($request->input('limit', 10)); // pagination
@@ -347,6 +357,10 @@ trait Reports {
                     }
                 }
         }
+
+        if($format == 'excel'){
+            return $rows;
+        }
  
         //determine offset and limit of rows for pagination
         $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
@@ -383,6 +397,7 @@ trait Reports {
         ')
         ->whereNull('bet.deleted_at');
 
+
         if($type == 'table'){
             
             $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
@@ -414,6 +429,7 @@ trait Reports {
             fight.fight_no as fight_no
         ')
         ->whereNull('fight.deleted_at');
+
 
         if($type == 'table'){
             

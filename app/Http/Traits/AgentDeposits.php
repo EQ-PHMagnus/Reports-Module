@@ -54,6 +54,10 @@ trait AgentDeposits {
             $data->where('ad.status','!=',config('defaults.agent_deposit_status')['pending']);
         }
 
+        if($type == 'excel'){
+            return $data->get();
+        }
+
         $dataCount  = $data->count();
         $formData   = $data->skip(intval(request()->input('offset', 0)))
                             ->limit(intval(request()->input('limit', 10)))

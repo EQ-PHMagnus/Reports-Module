@@ -7,8 +7,6 @@ use App\Http\Requests\AgentRequest;
 use App\Models\User;
 use DB;
 use Carbon\Carbon;
-use Rap2hpoutre\FastExcel\FastExcel;
-use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 
 class AgentController extends Controller
 {
@@ -41,21 +39,13 @@ class AgentController extends Controller
             ->whereBetween(DB::raw('date(created_at)'),[$from,$to])
             ->agents()
             ->orderByDesc('created_at');
-            
 
-        if($export === 'true'){
-            $header_style = (new StyleBuilder())->setFontBold()->build();
-
-            $rows_style = (new StyleBuilder())
-                ->setShouldWrapText(false)
-                ->build();
-
-            // Export consumes only a few MB, even with 10M+ rows.
-            return (new FastExcel($this->agentsGenerator($agentsQuery)))
-                ->headerStyle($header_style)
-                ->rowsStyle($rows_style)
-                ->download(Carbon::now()->toDateString() . '_Agents_Reports.xlsx');
-        }
+            // export files
+            if($export === 'true'){
+                $exportFileName = '_Agents_Reports.xlsx';
+                $exportQuery = $this->agentsGenerator($agentsQuery);
+                return exportFiles($exportQuery,$exportFileName);
+            }
 
         $agents = $agentsQuery->paginate(10)
             ->withQueryString();
