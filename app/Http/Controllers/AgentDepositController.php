@@ -26,6 +26,13 @@ class AgentDepositController extends Controller
             $result = $this->getAgentDeposits($request,$type); 
             return response()->json($result);
         }
+        // export file
+        $export = $request->input('export',false);
+        if($export === 'true'){
+            $exportQuery    = $this->getAgentDeposits($request,'excel');
+            $exportFileName = '_Agent_Deposits_Pending_Reports.xlsx';
+            return exportFiles($exportQuery,$exportFileName);
+        }
         // render components
         $data = config('constants.menu.agent-deposits')[$type];
         return view('agent-deposits.index',compact('data'));
@@ -37,6 +44,13 @@ class AgentDepositController extends Controller
         if(request()->ajax()){
             $result = $this->getAgentDeposits($request,$type); 
             return response()->json($result);
+        }
+        // export file
+        $export = $request->input('export',false);
+        if($export === 'true'){
+            $exportQuery    = $this->getAgentDeposits($request,'excel');
+            $exportFileName = '_Agent_Deposits_Processed_Reports.xlsx';
+            return exportFiles($exportQuery,$exportFileName);
         }
         // render components
         $data = config('constants.menu.agent-deposits')[$type];

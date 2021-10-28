@@ -16,9 +16,9 @@ class ReportsController extends Controller
     public function bets(Request $request,$type){
         try{
             if($type == 'total-amount-bets-arena' || $type == 'total-count-bets-arena'){
-                $result = $this->getArena($request,$type); 
+                $result = $this->getArena($request,$type,null); 
             }else{
-                $result = $this->getBets($request); 
+                $result = $this->getBets($request,null); 
             }
             if(request()->ajax()){
                 return response()->json($result);
@@ -26,8 +26,13 @@ class ReportsController extends Controller
             // export file
             $export = $request->input('export',false);
             if($export === 'true'){
-                $exportQuery    = $this->getBetData($request,'excel');
+                if($type == 'total-amount-bets-arena' || $type == 'total-count-bets-arena'){
+                    $exportQuery    = $this->getArena($request,null,'excel');
+                    $exportFileName = '_Bets_Arena_Reports.xlsx';
+                }else{
+                    $exportQuery    = $this->getBets($request,'excel');
                 $exportFileName = '_Bets_Reports.xlsx';
+                }
                 return exportFiles($exportQuery,$exportFileName);
             }
             // render components
@@ -46,19 +51,24 @@ class ReportsController extends Controller
         try{
             if(request()->ajax()){
                 if($type == 'total-amount-fights-arena' || $type == 'total-count-fights-arena'){
-                    $result = $this->getArena($request,$type); 
+                    $result = $this->getArena($request,$type,null); 
                     return response()->json($result);
                 }else{
-                    $result = $this->getFights($request); 
+                    $result = $this->getFights($request,null); 
                     return response()->json($result);
                 }
             }
              // export file
              $export = $request->input('export',false);
              if($export === 'true'){
-                 $exportQuery    = $this->getFightData($request,'excel');
-                 $exportFileName = '_Fights_Reports.xlsx';
-                 return exportFiles($exportQuery,$exportFileName);
+                if($type == 'total-amount-fights-arena' || $type == 'total-count-fights-arena'){
+                    $exportQuery    = $this->getArena($request,null,'excel');
+                    $exportFileName = '_Fights_Arena_Reports.xlsx';
+                }else{    
+                    $exportQuery    = $this->getFights($request,'excel');
+                    $exportFileName = '_Fights_Reports.xlsx';
+                }
+                return exportFiles($exportQuery,$exportFileName);
              }
             // render components
             $data = config('constants.menu.fights')[$type];
