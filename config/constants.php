@@ -27,7 +27,7 @@ return [
                 'name'                  =>  'arena',
                 'url'                   =>  'total-count-bets-arena'
             ],
-            'total-amount-bets-arena'    =>  [
+            'total-amount-bets-arena'   =>  [
                 'title'                 =>  'Total Bets Amount per Arena ',
                 'nav_title'             =>  'Total Bets Amount per Arena',
                 'content_title'         =>  'Total Amount of Bets per Arena',
@@ -43,7 +43,7 @@ return [
                     'nav_title'             =>  'Total Fights Count',
                     'content_title'         =>  'Total Count of Fights',
                     'type'                  =>  'count',
-                    'url'                       =>  'total-count-fights'
+                    'url'                   =>  'total-count-fights'
                 ],
                 'total-count-fights-arena'    =>  [
                     'title'                 =>  'Total Fights Count per Arena ',
@@ -51,26 +51,43 @@ return [
                     'content_title'         =>  'Total Count of Fights per Arena',
                     'type'                  =>  'count',
                     'name'                  =>  'arena',
-                    'url'                       =>  'total-count-fights-arena'
+                    'url'                   =>  'total-count-fights-arena'
                 ],
 
         ],
         'agent-deposits' => [
             'pending'    =>  [
                 'title'                 =>  'Agent Deposits Pending',
-                'nav_title'            =>  'Pending',
+                'nav_title'             =>  'Pending',
                 'content_title'         =>  'Pending List',
                 'type'                  =>  'pending',
-                'url'                       =>  'agent-deposits.pending'
+                'url'                   =>  'agent-deposits.pending'
             ],
             'processed'    =>  [
                 'title'                 =>  'Agent Deposits Processed',
                 'nav_title'             =>  'Processed',
                 'content_title'         =>  'Processed List',
                 'type'                  =>  'processed',
-                'url'                       =>  'agent-deposits.processed'
+                'url'                   =>  'agent-deposits.processed'
             ],
 
-    ]
+        ],
+        'agent-commissions' => [
+            'super_agent'    =>  [
+                'title'                 =>  'Super Agent Commisions',
+                'nav_title'             =>  'Super Agent',
+                'content_title'         =>  'Super Agent Commission List',
+                'type'                  =>  'super_agent',
+                'url'                   =>  'agent-commissions.super_agent'
+            ],
+            'agent'    =>  [
+                'title'                 =>  'Agent Commisions',
+                'nav_title'             =>  'Agent',
+                'content_title'         =>  'Agent Commission List',
+                'type'                  =>  'agent',
+                'url'                   =>  'agent-commissions.agent'
+            ],
+
+        ]
     ]
 ];

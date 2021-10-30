@@ -109,12 +109,29 @@
             @can('manage super agent cash ins')
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
-                    <i class="site-menu-icon wb-flag" aria-hidden="true"></i>
+                    <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i>
                     <span class="site-menu-title">Agent Deposits</span>
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.agent-deposits') as $key => $val)
+                    <li class="site-menu-item ">
+                        <a class="animsition-link" href="{{route($val['url'])}}">
+                            <span class="site-menu-title">{{$val['nav_title']}}</span>
+                        </a>
+                    </li>
+                @empty
+                @endforelse
+                </ul>
+            </li>
+            <li class="site-menu-item has-sub">
+                <a href="javascript:void(0)">
+                    <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i>
+                    <span class="site-menu-title">Agent Commissions</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                @forelse(config('constants.menu.agent-commissions') as $key => $val)
                     <li class="site-menu-item ">
                         <a class="animsition-link" href="{{route($val['url'])}}">
                             <span class="site-menu-title">{{$val['nav_title']}}</span>

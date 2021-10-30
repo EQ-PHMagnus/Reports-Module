@@ -26,10 +26,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\Fight::factory(20)->create();
         \App\Models\Bet::factory(20)->create();
         \App\Models\Transaction::factory(20)->create();
+       
 
         $this->call([
             AgentDepositSeeder::class,
+            AgentCommissionSeeder::class
         ]);
+        
 
 
         Cache::flush();

@@ -16,6 +16,7 @@ use App\Http\Controllers\AgentDepositController;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\PermissionsAndRoutesController;
 use App\Http\Controllers\ImportDataController;
+use App\Http\Controllers\AgentCommissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -124,11 +125,21 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-
     Route::group(['prefix' => 'agent-deposits'], function() {
         Route::get('/pending', [AgentDepositController::class, 'pending'])->name('agent-deposits.pending');
         Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
         Route::get('/processed', [AgentDepositController::class, 'processed'])->name('agent-deposits.processed');
+    });
+
+     /*
+    |--------------------------------------------------------------------------
+    | Agent Commissions
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::group(['prefix' => 'agent-commissions'], function() {
+        Route::get('/super_agent', [AgentCommissionController::class, 'super_agent'])->name('agent-commissions.super_agent');
+        Route::get('/agent', [AgentCommissionController::class, 'agent'])->name('agent-commissions.agent');
     });
 
     /*
