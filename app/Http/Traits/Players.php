@@ -11,7 +11,8 @@ trait Players {
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
-        $amount         = request()->input('filters.amount');
+        $min_amount     = request()->input('filters.min_amount');
+        $max_amount     = request()->input('filters.max_amount');
         $from           = date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
         $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
@@ -26,11 +27,11 @@ trait Players {
                         ->when($search, function($query,$search){
                             return $query->where('name', 'like' ,'%'.$search.'%');
                         })
-                        ->when($amount, function($query,$amount){
-                            return $query->where('amount' , '<=' ,$amount);
-                        })
                         ->when($from, function ($query , $from) use ($to) {
                             return $query->whereBetween('trans.created_at', [$from, $to]);
+                        })
+                        ->when($min_amount, function ($query , $min_amount) use ($max_amount) {
+                            return $query->whereBetween('trans.amount', [$min_amount, $max_amount]);
                         })
                         ->when($sort, function($query, $sort) use ($order){
                             return $query->orderBy('trans.'.$sort, $order);

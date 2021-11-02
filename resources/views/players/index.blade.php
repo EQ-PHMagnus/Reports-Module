@@ -51,5 +51,5 @@
         </div>
     </div>
 </div>
-@include('filters.general.modals.agent-commissions')
+@include('filters.general.modals.players')
 @endsection
