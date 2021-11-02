@@ -17,25 +17,18 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/register', [RegisteredUserController::class, 'store'])
 //                 ->middleware('guest');
 
-Route::get('raven/login', [AuthenticatedSessionController::class, 'create'])
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
-                ->name('raven.login');
-Route::post('raven/login', [AuthenticatedSessionController::class, 'store'])
-                ->middleware('guest')
-                ->name('raven.login');
+                ->name('login');
 
-// Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-//                 ->middleware('guest')
-//                 ->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+                ->middleware('guest');
 
-// Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-//                 ->middleware('guest');
-
-Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
                 ->name('password.request');
 
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
                 ->middleware('guest')
                 ->name('password.email');
 

@@ -27,7 +27,7 @@ use App\Http\Controllers\ImportDataController;
 |
 */
 Route::view('/','landing');
-Route::view('raven/login', 'auth.login')->name('raven.login');
+// Route::view('raven/login', 'auth.login')->name('raven.login');
 
 
 Route::prefix('raven')
@@ -56,7 +56,7 @@ Route::prefix('raven')
     Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.agent-accounts');
     Route::get('/tax-computations', [FinanceController::class, 'getTaxComputations'])->name('dashboard.finance.tax-computations');
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | Transactions
@@ -150,7 +150,7 @@ Route::prefix('raven')
     |
     */
     Route::resource('import-data', ImportDataController::class);
-   
+
 });
 
 require __DIR__.'/auth.php';
