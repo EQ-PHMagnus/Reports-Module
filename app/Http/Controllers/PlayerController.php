@@ -9,9 +9,10 @@ use DB;
 use Carbon\Carbon;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
-
+use App\Http\Traits\Players;
 class PlayerController extends Controller
 {
+    use Players;
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +57,64 @@ class PlayerController extends Controller
             ->withQueryString();
         return view('players.index',compact('players'));
     }
+
+    public function earnings(Request $request)
+    {
+        $type = 'earnings';
+        if(request()->ajax()){
+            $result = $this->getPlayers($request,$type,null); 
+            return response()->json($result);
+        }
+        // export file
+        $export = $request->input('export',false);
+        if($export === 'true'){
+            $exportQuery    = $this->getPlayers($request,$type,'excel');
+            $exportFileName = '_Players_Earning_Transactions_Reports.xlsx';
+            return exportFiles($exportQuery,$exportFileName);
+        }
+        // render components
+        $data = config('constants.menu.players')[$type];
+        return view('players.index',compact('data'));
+    }
+
+    public function cash_in(Request $request)
+    {
+        $type = 'cash_in';
+        if(request()->ajax()){
+            $result = $this->getPlayers($request,$type,null); 
+            return response()->json($result);
+        }
+        // export file
+        $export = $request->input('export',false);
+        if($export === 'true'){
+            $exportQuery    = $this->getPlayers($request,$type,'excel');
+            $exportFileName = '_Players_Cash_in_Transactions_Reports.xlsx';
+            return exportFiles($exportQuery,$exportFileName);
+        }
+        // render components
+        $data = config('constants.menu.players')[$type];
+        return view('players.index',compact('data'));
+    }
+
+    public function cash_out(Request $request)
+    {
+        $type = 'cash_out';
+        if(request()->ajax()){
+            $result = $this->getPlayers($request,$type,null); 
+            return response()->json($result);
+        }
+        // export file
+        $export = $request->input('export',false);
+        if($export === 'true'){
+            $exportQuery    = $this->getPlayers($request,$type,'excel');
+            $exportFileName = '_Players_Cash_out_Transactions_Reports.xlsx';
+            return exportFiles($exportQuery,$exportFileName);
+        }
+        // render components
+        $data = config('constants.menu.players')[$type];
+        return view('players.index',compact('data'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

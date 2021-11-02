@@ -16,6 +16,7 @@ use App\Http\Controllers\AgentDepositController;
 use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\PermissionsAndRoutesController;
 use App\Http\Controllers\ImportDataController;
+use App\Http\Controllers\AgentCommissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,7 +77,13 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-    Route::resource('players', PlayerController::class);
+    // Route::resource('players', PlayerController::class);
+    Route::group(['prefix' => 'players'], function() {
+        Route::get('/players_earnings', [PlayerController::class, 'earnings'])->name('players.earnings');
+        Route::get('/players_cash_in', [PlayerController::class, 'cash_in'])->name('players.cash_in');
+        Route::get('/players_cash_out', [PlayerController::class, 'cash_out'])->name('players.cash_out');
+    });
+
 
 
     /*
@@ -124,11 +131,21 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-
     Route::group(['prefix' => 'agent-deposits'], function() {
         Route::get('/pending', [AgentDepositController::class, 'pending'])->name('agent-deposits.pending');
         Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
         Route::get('/processed', [AgentDepositController::class, 'processed'])->name('agent-deposits.processed');
+    });
+
+     /*
+    |--------------------------------------------------------------------------
+    | Agent Commissions
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::group(['prefix' => 'agent-commissions'], function() {
+        Route::get('/super_agent', [AgentCommissionController::class, 'super_agent'])->name('agent-commissions.super_agent');
+        Route::get('/agent', [AgentCommissionController::class, 'agent'])->name('agent-commissions.agent');
     });
 
     /*

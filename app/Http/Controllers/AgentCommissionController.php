@@ -3,58 +3,58 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\AgentDeposit;
-use App\Http\Traits\AgentDeposits;
+use App\Models\AgentCommission;
+use App\Http\Traits\AgentCommissions;
 
-class AgentDepositController extends Controller
+class AgentCommissionController extends Controller
 {
-    use AgentDeposits;
+    use AgentCommissions;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
     }
 
-    public function pending(Request $request)
+    public function super_agent(Request $request)
     {
-        $type = 'pending';
+        $type = 'super_agent';
         if(request()->ajax()){
-            $result = $this->getAgentDeposits($request,$type,null); 
+            $result = $this->getAgentCommissions($request,$type,null); 
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
-            $exportFileName = '_Agent_Deposits_Pending_Reports.xlsx';
+            $exportQuery    = $this->getAgentCommissions($request,$type,'excel');
+            $exportFileName = '_Super_Agent_Commissions_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
         // render components
-        $data = config('constants.menu.agent-deposits')[$type];
-        return view('agent-deposits.index',compact('data'));
+        $data = config('constants.menu.agent-commissions')[$type];
+        return view('agent-commissions.index',compact('data'));
     }
 
-    public function processed(Request $request)
+    public function agent(Request $request)
     {
-        $type = 'processed';
+        $type = 'agent';
         if(request()->ajax()){
-            $result = $this->getAgentDeposits($request,$type,null); 
+            $result = $this->getAgentCommissions($request,$type,null); 
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
-            $exportFileName = '_Agent_Deposits_Processed_Reports.xlsx';
+            $exportQuery    = $this->getAgentCommissions($request,$type,'excel');
+            $exportFileName = '_Agent_Commissions_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
         // render components
-        $data = config('constants.menu.agent-deposits')[$type];
-        return view('agent-deposits.index',compact('data'));
+        $data = config('constants.menu.agent-commissions')[$type];
+        return view('agent-commissions.index',compact('data'));
     }
 
     /**
@@ -109,11 +109,7 @@ class AgentDepositController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{  
-            AgentDeposit::find($id)->update(['status' => config('defaults.agent_deposit_status')[$request->type]]);
-        }catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()]);
-        } 
+        //
     }
 
     /**
