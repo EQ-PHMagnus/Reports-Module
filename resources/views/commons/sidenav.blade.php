@@ -124,11 +124,7 @@
                 <i class="site-menu-icon wb-user" aria-hidden="true"></i><span class="site-menu-title">User Management</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('raven/import-data') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/import-data')}}">
-                    <i class="site-menu-icon wb-upload" aria-hidden="true"></i><span class="site-menu-title">Import Data</span>
-                </a>
-            </li>
+           
             @endcan
             @can('manage roles and permissions')
             <li class="site-menu-item {{request()->is('raven/roles-and-permissions') ?  'active' : ''}}">
@@ -138,6 +134,12 @@
             </li>
             
             @endcan
+
+            <li class="site-menu-item {{request()->is('raven/import-data') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('raven/import-data')}}">
+                    <i class="site-menu-icon wb-upload" aria-hidden="true"></i><span class="site-menu-title">Import Data</span>
+                </a>
+            </li>
            
         </ul>
     </div>
