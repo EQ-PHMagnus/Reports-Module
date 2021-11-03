@@ -40,11 +40,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success btn-block btn-filter-search">Submit</button>
-                        <a @if(request()->route()->named('agent-deposits.pending'))
-                                href="{{route('agent-deposits.pending')}}" 
-                            @else
-                                href="{{route('agent-deposits.processed')}}"
-                            @endif
+                        <a href="{{route('agent-deposits.index')}}" 
                         class="btn btn-secondary btn-block">Reset</a>
                     <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
                 </div>

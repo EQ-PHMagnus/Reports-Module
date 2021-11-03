@@ -12,7 +12,7 @@ Agents Management
 @endsection
 
 @section('page-header-actions')
-    <a href="{{route('agents.create')}}" type="button" class="btn btn-icon btn-primary btn-outline"><i class="icon wb-plus" aria-hidden="true"></i> Add Agent</a>
+    <!-- <a href="{{route('agents.create')}}" type="button" class="btn btn-icon btn-primary btn-outline"><i class="icon wb-plus" aria-hidden="true"></i> Add Agent</a> -->
 @endsection
 
 @section('page-content')
@@ -37,7 +37,7 @@ Agents Management
                                 <th class="text-center">Current Credits</th>
                                 @endcan
                                 <th>Joined Date</th>
-                                <th>Actions</th>
+                                <!-- <th>Actions</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -52,7 +52,7 @@ Agents Management
                                 <td class="text-center">{{$agent->points ? moneyFormat($agent->points): ''}}</td>
                                 @endcan
                                 <td>{{$agent->created_at->toDateTimeString() ?? ''}}</td>
-                                <td>
+                                <!-- <td>
                                     @php
                                         $giid = $agent->identification;
                                         if(strpos($giid, 'picsum') === false){
@@ -70,7 +70,7 @@ Agents Management
                                     <a href="{{route('agents.edit',$agent->id)}}" class="btn btn-icon btn-default btn-outline" title="Edit this agent"><i class="icon wb-pencil" aria-hidden="true"></i></a>
                                     <button type="button" class="btn btn-icon btn-danger btn-outline btn-destroy-model" title="Delete this agent" data-url="{{route('agents.destroy',$agent->id)}}"><i class="icon wb-trash" aria-hidden="true"></i></button>
                                     {{-- <button type="button" class="btn btn-icon btn-primary btn-outline" data-toggle="tooltip" data-title="Transact" ><i class="icon fa-money" aria-hidden="true"></i></button> --}}
-                                </td>
+                                </td> -->
                             </tr>
                             @empty
                                 <tr><td class="text-center" colspan="5">No records found</td></tr>

@@ -5,7 +5,7 @@ use DB;
 trait AgentDeposits {
     
 
-    public function getAgentDeposits($request,$type,$format) {
+    public function getAgentDeposits($request,$format) {
     
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
@@ -49,12 +49,7 @@ trait AgentDeposits {
                         ;
 
         
-        if($type == 'pending'){
-            $data->where('ad.status',config('defaults.agent_deposit_status')['pending']);
-        }else{
-            $data->where('ad.status','!=',config('defaults.agent_deposit_status')['pending']);
-        }
-
+     
         if($format == 'excel'){
             return $data->get();
         }

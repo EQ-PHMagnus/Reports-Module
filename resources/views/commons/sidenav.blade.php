@@ -53,19 +53,19 @@
             @endcan
 
             @can('manage agents')
-            <li class="site-menu-item {{request()->route()->named('agents.index') ?  'active' : ''}}">
+            <!-- <li class="site-menu-item {{request()->route()->named('agents.index') ?  'active' : ''}}">
                 <a class="animsition-link" href="{{route('agents.index')}}">
                     <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i>
-                    <span class="site-menu-title">Agents</span>
+                    <span class="site-menu-title">Agent List</span>
                 </a>
-            </li>
+            </li> -->
             @endcan
            
   
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-users" aria-hidden="true"></i>
-                    <span class="site-menu-title">Players</span>
+                    <span class="site-menu-title">Players Transactions</span>
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub">
@@ -82,22 +82,12 @@
             </li>
          
             @can('manage super agent cash ins')
-            <li class="site-menu-item has-sub">
-                <a href="javascript:void(0)">
-                    <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i>
-                    <span class="site-menu-title">Agent Deposits</span>
-                    <span class="site-menu-arrow"></span>
+     
+            
+            <li class="site-menu-item {{request()->is('raven/agent-deposits') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('raven/agent-deposits')}}">
+                    <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Agent Deposits</span>
                 </a>
-                <ul class="site-menu-sub">
-                @forelse(config('constants.menu.agent-deposits') as $key => $val)
-                    <li class="site-menu-item ">
-                        <a class="animsition-link" href="{{route($val['url'])}}">
-                            <span class="site-menu-title">{{$val['nav_title']}}</span>
-                        </a>
-                    </li>
-                @empty
-                @endforelse
-                </ul>
             </li>
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">

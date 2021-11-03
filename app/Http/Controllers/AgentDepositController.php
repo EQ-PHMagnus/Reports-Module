@@ -16,46 +16,60 @@ class AgentDepositController extends Controller
      */
     public function index(Request $request)
     {
-        //
-    }
 
-    public function pending(Request $request)
-    {
-        $type = 'pending';
         if(request()->ajax()){
-            $result = $this->getAgentDeposits($request,$type,null); 
+            $result = $this->getAgentDeposits($request,null); 
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
-            $exportFileName = '_Agent_Deposits_Pending_Reports.xlsx';
-            return exportFiles($exportQuery,$exportFileName);
-        }
-        // render components
-        $data = config('constants.menu.agent-deposits')[$type];
-        return view('agent-deposits.index',compact('data'));
-    }
-
-    public function processed(Request $request)
-    {
-        $type = 'processed';
-        if(request()->ajax()){
-            $result = $this->getAgentDeposits($request,$type,null); 
-            return response()->json($result);
-        }
-        // export file
-        $export = $request->input('export',false);
-        if($export === 'true'){
-            $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
+            $exportQuery    = $this->getAgentDeposits($request,'excel');
             $exportFileName = '_Agent_Deposits_Processed_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
         // render components
-        $data = config('constants.menu.agent-deposits')[$type];
+        $data = config('constants.menu.agent-deposits');
         return view('agent-deposits.index',compact('data'));
     }
+
+    // public function pending(Request $request)
+    // {
+    //     $type = 'pending';
+    //     if(request()->ajax()){
+    //         $result = $this->getAgentDeposits($request,$type,null); 
+    //         return response()->json($result);
+    //     }
+    //     // export file
+    //     $export = $request->input('export',false);
+    //     if($export === 'true'){
+    //         $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
+    //         $exportFileName = '_Agent_Deposits_Pending_Reports.xlsx';
+    //         return exportFiles($exportQuery,$exportFileName);
+    //     }
+    //     // render components
+    //     $data = config('constants.menu.agent-deposits')[$type];
+    //     return view('agent-deposits.index',compact('data'));
+    // }
+
+    // public function processed(Request $request)
+    // {
+    //     $type = 'processed';
+    //     if(request()->ajax()){
+    //         $result = $this->getAgentDeposits($request,$type,null); 
+    //         return response()->json($result);
+    //     }
+    //     // export file
+    //     $export = $request->input('export',false);
+    //     if($export === 'true'){
+    //         $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
+    //         $exportFileName = '_Agent_Deposits_Processed_Reports.xlsx';
+    //         return exportFiles($exportQuery,$exportFileName);
+    //     }
+    //     // render components
+    //     $data = config('constants.menu.agent-deposits')[$type];
+    //     return view('agent-deposits.index',compact('data'));
+    // }
 
     /**
      * Show the form for creating a new resource.

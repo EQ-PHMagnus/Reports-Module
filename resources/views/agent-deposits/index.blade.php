@@ -41,9 +41,7 @@
                                 <th  class="text-left" data-field="date_deposited">Date Deposited</th>
                                 <th  class="text-left" data-field="date_approved">Date Approved</th>
                                 <th  class="text-left" data-field="status">Status</th>
-                                @if($data['type'] == 'pending')
-                                <th  class="text-left" data-field="action">Action</th>
-                                @endif
+                             
                             </tr>
                         </thead>
                     </table>

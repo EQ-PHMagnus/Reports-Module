@@ -19,22 +19,22 @@ return [
                 'type'                  =>  'sum',
                 'url'                   =>  'total-amount-bets'
             ],
-            'total-count-bets-arena'    =>  [
-                'title'                 =>  'Total Bets Count per Arena ',
-                'nav_title'             =>  'Total Bets Count per Arena',
-                'content_title'         =>  'Total Count of Bets per Arena',
-                'type'                  =>  'sum',
-                'name'                  =>  'arena',
-                'url'                   =>  'total-count-bets-arena'
-            ],
-            'total-amount-bets-arena'   =>  [
-                'title'                 =>  'Total Bets Amount per Arena ',
-                'nav_title'             =>  'Total Bets Amount per Arena',
-                'content_title'         =>  'Total Amount of Bets per Arena',
-                'type'                  =>  'sum',
-                'name'                  =>  'arena',
-                'url'                   =>  'total-amount-bets-arena'
-            ],
+            // 'total-count-bets-arena'    =>  [
+            //     'title'                 =>  'Total Bets Count per Arena ',
+            //     'nav_title'             =>  'Total Bets Count per Arena',
+            //     'content_title'         =>  'Total Count of Bets per Arena',
+            //     'type'                  =>  'sum',
+            //     'name'                  =>  'arena',
+            //     'url'                   =>  'total-count-bets-arena'
+            // ],
+            // 'total-amount-bets-arena'   =>  [
+            //     'title'                 =>  'Total Bets Amount per Arena ',
+            //     'nav_title'             =>  'Total Bets Amount per Arena',
+            //     'content_title'         =>  'Total Amount of Bets per Arena',
+            //     'type'                  =>  'sum',
+            //     'name'                  =>  'arena',
+            //     'url'                   =>  'total-amount-bets-arena'
+            // ],
         ],
 
         'fights' => [
@@ -45,31 +45,36 @@ return [
                     'type'                  =>  'count',
                     'url'                   =>  'total-count-fights'
                 ],
-                'total-count-fights-arena'    =>  [
-                    'title'                 =>  'Total Fights Count per Arena ',
-                    'nav_title'             =>  'Total Fights Count per Arena ',
-                    'content_title'         =>  'Total Count of Fights per Arena',
-                    'type'                  =>  'count',
-                    'name'                  =>  'arena',
-                    'url'                   =>  'total-count-fights-arena'
-                ],
+                // 'total-count-fights-arena'    =>  [
+                //     'title'                 =>  'Total Fights Count per Arena ',
+                //     'nav_title'             =>  'Total Fights Count per Arena ',
+                //     'content_title'         =>  'Total Count of Fights per Arena',
+                //     'type'                  =>  'count',
+                //     'name'                  =>  'arena',
+                //     'url'                   =>  'total-count-fights-arena'
+                // ],
 
         ],
         'agent-deposits' => [
-            'pending'    =>  [
-                'title'                 =>  'Agent Deposits Pending',
-                'nav_title'             =>  'Pending',
-                'content_title'         =>  'Pending List',
-                'type'                  =>  'pending',
-                'url'                   =>  'agent-deposits.pending'
-            ],
-            'processed'    =>  [
-                'title'                 =>  'Agent Deposits Processed',
-                'nav_title'             =>  'Processed',
-                'content_title'         =>  'Processed List',
-                'type'                  =>  'processed',
-                'url'                   =>  'agent-deposits.processed'
-            ],
+            'title'                 =>  'Agent Deposits Pending',
+            'nav_title'             =>  'Pending',
+            'content_title'         =>  'Pending List',
+            'type'                  =>  'pending',
+            'url'                   =>  'agent-deposits.pending'
+            // 'pending'    =>  [
+            //     'title'                 =>  'Agent Deposits Pending',
+            //     'nav_title'             =>  'Pending',
+            //     'content_title'         =>  'Pending List',
+            //     'type'                  =>  'pending',
+            //     'url'                   =>  'agent-deposits.pending'
+            // ],
+            // 'processed'    =>  [
+            //     'title'                 =>  'Agent Deposits Processed',
+            //     'nav_title'             =>  'Processed',
+            //     'content_title'         =>  'Processed List',
+            //     'type'                  =>  'processed',
+            //     'url'                   =>  'agent-deposits.processed'
+            // ],
 
         ],
         'agent-commissions' => [
@@ -92,21 +97,21 @@ return [
         'players' => [
             'earnings'    =>  [
                 'title'                 =>  'Players Report',
-                'nav_title'             =>  'Players Earnings Transaction',
+                'nav_title'             =>  ' Earnings ',
                 'content_title'         =>  'Players Earnings Transaction Reports',
                 'type'                  =>  'earnings',
                 'url'                   =>  'players.earnings'
             ],
             'cash_in'    =>  [
                 'title'                 =>  'Players Report',
-                'nav_title'             =>  'Players Cash in Transaction',
+                'nav_title'             =>  ' Cash in ',
                 'content_title'         =>  'Players Cash in Transaction Reports',
                 'type'                  =>  'cash_in',
                 'url'                   =>  'players.cash_in'
             ],
             'cash_out'    =>  [
                 'title'                 =>  'Players Report',
-                'nav_title'             =>  'Players Cash out Transaction',
+                'nav_title'             =>  ' Cash out ',
                 'content_title'         =>  'Players Cash out Transaction Reports',
                 'type'                  =>  'cash_out',
                 'url'                   =>  'players.cash_out'
