@@ -27,6 +27,15 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
+                @if(!auth()->check())
+                <a href="{{route('login')}}" class="inline-flex items-center mr-2 px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-900 disabled:opacity-25 transition ease-in-out duration-150">
+                    Back to login
+                </a>
+                @else
+                    <a href="{{url()->previous()}}" class="inline-flex items-center mr-2 px-4 py-2 bg-gray-300 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-900 disabled:opacity-25 transition ease-in-out duration-150">
+                        Go Back
+                    </a>
+                @endif
                 <x-button>
                     {{ __('Email Password Reset Link') }}
                 </x-button>

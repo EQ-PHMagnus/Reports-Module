@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return Redirect::route('raven.login');
+        return Redirect::route('login');
     }
 
     /**

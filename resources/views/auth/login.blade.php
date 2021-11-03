@@ -13,14 +13,14 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
 
-        <form method="POST" action="{{ route('raven.login') }}" autocomplete="off">
+        <form method="POST" action="{{ route('login') }}" autocomplete="off">
             @csrf
 
-            <!-- Username -->
+            <!-- Email -->
             <div>
-                <x-label for="username" :value="__('Username')" />
+                <x-label for="email" :value="__('Email')" />
 
-                <x-input id="username" class="block mt-1 w-full rounded-md focus:outline-none ring-2 ring-blue-900" type="text" name="username" :value="old('username')" required autofocus autocomplete="off"/>
+                <x-input id="email" class="block mt-1 w-full rounded-md focus:outline-none ring-2 ring-blue-900" type="text" name="email" :value="old('email')" required autofocus autocomplete="off"/>
             </div>
 
             <!-- Password -->
@@ -45,9 +45,9 @@
 
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <!-- <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
-                    </a> -->
+                    </a>
                 @endif
 
                 <x-button class="ml-3 bg-blue-900">

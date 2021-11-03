@@ -49,12 +49,18 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
                             <span class="avatar avatar-online">
-                                <img src="../../global/portraits/5.jpg" alt="...">
+                                @php
+                                    $params = [
+                                        'name' => auth()->user()->name ?? 'Raven',
+                                        'background' => 'random'
+                                    ];
+                                @endphp
+                                <img src = "https://ui-avatars.com/api/?{{http_build_query($params)}}" alt="...">
                                 <i></i>
                             </span>
                         </a>
                         <div class="dropdown-menu" role="menu">
-                            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-user" aria-hidden="true"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ route('password.request') }}" role="menuitem"><i class="icon wb-lock" aria-hidden="true"></i> Change password</a>
                             <div class="dropdown-divider" role="presentation"></div>
                             <a class="dropdown-item" href="{{route('raven.logout')}}" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
                         </div>
