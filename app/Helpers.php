@@ -38,3 +38,8 @@ function exportFiles($exportQuery,$exportFileName){
         ->download(Carbon\Carbon::now()->toDateString() . $exportFileName);
     
 }
+
+function can($permissions = [], $all = false) {
+	$function_name = $all ? 'hasAllPermissions' : 'hasAnyPermission';
+	return auth()->user()->{$function_name}($permissions);
+}

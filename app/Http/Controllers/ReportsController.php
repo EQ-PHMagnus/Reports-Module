@@ -36,7 +36,10 @@ class ReportsController extends Controller
                 return exportFiles($exportQuery,$exportFileName);
             }
             // render components
-            $data = config('constants.menu.bets')[$type];
+            $data['type'] = 'count';
+            if(str_contains($type,'amount') == true){
+                $data['type'] = 'sum';
+            }
             if($type == 'total-amount-bets-arena' || $type == 'total-count-bets-arena'){
                 return view('reports.arena.index',compact('data'));
             }
@@ -71,7 +74,10 @@ class ReportsController extends Controller
                 return exportFiles($exportQuery,$exportFileName);
              }
             // render components
-            $data = config('constants.menu.fights')[$type];
+            $data['type'] = 'count';
+            if(str_contains($type,'amount') == true){
+                $data['type'] = 'sum';
+            }
             if($type == 'total-amount-fights-arena' || $type == 'total-count-fights-arena'){
                 return view('reports.arena.index',compact('data'));
             }

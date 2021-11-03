@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th  class="text-left" data-field="date">Date </th>
-                        <th  class="text-left" data-field="{{$data['name'] ?? null}}">{{ucwords($data['name'] ?? null)}} </th>
+                        <th  class="text-left" data-field="arena">{{ucwords($data['name'] ?? null)}} </th>
                         <th  class="text-left" data-field="{{$data['type'] ?? null}}">{{ucwords($data['type'] ?? null)}}</th>
                     </tr>
                 </thead>

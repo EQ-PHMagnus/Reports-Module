@@ -114,7 +114,7 @@ trait Reports {
             default:
                 $groupDate = $collectionTable->groupBy('arena')->map(function($data,$year){
                     return $data->groupBy('month_and_year')->map(function($permonth){
-                        return [ 'count' => $permonth->count(), 'amount' => $permonth->sum('bet_amount')];
+                        return [ 'count' => $permonth->count(), 'sum' => $permonth->sum('bet_amount')];
                     });
                 });
                 // create array format to show date and count for table rows
@@ -193,7 +193,7 @@ trait Reports {
            
                 $groupDate = $collectionTable->groupBy('year')->map(function($data,$year){
                     return $data->groupBy('month_and_year')->map(function($permonth){
-                        return [ 'count' => $permonth->count(), 'amount' => $permonth->sum('bet_amount')];
+                        return [ 'count' => $permonth->count(), 'sum' => $permonth->sum('bet_amount')];
                     });
                 });
                 // create array format to show date and count for table rows
@@ -214,7 +214,7 @@ trait Reports {
                     });
                 });
                 $groupDate = $collectionTable->groupBy('year')->map(function($peryear){
-                    return [ 'count' => $peryear->count(), 'amount' => $peryear->sum('bet_amount')];
+                    return [ 'count' => $peryear->count(), 'sum' => $peryear->sum('bet_amount')];
                 });
                 // create array format to show date and count for table rows
                 foreach($groupDate as $key => $val){
@@ -228,7 +228,7 @@ trait Reports {
             default:
                 $groupDate = $collectionTable->groupBy('year')->map(function($data,$year){
                     return $data->groupBy('month_and_day')->map(function($perday){
-                        return [ 'count' => $perday->count(), 'amount' => $perday->sum('bet_amount')];
+                        return [ 'count' => $perday->count(), 'sum' => $perday->sum('bet_amount')];
                     });
                 }); 
                 // create array format to show date and count for table rows
