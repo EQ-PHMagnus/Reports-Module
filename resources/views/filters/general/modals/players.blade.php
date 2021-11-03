@@ -34,10 +34,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success btn-block btn-filter-search">Submit</button>
-                        <a @if(request()->route()->named('agent-commissions.super_agent'))
-                                href="{{route('agent-commissions.super_agent')}}" 
+                        <a @if(request()->route()->named('players.earnings'))
+                                href="{{route('players.earnings')}}" 
+                            @elseif(request()->route()->named('players.cash_in'))
+                                href="{{route('players.cash_in')}}" 
                             @else
-                                href="{{route('agent-commissions.agent')}}"
+                                href="{{route('players.cash_out')}}"
                             @endif
                         class="btn btn-secondary btn-block">Reset</a>
                     <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Close</button>
