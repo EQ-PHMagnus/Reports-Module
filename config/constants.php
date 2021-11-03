@@ -88,6 +88,31 @@ return [
                 'url'                   =>  'agent-commissions.agent'
             ],
 
+        ],
+        'players' => [
+            'earnings'    =>  [
+                'title'                 =>  'Players Report',
+                'nav_title'             =>  'Players Earnings Transaction',
+                'content_title'         =>  'Players Earnings Transaction Reports',
+                'type'                  =>  'earnings',
+                'url'                   =>  'players.earnings'
+            ],
+            'cash_in'    =>  [
+                'title'                 =>  'Players Report',
+                'nav_title'             =>  'Players Cash in Transaction',
+                'content_title'         =>  'Players Cash in Transaction Reports',
+                'type'                  =>  'cash_in',
+                'url'                   =>  'players.cash_in'
+            ],
+            'cash_out'    =>  [
+                'title'                 =>  'Players Report',
+                'nav_title'             =>  'Players Cash out Transaction',
+                'content_title'         =>  'Players Cash out Transaction Reports',
+                'type'                  =>  'cash_out',
+                'url'                   =>  'players.cash_out'
+            ],
+
+
         ]
     ]
 ];

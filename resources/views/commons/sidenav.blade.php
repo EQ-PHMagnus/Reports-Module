@@ -79,13 +79,27 @@
                 </a>
             </li>
             @endcan
-            {{--
-            <li class="site-menu-item {{request()->route()->named('players.index') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{route('players.index')}}">
+           
+  
+            <li class="site-menu-item has-sub">
+                <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-users" aria-hidden="true"></i>
                     <span class="site-menu-title">Players</span>
+                    <span class="site-menu-arrow"></span>
                 </a>
+                <ul class="site-menu-sub">
+                @forelse(config('constants.menu.players') as $key => $val)
+                    <li class="site-menu-item ">
+                        <a class="animsition-link" href="{{route($val['url'])}}">
+                            <span class="site-menu-title">{{$val['nav_title']}}</span>
+                        </a>
+                    </li>
+                @empty
+                @endforelse
+                </ul>
+
             </li>
+            {{--
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-file" aria-hidden="true"></i>

@@ -77,7 +77,13 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-    Route::resource('players', PlayerController::class);
+    // Route::resource('players', PlayerController::class);
+    Route::group(['prefix' => 'players'], function() {
+        Route::get('/players_earnings', [PlayerController::class, 'earnings'])->name('players.earnings');
+        Route::get('/players_cash_in', [PlayerController::class, 'cash_in'])->name('players.cash_in');
+        Route::get('/players_cash_out', [PlayerController::class, 'cash_out'])->name('players.cash_out');
+    });
+
 
 
     /*
