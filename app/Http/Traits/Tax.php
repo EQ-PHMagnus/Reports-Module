@@ -4,12 +4,12 @@ use DB;
 trait Tax {
 
 
-    public function getTax($request,$format){
+    public function getTax($request,$format,$tax = null){
 
         $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
         $limit              =    intval($request->input('limit', 10)); // pagination
         $offset             =    intval($request->input('offset', 0)); // pagination
-        $collectionTable    =    $this->getTaxData($request,'table'); 
+        $collectionTable    =    $this->getTaxData($request,'table',$tax); 
         $rows               =    []; // all array result to be display in data tables
         $yearCount          =    [];
         $monthYearCount     =    [];
@@ -243,9 +243,9 @@ trait Tax {
     }
 
    
-    public function getTaxData($request,$type){
+    public function getTaxData($request,$type,$tax = null){
 
-       
+
         $data = DB::table('bets as bet')
         ->leftJoin('fights as fight', 'fight.id', '=', 'bet.fight_id')
         ->leftJoin('arenas as arena', 'arena.id', '=', 'fight.arena_id')
@@ -264,6 +264,9 @@ trait Tax {
         ')
         ->whereNull('bet.deleted_at');
 
+        if($tax == 'final-tax'){
+            $data->where('result','WINNING');
+        }
 
         if($type == 'table'){
             
@@ -280,29 +283,47 @@ trait Tax {
             });
         }
 
-        $data = $this->getCollectionData($data);
+        $data = $this->getCollectionData($data,$tax);
         return $data;
     }
 
-    public function getCollectionData($data){
+    public function getCollectionData($data,$tax){
 
         $query       =    [];
         
         foreach($data->get() as $key => $val){
-            $query[$key] = [
-                'year'          => date('Y', strtotime($val->bet_date ?? $val->schedule ?? $val->schedule)),
-                'month'         => date('F', strtotime($val->bet_date ?? $val->schedule)),
-                'day'           => date('j', strtotime($val->bet_date ?? $val->schedule)),
-                'month_and_day' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)),
-                'month_and_year' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('Y', strtotime($val->bet_date ?? $val->schedule)),
-                'arena_and_year'=> $val->arena.','. date('Y', strtotime($val->bet_date ?? $val->schedule)),
-                'full_date'     => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)).','.date('Y', strtotime($val->bet_date ?? $val->schedule)),
-                'time'          => date('H:i:s', strtotime($val->bet_date ?? $val->schedule)),
-                'arena'         => $val->arena,
-                'fight_no'      => $val->fight_no,
-                "bet_amount"    => $val->amount ?? null,
-                "bet_date"      => $val->bet_date ?? $val->schedule,
-            ];
+           
+            if($tax == 'final-tax'){
+                $query[$key] = [
+                    'year'          => date('Y', strtotime($val->bet_date ?? $val->schedule ?? $val->schedule)),
+                    'month'         => date('F', strtotime($val->bet_date ?? $val->schedule)),
+                    'day'           => date('j', strtotime($val->bet_date ?? $val->schedule)),
+                    'month_and_day' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)),
+                    'month_and_year' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('Y', strtotime($val->bet_date ?? $val->schedule)),
+                    'arena_and_year'=> $val->arena.','. date('Y', strtotime($val->bet_date ?? $val->schedule)),
+                    'full_date'     => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)).','.date('Y', strtotime($val->bet_date ?? $val->schedule)),
+                    'time'          => date('H:i:s', strtotime($val->bet_date ?? $val->schedule)),
+                    'arena'         => $val->arena,
+                    'fight_no'      => $val->fight_no,
+                    "bet_amount"    => $val->prize ?? null,
+                    "bet_date"      => $val->bet_date ?? $val->schedule,
+                ];
+            }else{
+                $query[$key] = [
+                    'year'          => date('Y', strtotime($val->bet_date ?? $val->schedule ?? $val->schedule)),
+                    'month'         => date('F', strtotime($val->bet_date ?? $val->schedule)),
+                    'day'           => date('j', strtotime($val->bet_date ?? $val->schedule)),
+                    'month_and_day' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)),
+                    'month_and_year' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('Y', strtotime($val->bet_date ?? $val->schedule)),
+                    'arena_and_year'=> $val->arena.','. date('Y', strtotime($val->bet_date ?? $val->schedule)),
+                    'full_date'     => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)).','.date('Y', strtotime($val->bet_date ?? $val->schedule)),
+                    'time'          => date('H:i:s', strtotime($val->bet_date ?? $val->schedule)),
+                    'arena'         => $val->arena,
+                    'fight_no'      => $val->fight_no,
+                    "bet_amount"    => $val->amount ?? null,
+                    "bet_date"      => $val->bet_date ?? $val->schedule,
+                ];
+            }
         }
         $collection = collect($query);
         return $collection;

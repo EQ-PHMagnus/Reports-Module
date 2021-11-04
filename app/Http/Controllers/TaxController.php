@@ -97,7 +97,7 @@ class TaxController extends Controller
     public function finalTaxesWinnings(request $request){
         try{
             if(request()->ajax()){
-                $result = $this->getTax($request,null); 
+                $result = $this->getTax($request,null,'final-tax'); 
                 return response()->json($result);
             }
             // export file
