@@ -23,9 +23,9 @@ return [
         ],
         'agent-commissions' => [
             'super_agent'    =>  [
-                'title'                 =>  'Super Agent Commisions',
-                'nav_title'             =>  'Super Agent',
-                'content_title'         =>  'Super Agent Commission List',
+                'title'                 =>  'Master Agent Commisions',
+                'nav_title'             =>  'Master Agent',
+                'content_title'         =>  'Master Agent Commission List',
                 'type'                  =>  'super_agent',
                 'url'                   =>  'agent-commissions.super_agent'
             ],
