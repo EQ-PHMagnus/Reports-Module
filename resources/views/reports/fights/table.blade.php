@@ -1,6 +1,6 @@
 <div class="card card-shadow" >
     <div class="card-header text-center bg-primary">
-        {{$data['content_title'] ?? null}}
+        Total Fights Data
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th  class="text-left" data-field="date">Date </th>
-                        <th  class="text-left" data-field="{{$data['type'] ?? null}}">{{ucwords($data['type'] ?? null)}}</th>
+                        <th  class="text-left" data-field="count">Count</th>
                     </tr>
                 </thead>
             </table>

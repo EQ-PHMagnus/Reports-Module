@@ -1,7 +1,10 @@
 <?php
 
 return [
-	'system-users' => ['finance user' ,'master cashier','finance admin'],
+	'system-users' => [
+		'finance user' ,
+		// 'master cashier',
+		'finance admin'],
 	'affiliates' => ['agent','super agent'],
 	'agent_levels' => [1,2,3,4],
 	'arena-status' => ['active', 'inactive'],

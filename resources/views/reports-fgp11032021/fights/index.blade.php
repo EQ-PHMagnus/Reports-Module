@@ -1,10 +1,10 @@
 @extends('commons.layout')
 @section('title')
-Total Fights
+{{$data['title'] ?? null}}
 @endsection
 
 @section('page-title')
-Total Fights
+{{$data['title'] ?? null}}
 @endsection
 @push('css')
 <link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
@@ -13,14 +13,17 @@ Total Fights
 @endpush
 @section('breadcrumbs')
 <li class="breadcrumb-item breadcrumb-arrow">Reports</li>
-<li class="breadcrumb-item active">Total Fights</li>
+<li class="breadcrumb-item active">{{$data['title'] ?? null}}</li>
 @endsection
 
 @section('page-content')
 @include('filters.finance.filter-date')
 <div class="row" data-plugin="matchHeight" data-by-row="true">
-    <div class="col-xxl-12 col-lg-12  div-table">
+    <div class="col-xxl-6 col-lg-6  div-table">
         @include('reports.fights.table')
+    </div>
+    <div class="col-xxl-6 col-lg-6  div-chart">
+        @include('reports.fights.chart')
     </div>
 </div>
 @endsection

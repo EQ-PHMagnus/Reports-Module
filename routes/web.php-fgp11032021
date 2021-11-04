@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AgentController;
-use App\Http\Controllers\MasterAgentDepositController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\FightController;
 use App\Http\Controllers\BetController;
@@ -103,8 +102,8 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('total-fights', [ReportsController::class, 'totalFights'])->name('reports.total-fights');
-    Route::get('total-bets', [ReportsController::class, 'totalBets'])->name('reports.total-bets');
+    Route::get('/fights/{type}', [ReportsController::class, 'fights'])->name('reports.bets.fights');
+    Route::get('/bets/{type}', [ReportsController::class, 'bets'])->name('reports.bets.bets');
 
 
     /*
@@ -132,22 +131,15 @@ Route::prefix('raven')
     |--------------------------------------------------------------------------
     |
     */
-    Route::resource('agent-deposits', AgentDepositController::class)->names([
-        'index' => 'agent-deposits.index'
-    ]);
+    // Route::group(['prefix' => 'agent-deposits'], function() {
+        Route::resource('agent-deposits', AgentDepositController::class)->names([
+            'index' => 'agent-deposits.index'
+        ]);
+        // Route::get('/pending', [AgentDepositController::class, 'pending'])->name('agent-deposits.pending');
+        // Route::put('/pending/{id}', [AgentDepositController::class, 'update'])->name('agent-deposits.update');
+        // Route::get('/processed', [AgentDepositController::class, 'processed'])->name('agent-deposits.processed');
+    // });
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Master Agent Deposits
-    |--------------------------------------------------------------------------
-    |
-    */
-    Route::resource('master-agent-deposits', MasterAgentDepositController::class)->names([
-        'index' => 'master-agent-deposits.index'
-    ]);
-
-      
      /*
     |--------------------------------------------------------------------------
     | Agent Commissions

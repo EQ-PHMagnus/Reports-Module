@@ -16,10 +16,11 @@
 @section('page-content')
 <div class="row">
     <div class="col">
+        @include('filters.general.filter-table')
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">{{$data['content_title'] ?? null}}</h3>
-                @include('filters.general.filter-table')
+             
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -47,5 +48,4 @@
         </div>
     </div>
 </div>
-@include('filters.general.modals.agent-commissions')
 @endsection

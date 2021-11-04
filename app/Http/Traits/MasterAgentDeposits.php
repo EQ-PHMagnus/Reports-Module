@@ -2,11 +2,11 @@
 namespace App\Http\Traits;
 use DB;
 
-trait AgentDeposits {
+trait MasterAgentDeposits {
     
 
-    public function getAgentDeposits($request,$format) {
-       
+    public function getMasterAgentDeposits($request,$format) {
+    
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
@@ -33,7 +33,7 @@ trait AgentDeposits {
                             ->orWhere('source_details', 'like' ,'%'.$search.'%');
                         })
                         ->when($amount, function($query,$amount){
-                            return $query->where('ad.amount' , '<=' ,$amount);
+                            return $query->where('amount' , '<=' ,$amount);
                         })
                         ->when($from, function ($query , $from) use ($to) {
                             return $query->whereBetween('ad.date_deposited', [$from, $to]);
@@ -44,7 +44,7 @@ trait AgentDeposits {
                         ->when($stat, function($query,$stat){
                             return $query->where('status', $stat);
                         })
-                        // ->where('role', 'Super Agent')
+                        ->where('status','!=', 'pending')
                         // ->whereNull('ad.deleted_at')
                         ;
 

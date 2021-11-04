@@ -16,10 +16,10 @@
 @section('page-content')
 <div class="row">
     <div class="col">
+        @include('filters.general.filter-table')
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">{{$data['content_title'] ?? null}}</h3>
-                @include('filters.general.filter-table')
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -38,10 +38,10 @@
                                 <th class="text-left" data-field="agent_level"  class="text-center">Agent Level</th>
                                 <th class="text-left" data-field="player_account" >Player Account</th> -->
                                 <th class="text-left" data-field="player_name" >Player Name</th>
-                                <th class="text-left" data-field="bday" >Birthday</th>
-                                <th class="text-left" data-field="current_credits"  class="text-center">Current Credits</th>
+                                <!-- <th class="text-left" data-field="bday" >Birthday</th> -->
+                                <th class="text-left" data-field="current_credits"  class="text-center">Credits</th>
                                 <th class="text-left" data-field="phone_no" >Phone Number</th>
-                                <th class="text-left" data-field="joined_date" >Joined Date</th>
+                                <th class="text-left" data-field="transaction_date" >Transaction Date</th>
                                 <!-- <th class="text-left" data-field="actions" >Actions</th> -->
                             </tr>
                         </thead>
@@ -51,5 +51,4 @@
         </div>
     </div>
 </div>
-@include('filters.general.modals.players')
 @endsection

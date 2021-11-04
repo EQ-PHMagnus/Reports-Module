@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'agent_id' => $agent_id ?? 2,
             // 'nickname' => $this->faker->firstName(),
             'username' => strtolower($this->faker->numerify($this->faker->firstName() . '#####')),
+            'email' => $this->faker->unique()->email,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'mobile_number' => '09' . $this->faker->randomDigit() . $this->faker->ean8(), 
             'points' => $this->faker->numberBetween($min = 100, $max = 999999) , 

@@ -22,11 +22,11 @@
                             <input type="number" class="form-control filters" name="max_amount" placeholder="0.00" value="{{request('amount')}}" autocomplete="off">
                         </div>
                         <div class="form-group col-12">
-                            <label>Joined Date From</label>
+                            <label>Transaction Date From</label>
                             <input type="date" class="form-control filters" name="from" value="{{request()->input('from',\Carbon\Carbon::now()->subYear()->format('Y-m-d'))}}" autocomplete="off">
                         </div>
                         <div class="form-group col-12">
-                            <label>Joined Date To</label>
+                            <label>Transaction Date To</label>
                             <input type="date" class="form-control filters" name="to" value="{{request()->input('to',date('Y-m-d'))}}" autocomplete="off">
                         </div>
                       

@@ -51,7 +51,7 @@ class UserController extends Controller
         try{
             $validator = Validator::make($request->all(),[
                 'name' => 'required',
-                'username' => 'required|unique:users',
+                // 'username' => 'required|unique:users',
                 'email' => 'email',
                 'password' => 'required|min:4|confirmed',
                 'mobile_number' => 'digits:11',
@@ -116,14 +116,14 @@ class UserController extends Controller
         try{
             $validator = Validator::make($request->all(),[
                 'name' => 'required',
-                'username' => [
-                    'required',
-                    Rule::unique('users')->ignore($id),
-                ],
+                // 'username' => [
+                //     'required',
+                //     Rule::unique('users')->ignore($id),
+                // ],
                 'email' => 'email',
                 'password' => 'nullable|min:4|confirmed',
                 'mobile_number' => 'digits:11',
-                'role' => 'required',
+                // 'role' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -136,6 +136,8 @@ class UserController extends Controller
             $data = array_filter($validator->validated());
 
             $user = User::updateOrCreate(['id' => $id],$data);
+           
+
             $user->syncRoles([$request->role]);
 
             DB::commit();

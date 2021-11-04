@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AgentDeposit;
-use App\Http\Traits\AgentDeposits;
+use App\Http\Traits\MasterAgentDeposits;
 
-class AgentDepositController extends Controller
+class MasterAgentDepositController extends Controller
 {
-    use AgentDeposits;
+    use MasterAgentDeposits;
     /**
      * Display a listing of the resource.
      *
@@ -18,18 +18,18 @@ class AgentDepositController extends Controller
     {
 
         if(request()->ajax()){
-            $result = $this->getAgentDeposits($request,null); 
+            $result = $this->getMasterAgentDeposits($request,null); 
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getAgentDeposits($request,'excel');
-            $exportFileName = '_Agent_Deposits_Reports.xlsx';
+            $exportQuery    = $this->getMasterAgentDeposits($request,'excel');
+            $exportFileName = '_Master_Agent_Deposits_Processed_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
         // render components
-        $data = config('constants.menu.agent-deposits');
+        $data = config('constants.menu.master-agent-deposits');
         return view('agent-deposits.index',compact('data'));
     }
 

@@ -27,10 +27,10 @@ Edit User
                         <label>Name</label>
                         <input  type="text" class="form-control" placeholder="Enter Name" autocomplete="off" name="name" value="{{old('name',$user->name)}}">
                     </div>
-                    <div class="form-group col-md-6 col-xs-12">
+                    <!-- <div class="form-group col-md-6 col-xs-12">
                         <label>Username</label>
                         <input type="text" class="form-control" placeholder="Enter Username" autocomplete="off" name="username" value="{{old('username',$user->username)}}">
-                    </div>
+                    </div> -->
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Email</label>
                         <input type="text" class="form-control" placeholder="Enter Email" autocomplete="off" name="email" value="{{old('email',$user->email)}}">

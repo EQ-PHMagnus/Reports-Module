@@ -60,7 +60,7 @@ class AuthenticatedSessionController extends Controller
     public function handleRedirectToHome()
     {
         if(auth()->user()->can('view reports')){
-            return redirect()->route('reports.bets.bets','total-count-bets');
+            return redirect()->route('reports.total-bets','total-bets');
         }
 
         if(auth()->user()->can('manage users')){

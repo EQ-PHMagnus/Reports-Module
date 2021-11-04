@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLevelToUsers extends Migration
+class AddColumnToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class AddLevelToUsers extends Migration
      */
     public function up()
     {
-        if(!Schema::hasColumn('users','level')){
-            Schema::table('users', function (Blueprint $table) {
-                $table->integer('level')->nullable();
-            });
-        }
-
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('email')->after('username');
+        });
     }
 
     /**
@@ -29,7 +26,7 @@ class AddLevelToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('level')->nullable();
+            $table->string('email')->after('username');
         });
     }
 }

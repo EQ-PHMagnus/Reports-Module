@@ -8,7 +8,7 @@ trait Players {
     public function getPlayers($request,$type,$format) {
 
       
-        $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
+        $sort           = request()->input('sort') == "" ? 'transaction_date' : request()->input('sort');
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
         $min_amount     = request()->input('filters.min_amount');
@@ -23,12 +23,12 @@ trait Players {
                         user.dob,
                         trans.amount,
                         user.mobile_number,
-                        user.created_at')
+                        trans.transaction_date')
                         ->when($search, function($query,$search){
                             return $query->where('name', 'like' ,'%'.$search.'%');
                         })
                         ->when($from, function ($query , $from) use ($to) {
-                            return $query->whereBetween('trans.created_at', [$from, $to]);
+                            return $query->whereBetween('trans.transaction_date', [$from, $to]);
                         })
                         ->when($min_amount, function ($query , $min_amount) use ($max_amount) {
                             return $query->whereBetween('trans.amount', [$min_amount, $max_amount]);
@@ -63,7 +63,7 @@ trait Players {
                 'bday'                    => date('m-d-Y',strtotime($data->dob)),
                 'current_credits'         => $data->amount ? moneyFormat($data->amount): '',
                 'phone_no'                => $data->mobile_number,
-                'joined_date'             => date('m-d-Y',strtotime($data->created_at)),
+                'transaction_date'        => date('m-d-Y',strtotime($data->transaction_date)),
                 'actions' => ''
             ];
             
