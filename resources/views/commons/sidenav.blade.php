@@ -12,12 +12,38 @@
                 </a>
             </li>
 
-            <li class="site-menu-item {{request()->route()->named('dashboard.finance.tax-computations') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{route('dashboard.finance.tax-computations')}}">
+            <!-- TAX COMPUTAION REPORTS -->
+            <li class="site-menu-item {{request()->route()->named('tax.gross-receipts') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('tax.gross-receipts')}}">
                     <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
-                    <span class="site-menu-title">Tax Computations</span>
+                    <span class="site-menu-title">Gross Receipts from Bets</span>
                 </a>
             </li>
+            <li class="site-menu-item {{request()->route()->named('tax.total-GBR') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('tax.total-GBR')}}">
+                    <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                    <span class="site-menu-title">Total GBR Tax Reports</span>
+                </a>
+            </li>
+            <li class="site-menu-item {{request()->route()->named('tax.gross-commission') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('tax.gross-commission')}}">
+                    <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                    <span class="site-menu-title">Gross Commission Tax</span>
+                </a>
+            </li>
+            <li class="site-menu-item {{request()->route()->named('tax.net-commission') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('tax.net-commission')}}">
+                    <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                    <span class="site-menu-title">Net Commissions</span>
+                </a>
+            </li>
+            <li class="site-menu-item {{request()->route()->named('tax.final-taxes-winnings') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('tax.final-taxes-winnings')}}">
+                    <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                    <span class="site-menu-title">Final Taxes on Winnings</span>
+                </a>
+            </li>
+            <!-- END TAX COMPUTAION REPORTS -->
 
             <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
@@ -87,7 +113,6 @@
                     <i class="site-menu-icon wb-upload" aria-hidden="true"></i><span class="site-menu-title">Import Data</span>
                 </a>
             </li>
-            
             @endcan
 
            
