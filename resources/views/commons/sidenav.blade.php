@@ -45,7 +45,7 @@
             </li>
             <!-- END TAX COMPUTAION REPORTS -->
 
-            <li class="site-menu-item has-sub">
+            <li class="site-menu-item {{request()->is('raven/players/players_earnings') || request()->is('raven/players/players_cash_in') || request()->is('raven/players/players_cash_out') ?  'active' : ''}} has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-users" aria-hidden="true"></i>
                     <span class="site-menu-title">Players Transactions</span>
@@ -53,7 +53,7 @@
                 </a>
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.players') as $key => $val)
-                    <li class="site-menu-item ">
+                    <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
                         <a class="animsition-link" href="{{route($val['url'])}}">
                             <span class="site-menu-title">{{$val['nav_title']}}</span>
                         </a>

@@ -17,13 +17,10 @@ Net Commission Tax Reports
 @endsection
 
 @section('page-content')
-@include('filters.finance.filter-date')
+@include('filters.for-reports')
 <div class="row" data-plugin="matchHeight" data-by-row="true">
     <div class="col-xxl-12 col-lg-12">
         @include('tax.net-commission.table')
     </div>
 </div>
 @endsection
-@push('scripts')
-<script src="{{asset('app/js/finance/reports.js')}}"></script>
-@endpush

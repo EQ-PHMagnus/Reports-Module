@@ -28,7 +28,7 @@ function exportReports() {
     return location.href = window.location.href + '?' + $.param(params.data) + '&export=true';
 }
 
-// GENERAL FILTER
+// FOR LIST
 $(document).on('click','.btn-filter-search',function () {
     $('table[data-toggle="table"]').bootstrapTable('refresh');
 });

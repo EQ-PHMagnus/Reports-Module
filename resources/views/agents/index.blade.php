@@ -21,7 +21,7 @@ Agents Management
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">Agents List</h3>
-                @include('filters.general.filter-table')
+                @include('filters.for-list')
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
