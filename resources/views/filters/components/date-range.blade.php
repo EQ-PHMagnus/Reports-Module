@@ -1,0 +1,2 @@
+<input value="{{request()->input('from',\Carbon\Carbon::now()->subYear()->format('Y-m-d'))}}" class="float-left form-control col-md-2 mr-5 filters" type="date" name="from" value="{{request()->from}}">
+<input value="{{request()->input('to',date('Y-m-d'))}}" class="float-left form-control col-md-2 mr-5 filters" type="date" name="to" value="{{request()->to}}">

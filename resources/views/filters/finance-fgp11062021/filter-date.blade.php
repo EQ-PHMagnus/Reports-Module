@@ -9,8 +9,8 @@
                 <option selected value="monthly">MONTHLY</option>
                 <option value="yearly">YEARLY</option>
             </select>
-            <input value="{{date('2014-m-d')}}" class="float-left form-control col-md-2 mr-5 filters" type="date" name="from" value="{{request()->from}}">
-            <input value="{{date('Y-m-d')}}" class="float-left form-control col-md-2 mr-5 filters" type="date" name="to" value="{{request()->to}}">
+            <input value="{{request()->input('from',\Carbon\Carbon::now()->subYear()->format('Y-m-d'))}}"" class="float-left form-control col-md-2 mr-5 filters" type="date" name="from" value="{{request()->from}}">
+            <input value="{{request()->input('to',date('Y-m-d'))}}" class="float-left form-control col-md-2 mr-5 filters" type="date" name="to" value="{{request()->to}}">
             <button type="button" class="btn btn-round btn-outline btn-primary btn-filter">Filter</button>
             <button type="button" class="btn btn-round btn-outline btn-primary btn-filter-export"><i class="wb-download"></i> Export</button>
         </div>

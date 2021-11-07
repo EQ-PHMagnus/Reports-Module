@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FinanceController;
+// use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\MasterAgentDepositController;
@@ -52,11 +53,15 @@ Route::middleware(['auth'])
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
-    Route::get('/magnus-earnings', [FinanceController::class, 'magnusEarnings'])->name('dashboard.finance.magnus-earnings');
-    Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.agent-accounts');
-    Route::get('/tax-computations', [FinanceController::class, 'getTaxComputations'])->name('dashboard.finance.tax-computations');
-
+    // Route::get('/total-fights', [FinanceController::class, 'totalFights'])->name('dashboard.finance.total-fights');
+    // Route::get('/magnus-earnings', [FinanceController::class, 'magnusEarnings'])->name('dashboard.finance.magnus-earnings');
+    // Route::get('/super-agent-accounts', [FinanceController::class, 'superAgentAccounts'])->name('dashboard.finance.agent-accounts');
+    // Route::get('/tax-computations', [FinanceController::class, 'getTaxComputations'])->name('dashboard.finance.tax-computations');
+    Route::get('/gross-receipts', [TaxController::class, 'grossReceipts'])->name('tax.gross-receipts');
+    Route::get('/total-GBR', [TaxController::class, 'totalGBR'])->name('tax.total-GBR');
+    Route::get('/gross-commission', [TaxController::class, 'grossCommission'])->name('tax.gross-commission');
+    Route::get('/net-commission', [TaxController::class, 'netCommission'])->name('tax.net-commission');
+    Route::get('/final-taxes-winnings', [TaxController::class, 'finalTaxesWinnings'])->name('tax.final-taxes-winnings');
 
     /*
     |--------------------------------------------------------------------------

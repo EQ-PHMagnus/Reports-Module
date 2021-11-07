@@ -1,10 +1,10 @@
 @extends('commons.layout')
 @section('title')
-Total Fights
+Gross Commission Tax Reports
 @endsection
 
 @section('page-title')
-Total Fights
+Gross Commission Tax Reports
 @endsection
 @push('css')
 <link rel="stylesheet" href="{{asset('global/vendor/chartist/chartist.css')}}">
@@ -13,14 +13,14 @@ Total Fights
 @endpush
 @section('breadcrumbs')
 <li class="breadcrumb-item breadcrumb-arrow">Reports</li>
-<li class="breadcrumb-item active">Total Fights</li>
+<li class="breadcrumb-item active">Gross Commission Tax Reports</li>
 @endsection
 
 @section('page-content')
 @include('filters.for-reports')
 <div class="row" data-plugin="matchHeight" data-by-row="true">
-    <div class="col-xxl-12 col-lg-12  div-table">
-        @include('reports.fights.table')
+    <div class="col-xxl-12 col-lg-12">
+        @include('tax.gross-commission.table')
     </div>
 </div>
 @endsection
