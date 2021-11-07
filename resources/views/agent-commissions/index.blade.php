@@ -16,7 +16,7 @@
 @section('page-content')
 <div class="row">
     <div class="col">
-        @include('filters.general.filter-table')
+        @include('filters.for-list')
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">{{$data['content_title'] ?? null}}</h3>

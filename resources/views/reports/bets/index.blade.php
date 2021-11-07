@@ -17,18 +17,10 @@ Total Bets
 @endsection
 
 @section('page-content')
-@include('filters.finance.filter-date')
+@include('filters.for-reports')
 <div class="row" data-plugin="matchHeight" data-by-row="true">
     <div class="col-xxl-12 col-lg-12">
         @include('reports.bets.table')
     </div>
 </div>
 @endsection
-@push('scripts')
-<!-- <script src="{{asset('global/vendor/chartist/chartist.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.2/chartist-plugin-legend.js"></script>
-<script src="https://htmlstream.com/preview/nova-v1.2/assets/vendor/chartist-bar-labels/src/scripts/chartist-bar-labels.js"></script>
-<script src="https://htmlstream.com/preview/nova-v1.2/assets/vendor/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script> -->
-<script src="{{asset('app/js/finance/reports.js')}}"></script>
-@endpush
