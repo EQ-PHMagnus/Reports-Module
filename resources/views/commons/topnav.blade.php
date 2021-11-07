@@ -62,7 +62,7 @@
                         <div class="dropdown-menu" role="menu">
                             <a class="dropdown-item" href="{{ route('password.request') }}" role="menuitem"><i class="icon wb-lock" aria-hidden="true"></i> Change password</a>
                             <div class="dropdown-divider" role="presentation"></div>
-                            <a class="dropdown-item" href="{{route('raven.logout')}}" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
+                            <a class="dropdown-item" href="{{route('logout')}}" role="menuitem"><i class="icon wb-power" aria-hidden="true"></i> Logout</a>
                         </div>
                     </li>
                 </ul>

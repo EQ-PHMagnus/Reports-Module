@@ -13,9 +13,11 @@ class AddColumnToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('email')->after('username');
-        });
+        if(!Schema::hasColumn('users','email')){
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('email')->after('username');
+            });
+        }
     }
 
     /**

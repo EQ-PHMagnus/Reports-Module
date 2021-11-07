@@ -29,11 +29,10 @@ use App\Http\Controllers\AgentCommissionController;
 |
 */
 Route::view('/','landing');
-// Route::view('raven/login', 'auth.login')->name('raven.login');
+// Route::view('login', 'auth.login')->name('login');
 
 
-Route::prefix('raven')
-    ->middleware(['auth'])
+Route::middleware(['auth'])
     ->group(function(){
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +42,7 @@ Route::prefix('raven')
     */
     Route::get('/', [AuthenticatedSessionController::class, 'handleRedirectToHome']);
 
-    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('raven.logout');
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 

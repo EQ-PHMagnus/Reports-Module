@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('occupation')->nullable();
             $table->string('agent_code')->nullable();
             $table->text('address')->nullable();
-            $table->timestamp('dob');
+            $table->timestamp('dob')->nullable();
             $table->string('nationality')->nullable();
             $table->string('facebook')->nullable();
             $table->bigInteger('points')->default(0);

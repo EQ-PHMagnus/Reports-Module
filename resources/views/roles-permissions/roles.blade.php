@@ -36,13 +36,13 @@
 														<i class="icon wb-user " aria-hidden="true"></i><span class="role-name">{{$role->name}}</span>
 													</a>
 													<div class="btn-group float-right">
-														<button class="btn btn-icon btn-sm btn-pure assign-permission" title="Assign Permission" data-url="{{url('raven/roles-and-permissions/'.$role->id .'/edit')}}">
+														<button class="btn btn-icon btn-sm btn-pure assign-permission" title="Assign Permission" data-url="{{url('roles-and-permissions/'.$role->id .'/edit')}}">
 															<i class="icon wb-plus" aria-hidden="true"></i>
 														</button>
 														<button class="btn btn-icon btn-sm btn-pure edit-role" data-id="{{$role->id}}" data-name="{{$role->name}}" title="Change role name">
 															<i class="icon wb-edit" aria-hidden="true"></i>
 														</button>
-														<button class="btn btn-icon btn-sm btn-pure delete-role-btn" title="Remove role" data-url="{{ url('raven/roles-and-permissions/' . $role->id) }}">
+														<button class="btn btn-icon btn-sm btn-pure delete-role-btn" title="Remove role" data-url="{{ url('roles-and-permissions/' . $role->id) }}">
 															<i class="icon wb-trash" aria-hidden="true"></i>
 														</button>
 													</div>
@@ -91,7 +91,7 @@
 @endsection
 @push('scripts')
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script> const baseUrl = "{{asset('/raven/')}}";</script>
+	<script> const baseUrl = "{{asset('/')}}";</script>
 	<script src="{{asset('app/js/admin/users/roles.js')}}"></script>
 	<script src="{{asset('app/js/admin/users/users-management.js')}}"></script>
 @endpush

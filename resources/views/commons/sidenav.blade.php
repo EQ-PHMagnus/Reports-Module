@@ -1,13 +1,13 @@
 <div class="site-menubar">
         <ul class="site-menu">
             @can('view reports')
-            <li class="site-menu-item {{request()->is('raven/total-bets') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/total-bets')}}">
+            <li class="site-menu-item {{request()->is('total-bets') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('total-bets')}}">
                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i><span class="site-menu-title">Total Bets</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('raven/total-fights') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/total-fights')}}">
+            <li class="site-menu-item {{request()->is('total-fights') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('total-fights')}}">
                     <i class="site-menu-icon wb-flag" aria-hidden="true"></i><span class="site-menu-title">Total Fights</span>
                 </a>
             </li>
@@ -43,13 +43,13 @@
          
             @can('manage super agent cash ins')
 
-            <li class="site-menu-item {{request()->is('raven/agent-deposits') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/agent-deposits')}}">
+            <li class="site-menu-item {{request()->is('agent-deposits') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('agent-deposits')}}">
                     <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Agent Deposits</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('raven/master-agent-deposits') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/master-agent-deposits')}}">
+            <li class="site-menu-item {{request()->is('master-agent-deposits') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('master-agent-deposits')}}">
                     <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Master Agent Deposits</span>
                 </a>
             </li>
@@ -78,14 +78,14 @@
            
             @endcan
             @can('manage roles and permissions')
-            <li class="site-menu-item {{request()->is('raven/roles-and-permissions') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/roles-and-permissions')}}">
+            <li class="site-menu-item {{request()->is('roles-and-permissions') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('roles-and-permissions')}}">
                     <i class="site-menu-icon wb-user" aria-hidden="true"></i><span class="site-menu-title">Roles and permissions</span>
                 </a>
             </li>
 
-            <li class="site-menu-item {{request()->is('raven/import-data') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('raven/import-data')}}">
+            <li class="site-menu-item {{request()->is('import-data') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{url('import-data')}}">
                     <i class="site-menu-icon wb-upload" aria-hidden="true"></i><span class="site-menu-title">Import Data</span>
                 </a>
             </li>

@@ -6,6 +6,6 @@
 @section('message', __('Page Expired'))
 
 @section('action')
-<a href='{{route('raven.logout')}}'>Click  Here to login again..</a>
+<a href='{{route('logout')}}'>Click  Here to login again..</a>
 @endsection
 

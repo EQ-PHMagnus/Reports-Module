@@ -27,7 +27,7 @@
 					</header>
 					<div class="panel-body">
 
-						<form id="assign-permission-form" action="{{url('raven/roles-and-permissions/assign-permissions')}}" method="POST">
+						<form id="assign-permission-form" action="{{url('roles-and-permissions/assign-permissions')}}" method="POST">
 							<div class="wrap permissons-page">
 								{{csrf_field()}}
 								<select class="multi-select form-control" name="permissions[]" multiple='multiple' id="select-permisssions">
@@ -49,7 +49,7 @@
 								<button class="btn btn-primary btn-outline btn-sm" id="add-permission-btn" type="button">Add Permission</button>
 							</div>
 							<div class="col-md-6 text-right">
-								<a href="{{url('raven/roles-and-permissions')}}"class="btn btn-sm btn-outline btn-default" data-toggle="tooltip" data-title="Go back" aria-hidden="true">Back</a>
+								<a href="{{url('roles-and-permissions')}}"class="btn btn-sm btn-outline btn-default" data-toggle="tooltip" data-title="Go back" aria-hidden="true">Back</a>
 								<button class="btn btn-sm btn-outline btn-primary assign-permissions-btn" data-role-name="{{$role->name}}" id="" data-toggle="tooltip" data-title="Save assignment" aria-hidden="true">Save</button>
 							</div>
 						</div>

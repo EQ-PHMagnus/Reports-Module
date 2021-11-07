@@ -9,7 +9,7 @@
                 <h4 class="modal-title" >Add Modal</h4>
             </div>
             <div class="modal-body">
-                <form class="form" method="POST" action="{{url('raven/roles-and-permissions')}}" id="add-role-form">
+                <form class="form" method="POST" action="{{url('roles-and-permissions')}}" id="add-role-form">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label class="form-control-label" for="role_name">Role Name</label>
