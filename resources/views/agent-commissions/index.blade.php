@@ -16,7 +16,7 @@
 @section('page-content')
 <div class="row">
     <div class="col">
-        @include('filters.for-list')
+        @include('filters.for-reports')
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">{{$data['content_title'] ?? null}}</h3>
@@ -35,11 +35,15 @@
                         data-sort-order="desc">
                         <thead>
                             <tr>
-                                <th  class="text-left" data-field="name">Name </th>
+                                <!-- <th  class="text-left" data-field="name">Name </th>
                                 <th  class="text-left" data-field="commission">Commission</th>
                                 <th  class="text-left" data-field="amount">Amount</th>
                                 <th  class="text-left" data-field="commission_date">Commission Date</th>
-                                <th  class="text-left" data-field="level">Level</th>
+                                <th  class="text-left" data-field="level">Level</th> -->
+                                <th  class="text-left" data-field="date">Date </th>
+                                <th  class="text-left" data-field="count">Count</th>
+                                <th  class="text-left" data-field="commission">Total Commission</th>
+                                <th  class="text-left" data-field="sum">Amount</th>
                             </tr>
                         </thead>
                     </table>
