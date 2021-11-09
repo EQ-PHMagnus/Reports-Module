@@ -85,7 +85,7 @@ Route::middleware('auth','prevent-back-history')
     */
     // Route::resource('players', PlayerController::class);
     Route::group(['prefix' => 'players'], function() {
-        Route::get('/player_transactions', [PlayerController::class, 'getTransactionsData'])->name('players.transactions');
+        Route::get('/transactions', [PlayerController::class, 'getTransactionsData'])->name('players.transactions');
         // Route::get('/players_cash_in', [PlayerController::class, 'cash_in'])->name('players.cash_in');
         // Route::get('/players_cash_out', [PlayerController::class, 'cash_out'])->name('players.cash_out');
     });

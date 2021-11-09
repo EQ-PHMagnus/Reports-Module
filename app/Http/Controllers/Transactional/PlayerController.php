@@ -60,7 +60,7 @@ class PlayerController extends Controller
     // }
     
     /**
-     * Display transactional earnings.
+     * Display transactional data.
      *
      * @return \Illuminate\Http\Response
      */

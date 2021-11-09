@@ -71,14 +71,14 @@ class PlayerController extends Controller
         $export = $request->input('export',false);
         if($export === 'true'){
             $exportQuery    = $this->getPlayers($request, $type, 'excel');
-            $exportFileName = config('constants.menu.transactional-players')[$type]['export_filename'] ?? '';
+            $exportFileName = config('constants.menu.players')[$type]['export_filename'] ?? '';
             return exportFiles($exportQuery,$exportFileName);
         }
 
         // render components
-        $data = config('constants.menu.transactional-players')[$type];
+        $data = config('constants.menu.players')[$type];
 
-        return view('transactional.players.index',compact('data'));
+        return view('players.index',compact('data'));
     }
 
 

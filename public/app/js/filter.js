@@ -11,7 +11,6 @@ function dataRequest(params) {
     if(window.location.href.indexOf('?') > -1){
         operator = '&';
     }
-
     jQuery.get(loc.replace('#', '') + operator + $.param(params.data)).then(function(res) {
         params.success(res);
     });
@@ -26,8 +25,7 @@ function exportReports() {
         obj[$(this).attr('name')] = $(this).val();
     });
     params.data['filters'] = obj;
-    // return location.href = window.location.href + '?' + $.param(params.data) + '&export=true';
-    return location.href = window.location.href + $.param(params.data) + '&export=true';
+    return location.href = window.location.href + '?' + $.param(params.data) + '&export=true';
 }
 
 // FOR LIST
