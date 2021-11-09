@@ -120,8 +120,7 @@ trait AgentCommissions {
 
         $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
         $order      =    $request->input('order', 'desc');
-        $from       =    date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
-        $to         =    date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
+       
 
         $data   = DB::table('agent_commissions as ac')
         ->leftJoin('users as agent','agent.id', '=','ac.super_agent_id')
@@ -135,9 +134,7 @@ trait AgentCommissions {
         ac.type,
         ac.created_at')
        
-        ->when($from, function ($query , $from) use ($to) {
-            return $query->whereBetween('ac.commission_date', [$from, $to]);
-        })
+     
         ->when($sort, function($query, $sort) use ($order){
             return $query->orderBy('ac.'.$sort, $order);
         })
