@@ -28,6 +28,13 @@ function exportReports() {
     return location.href = window.location.href + '?' + $.param(params.data) + '&export=true';
 }
 
+function rowAttributes(row, index) {
+    console.log(row, index)
+    return {
+      'classes': 'money-format'
+    }
+  }
+
 // FOR LIST
 $(document).on('click','.btn-filter-search',function () {
     $('table[data-toggle="table"]').bootstrapTable('refresh');

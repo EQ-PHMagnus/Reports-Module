@@ -165,22 +165,21 @@
             @endcan
            
             @can('manage super agent cash ins')
-            <li class="site-menu-item {{request()->is('master-agent-deposits') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('master-agent-deposits')}}">
+            <li class="site-menu-item {{request()->is('transactional/master-agent-deposits') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('transactional.master-agent-deposits')}}">
                     <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Master Agent Deposits</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('agent-deposits') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('agent-deposits')}}">
+
+            <li class="site-menu-item {{request()->is('transactional/agent-deposits') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('transactional.agent-deposits', ['type' => $val['type']])}}">
                     <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Agent Deposits</span>
                 </a>
             </li>
-          
-            
                
-            @forelse(config('constants.menu.agent-commissions') as $key => $val)
+            @forelse(config('constants.menu.transactional-agent-commissions') as $key => $val)
                 <li class="site-menu-item {{request()->route()->named($val['url']) ?  'active' : ''}}">
-                    <a class="animsition-link" href="{{route($val['url'])}}">
+                    <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
                         <i class="site-menu-icon fa-user" aria-hidden="true"></i>
                         <span class="site-menu-title">{{$val['nav_title']}}</span>
                     </a>

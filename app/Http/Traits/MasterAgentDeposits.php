@@ -15,6 +15,8 @@ trait MasterAgentDeposits {
         $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
 
+        $searchable_cols = ['agent.name', 'ad.source'];
+
         $data   = DB::table('agent_deposits as ad')
                         ->leftJoin('users as agent','agent.id', '=','ad.agent_id')
                         ->selectRaw('agent.name as name,
@@ -43,6 +45,15 @@ trait MasterAgentDeposits {
                         })
                         ->when($stat, function($query,$stat){
                             return $query->where('status', $stat);
+                        })
+                        ->when($search, function($query, $search) use($searchable_cols) {
+                            $query->where(function($query) use ($searchable_cols, $search){
+                                foreach($searchable_cols as $i => $col){
+                                    $query->orWhere($col, 'like' ,'%'.$search.'%');
+                                }
+                                return $query;
+                              });
+                            return $query;
                         })
                         ->where('status','!=', 'pending')
                         // ->whereNull('ad.deleted_at')

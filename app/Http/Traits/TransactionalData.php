@@ -3,17 +3,31 @@ namespace App\Http\Traits;
 use DB;
 
 trait TransactionalData {
-    public function getBets($request,$format){
-        $type            = $request->input('filters.group') ?? $request->input('group');  // select type if daily/montly/yearly
-        $limit           = intval($request->input('limit', 10));                          // pagination
-        $offset          = intval($request->input('offset', 0));                          // pagination
-        $collectionTable = $this->getBetData($request, 'table');
-        $rows            = [];                                                            // all array result to be display in data tables
+    public function getTransactions($request, $format, $type = null){
+        $limit           = intval($request->input('limit', 10));  // pagination
+        $offset          = intval($request->input('offset', 0));  // pagination
         $sort            = request()->input('sort');
-        $order          = request()->input('order', 'desc');
+        $order           = request()->input('order', 'desc');
         $search          = request()->input('search') ?? '';
 
-        $searchable_cols = ['user.username', 'arena.name'];
+        switch($type) {
+            case 'bets':
+                $collectionTable = $this->getBetData($request);
+                $searchable_cols = ['user.username', 'arena.name'];
+            break;
+            case 'fights':
+                $collectionTable = $this->getFightsData($request);
+                $searchable_cols = ['arena.name'];
+            break;
+            case 'agent' || 'super_agent':
+                $collectionTable = $this->getAgentCommissionData($request, $type);
+                $searchable_cols = ['agent.name'];
+            break;
+            default:
+                $collectionTable = $this->getBetData($request);
+                $searchable_cols = ['user.username', 'arena.name'];
+            break;
+        }
 
         if($format == 'excel'){
             return $collectionTable->get();
@@ -29,7 +43,7 @@ trait TransactionalData {
             return $query;
         })
         ->when($sort, function($query, $sort) use ($order){
-            return $query->orderBy('trans.'.$sort, $order);
+            return $query->orderBy($sort, $order);
         });
 
         $countRows   = $collectionTable->count();
@@ -44,107 +58,8 @@ trait TransactionalData {
         ];
     }
 
-    // public function getFights($request,$format){
+    public function getBetData($request){
 
-    //     $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
-    //     $limit              =    intval($request->input('limit', 10)); // pagination
-    //     $offset             =    intval($request->input('offset', 0)); // pagination
-    //     $collectionTable    =    $this->getFightData($request,'table'); 
-    //     $rows               =    []; // all array result to be display in data tables
-    //     $yearCount          =    [];
-    //     $monthYearCount     =    [];
-    //     $yearAmount         =    [];
-    //     $monthYearAmount    =    [];
-
-    //     // filter collections group by daily/monthly/yearly
-    //     switch($type){
-    //         case 'daily':
-    //             $groupDate = $collectionTable->groupBy('arena')->map(function($data,$year){
-    //                 return $data->groupBy('full_date')->map(function($perday){
-    //                    return [ 'count' => $perday->count(), 'amount' => $perday->sum('bet_amount')];
-    //                 });
-    //             });   
-    //             // create array format to show date and count for table rows
-    //             foreach($groupDate as $key => $val){
-    //                 foreach($val as $keyDate => $valCount){
-                   
-    //                     $rows[] = [
-    //                         'date'  => $keyDate,
-    //                         'count' => $valCount['count'],
-    //                         'sum'   => '₱ '.number_format($valCount['amount'],2)
-    //                     ];
-    //                 }
-    //             }
-    //             break;
-    //         case 'monthly';
-
-           
-    //             $groupDate = $collectionTable->groupBy('year')->map(function($data,$year){
-    //                 return $data->groupBy('month_and_year')->map(function($permonth){
-    //                     return [ 'count' => $permonth->count(), 'amount' => $permonth->sum('bet_amount')];
-    //                 });
-    //             });
-    //             // create array format to show date and count for table rows
-    //             foreach($groupDate as $key => $val){
-    //                 foreach($val as $keyDate => $valCount){
-    //                     $rows[] = [
-    //                         'date'  => $keyDate,
-    //                         'count' => $valCount['count'] ?? null,
-    //                         'sum'   => '₱ '.number_format($valCount['amount'] ?? null,2)
-    //                     ];
-    //                 }
-    //             }
-    //             break;
-    //         case 'yearly';
-            
-    //             $groupDate = $collectionTable->groupBy('year')->map(function($peryear){
-    //                 return [ 'count' => $peryear->count(), 'amount' => $peryear->sum('bet_amount')];
-    //             });
-    //             // create array format to show date and count for table rows
-    //             foreach($groupDate as $key => $val){
-    //                 $rows[] = [
-    //                     'date'  => $key,
-    //                     'count' => $val['count'],
-    //                     'sum'   => '₱ '.number_format($val['amount'] ?? null,2)
-    //                 ];
-    //             }
-    //             break;
-    //         default:
-    //             $groupDate = $collectionTable->groupBy('year')->map(function($data,$year){
-    //                 return $data->groupBy('month_and_day')->map(function($perday){
-    //                     return [ 'count' => $perday->count(), 'amount' => $perday->sum('bet_amount')];
-    //                 });
-    //             }); 
-    //             // create array format to show date and count for table rows
-    //             foreach($groupDate as $key => $val){
-    //                 foreach($val as $keyDate => $valCount){
-    //                     $rows[] = [
-    //                         'date'  => $keyDate.', '.$key,
-    //                         'count' => $valCount['count'],
-    //                         'sum'   => '₱ '.number_format($valCount['amount'],2)
-    //                     ];
-    //                 }
-    //             }
-    //     }
-
-    //     if($format == 'excel'){
-    //         return $rows;
-    //     }
- 
-    //     //determine offset and limit of rows for pagination
-    //     $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
-    //     $countRows   = count($rows);
-
-    //     return [
-    //         'rows'                  =>   $result,
-    //         'total'                 =>   $countRows,
-    //         'totalNotFiltered'      =>   $countRows,
-    //     ];
-    // }
-
-    public function getBetData($request,$type){
-
-       
         $data = DB::table('bets as bet')
         ->leftJoin('fights as fight', 'fight.id', '=', 'bet.fight_id')
         ->leftJoin('arenas as arena', 'arena.id', '=', 'fight.arena_id')
@@ -165,74 +80,69 @@ trait TransactionalData {
             user.username as affiliate_name
         ')
         ->whereNull('bet.deleted_at');
-       
-        if($type == 'table'){
            
-            $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
-            $order      =    $request->input('order', 'desc');
-           
-            $data->when($sort, function($query, $sort) use ($order){
-                return $query->orderBy('bet.'.$sort, $order);
-            });
-            return $data;
-        }
-
-        $data = $this->getCollectionData($data);
-
+        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order      =    $request->input('order', 'desc');
+        
+        $data->when($sort, function($query, $sort) use ($order){
+            return $query->orderBy('bet.'.$sort, $order);
+        });
         return $data;
     }
 
-    public function getFightData($request,$type){
+    public function getFightsData($request){
 
-       
         $data = DB::table('fights as fight')
         ->leftJoin('arenas as arena', 'arena.id', '=', 'fight.arena_id')
         ->selectRaw('
             fight.schedule,
             arena.name as arena,
-            fight.fight_no as fight_no
+            fight.fight_no as fight_no,
+            fight.meron,
+            fight.meron_lb,
+            fight.meron_wt,
+            fight.meron_wb,
+            fight.wala,
+            fight.wala_lb,
+            fight.wala_wb,
+            fight.wala_wt
         ')
         ->whereNull('fight.deleted_at');
-
-        if($type == 'table'){
-            
-            $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
-            $order      =    $request->input('order', 'desc');
-         
-            $data->when($sort, function($query, $sort) use ($order){
-                return $query->orderBy('fight.'.$sort, $order);
-            });
-
-        }
-
-        $data = $this->getCollectionData($data);
-
+        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order      =    $request->input('order', 'desc');
+        
+        $data->when($sort, function($query, $sort) use ($order){
+            return $query->orderBy('fight.'.$sort, $order);
+        });
         return $data;
     }
 
-    public function getCollectionData($data){
+    public function getAgentCommissionData($request, $roleType){
+        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order      =    $request->input('order', 'desc');
+       
+        $data   = DB::table('agent_commissions as ac')
+            ->leftJoin('users as agent','agent.id', '=','ac.super_agent_id')
+            ->selectRaw('agent.name as name,
+            agent.role as role,
+            ac.id,
+            ac.commission,
+            ac.amount,
+            ac.commission_date,
+            ac.level,
+            ac.type,
+            ac.created_at')
+            ->when($sort, function($query, $sort) use ($order){
+                return $query->orderBy('ac.'.$sort, $order);
+            })
+            ->where('ac.type', str_replace('_', ' ', $roleType));
 
-        $query       =    [];
+        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order      =    $request->input('order', 'desc');
         
-        foreach($data->get() as $key => $val){
-            $query[$key] = [
-                'year'          => date('Y', strtotime($val->bet_date ?? $val->schedule ?? $val->schedule)),
-                'month'         => date('F', strtotime($val->bet_date ?? $val->schedule)),
-                'day'           => date('j', strtotime($val->bet_date ?? $val->schedule)),
-                'month_and_day' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)),
-                'month_and_year' => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('Y', strtotime($val->bet_date ?? $val->schedule)),
-                'arena_and_year'=> $val->arena.','. date('Y', strtotime($val->bet_date ?? $val->schedule)),
-                'full_date'     => date('F', strtotime($val->bet_date ?? $val->schedule)).' '.date('j', strtotime($val->bet_date ?? $val->schedule)).','.date('Y', strtotime($val->bet_date ?? $val->schedule)),
-                'time'          => date('H:i:s', strtotime($val->bet_date ?? $val->schedule)),
-                'arena'         => $val->arena,
-                'fight_no'      => $val->fight_no,
-                "bet_amount"    => $val->amount ?? null,
-                "bet_date"      => $val->bet_date ?? $val->schedule,
-            ];
-        }
-        $collection = collect($query);
-        return $collection;
+        $data->when($sort, function($query, $sort) use ($order){
+            return $query->orderBy('ac.'.$sort, $order);
+        });
+        return $data;
     }
-
-    
 }

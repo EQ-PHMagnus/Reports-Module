@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Transactional;
 
-use App\Models\Bet;
 use Illuminate\Http\Request;
-use App\Http\Requests\BetRequest;
-use App\Http\Traits\TransactionalData;
+use App\Models\AgentDeposit;
+use App\Http\Traits\MasterAgentDeposits;
 
-use DB;
-
-class BetController extends Controller
+class MasterAgentDepositController extends Controller
 {
-    use TransactionalData;
+    use MasterAgentDeposits;
     /**
      * Display a listing of the resource.
      *
@@ -19,22 +16,21 @@ class BetController extends Controller
      */
     public function index(Request $request)
     {
-        if(request()->ajax()){
 
-            $result = $this->getTransactions($request, null, 'bets');
-            
+        if(request()->ajax()){
+            $result = $this->getMasterAgentDeposits($request,null); 
             return response()->json($result);
         }
-
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getBets($request, 'excel');
-            $exportFileName = '_Bets_Reports.xlsx';
+            $exportQuery    = $this->getMasterAgentDeposits($request,'excel');
+            $exportFileName = '_Master_Agent_Deposits_Processed_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
-        
-        return view('transactional.bets.index');
+        // render components
+        $data = config('constants.menu.master-agent-deposits');
+        return view('transactional.agent-deposits.index',compact('data'));
     }
 
     /**
@@ -53,7 +49,7 @@ class BetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BetRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -61,10 +57,10 @@ class BetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bet  $bet
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Bet $bet)
+    public function show($id)
     {
         //
     }
@@ -72,10 +68,10 @@ class BetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bet  $bet
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bet $bet)
+    public function edit($id)
     {
         //
     }
@@ -84,21 +80,25 @@ class BetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bet  $bet
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BetRequest $request, Bet $bet)
+    public function update(Request $request, $id)
     {
-        //
+        try{  
+            AgentDeposit::find($id)->update(['status' => config('defaults.agent_deposit_status')[$request->type]]);
+        }catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()]);
+        } 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bet  $bet
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bet $bet)
+    public function destroy($id)
     {
         //
     }

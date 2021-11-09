@@ -190,35 +190,57 @@ Route::middleware('auth','prevent-back-history')
     |--------------------------------------------------------------------------
     |
     */
-
-    /*
-    |--------------------------------------------------------------------------
-    | Players
-    |--------------------------------------------------------------------------
-    |
-    */
-    Route::group(['prefix' => 'transactional/players'], function() {
-        Route::get('/player_transactions', [App\Http\Controllers\Transactional\PlayerController::class, 'getTransactionsData'])->name('transactional.players.transactions');
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Bets
-    |--------------------------------------------------------------------------
-    |
-    */
     Route::group(['prefix' => 'transactional'], function() {
-        Route::get('transactional-bets', [App\Http\Controllers\Transactional\BetController::class, 'index'])->name('transactional.bets');
-    });
+        /*
+        |--------------------------------------------------------------------------
+        | Players
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::group(['prefix' => 'players'], function() {
+            Route::get('/player_transactions', [App\Http\Controllers\Transactional\PlayerController::class, 'getTransactionsData'])->name('transactional.players.transactions');
+        });
+        /*
+        |--------------------------------------------------------------------------
+        | Bets
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('bets', [App\Http\Controllers\Transactional\BetController::class, 'index'])->name('transactional.bets');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Fights
-    |--------------------------------------------------------------------------
-    |
-    */
-    Route::group(['prefix' => 'transactional'], function() {
-        Route::get('transactional-fights', [App\Http\Controllers\Transactional\FightController::class, 'index'])->name('transactional.fights');
+        /*
+        |--------------------------------------------------------------------------
+        | Fights
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('fights', [App\Http\Controllers\Transactional\FightController::class, 'index'])->name('transactional.fights');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Master Agent Deposits
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('transactional-master-agent-deposits', [App\Http\Controllers\Transactional\MasterAgentDepositController::class, 'index'])->name('transactional.master-agent-deposits');
+    
+        /*
+        |--------------------------------------------------------------------------
+        | Agent Deposits
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::get('transactional-agent-deposits', [App\Http\Controllers\Transactional\AgentController::class, 'index'])->name('transactional.agent-deposits');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Agent Commissions
+        |--------------------------------------------------------------------------
+        |
+        */
+        Route::group(['prefix' => 'agent-commissions'], function() {
+            Route::get('/super-agent', [App\Http\Controllers\Transactional\AgentCommissionController::class, 'getAgentCommisions'])->name('transactional.agent-commissions');
+        });
     });
 });
 

@@ -7,19 +7,34 @@ use App\Models\Arena;
 use Illuminate\Http\Request;
 use App\Http\Requests\FightRequest;
 use DB;
+use App\Http\Traits\TransactionalData;
 
 class FightController extends Controller
 {
+    use TransactionalData;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $fights = Fight::with('arena')->orderBy('schedule')->paginate(10)->withQueryString();
+        if(request()->ajax()){
 
-        return view('transactional.fights.index',compact('fights'));
+            $result = $this->getTransactions($request, null, 'fights');
+            
+            return response()->json($result);
+        }
+
+        // export file
+        $export = $request->input('export',false);
+        if($export === 'true'){
+            $exportQuery    = $this->getFights($request, 'excel');
+            $exportFileName = '_Bets_Reports.xlsx';
+            return exportFiles($exportQuery,$exportFileName);
+        }
+
+        return view('transactional.fights.index');
     }
 
     /**

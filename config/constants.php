@@ -89,6 +89,26 @@ return [
                 'url'             => 'transactional.players.transactions',
                 'export_filename' => '_Players_Cash_out_Transactions_Reports'
             ],
-        ]
+        ],
+
+        'transactional-agent-commissions' => [
+            'super_agent'    =>  [
+                'title'           => 'Master Agent Commisions',
+                'nav_title'       => 'Master Agent Commisions',
+                'content_title'   => 'Master Agent Commission List',
+                'type'            => 'super_agent',
+                'url'             => 'transactional.agent-commissions',
+                'export_filename' => '_Super_Agent_Commissions_Reports.xlsx'
+            ],
+            'agent'    =>  [
+                'title'           => 'Agent Commisions',
+                'nav_title'       => 'Agent Commisions',
+                'content_title'   => 'Agent Commission List',
+                'type'            => 'agent',
+                'url'             => 'transactional.agent-commissions',
+                'export_filename' => '_Agent_Commissions_Reports.xlsx'
+            ],
+
+        ],
     ]
 ];
