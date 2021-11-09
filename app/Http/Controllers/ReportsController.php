@@ -15,6 +15,7 @@ class ReportsController extends Controller
 
     public function totalBets(Request $request){
         try{
+           
             if(request()->ajax()){
                 $result = $this->getBets($request,null); 
                 return response()->json($result);

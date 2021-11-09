@@ -272,14 +272,9 @@ trait Tax {
             
             $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
             $order      =    $request->input('order', 'desc');
-            $from       =    date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
-            $to         =    date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
-
+        
             $data->when($sort, function($query, $sort) use ($order){
                 return $query->orderBy('bet.'.$sort, $order);
-            })
-            ->when($from, function ($query , $from) use ($to) {
-                return $query->whereBetween('bet.bet_date', [$from, $to]);
             });
         }
 

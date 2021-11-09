@@ -1,4 +1,4 @@
-<div class="site-menubar">
+<div class="site-menubar sidenav">
         <ul class="site-menu">
             @can('view reports')
             <li class="site-menu-category">Reports</li>
