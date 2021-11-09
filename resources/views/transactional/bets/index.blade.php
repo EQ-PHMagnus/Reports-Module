@@ -1,10 +1,10 @@
 @extends('commons.layout')
 @section('title')
-{{$data['title'] ?? null}}
+Bets
 @endsection
 
 @section('page-title')
-{{$data['title'] ?? null}}
+Bets
 @endsection
 
 @section('breadcrumbs')
@@ -22,7 +22,7 @@
         @include('filters.for-list')
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">{{$data['content_title'] ?? null}}</h3>
+                <h3 class="panel-title">Bets</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -38,15 +38,17 @@
                         data-sort-order="desc">
                         <thead>
                             <tr>
-                                <!-- <th class="text-left" data-field="agent_code" >Agent Code</th>
-                                <th class="text-left" data-field="agent_level"  class="text-center">Agent Level</th>
-                                <th class="text-left" data-field="player_account" >Player Account</th> -->
-                                <th class="text-left" data-field="player_name" >Player Name</th>
-                                <!-- <th class="text-left" data-field="bday" >Birthday</th> -->
-                                <th class="text-left" data-field="current_credits"  class="text-center">Credits</th>
-                                <th class="text-left" data-field="phone_no" >Phone Number</th>
-                                <th class="text-left" data-field="transaction_date" data-sortable="true">Transaction Date</th>
-                                <!-- <th class="text-left" data-field="actions" >Actions</th> -->
+                                <th data-field="fight_schedule" data-sortable="true">Fight Schedule</th>
+                                <th data-field="fight_no">Fight no</th>
+                                <th data-field="arena">Arena</th>
+                                <th data-field="affiliate_name">Account</th>
+                                <th data-field="pick">Pick</th>
+                                <th data-field="fight_schedule">Odds</th>
+                                <th data-field="odds" class="text-center">Bet Amount</th>
+                                <th data-field="prize" class="text-center">Prize</th>
+                                <th data-field="result">Result</th>
+                                <th data-field="bet_date" data-sortable="true">Bet Date</th>
+                                <th data-field="result_date" data-sortable="true">Result Date</th>
                             </tr>
                         </thead>
                     </table>

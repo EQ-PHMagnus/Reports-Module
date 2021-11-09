@@ -200,6 +200,26 @@ Route::middleware('auth','prevent-back-history')
     Route::group(['prefix' => 'transactional/players'], function() {
         Route::get('/player_transactions', [App\Http\Controllers\Transactional\PlayerController::class, 'getTransactionsData'])->name('transactional.players.transactions');
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Bets
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::group(['prefix' => 'transactional'], function() {
+        Route::get('transactional-bets', [App\Http\Controllers\Transactional\BetController::class, 'index'])->name('transactional.bets');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fights
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::group(['prefix' => 'transactional'], function() {
+        Route::get('transactional-fights', [App\Http\Controllers\Transactional\FightController::class, 'index'])->name('transactional.fights');
+    });
 });
 
 require __DIR__.'/auth.php';

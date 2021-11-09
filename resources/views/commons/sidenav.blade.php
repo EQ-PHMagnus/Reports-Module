@@ -132,36 +132,35 @@
             <!-- TRANSACTIONAL -->
             @can('view reports')
             <li class="site-menu-category">TRANSACTIONAL</li>
-            <li class="site-menu-item {{request()->is('total-bets') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('total-bets')}}">
+            <li class="site-menu-item {{request()->is('transactional-bets') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('transactional.bets')}}">
                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i><span class="site-menu-title">Bets</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('total-fights') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{url('total-fights')}}">
+            <li class="site-menu-item {{request()->is('transactional-fights') ?  'active' : ''}}">
+                <a class="animsition-link" href="{{route('transactional.fights')}}">
                     <i class="site-menu-icon wb-flag" aria-hidden="true"></i><span class="site-menu-title">Fights</span>
                 </a>
             </li>
 
             <!-- END TAX COMPUTAION REPORTS -->
 
-            <li class="site-menu-item {{request()->is('players/players_earnings') || request()->is('players/players_cash_in') || request()->is('players/players_cash_out') ?  'active' : ''}} has-sub">
+            <li class="site-menu-item {{request()->is('transactional/players/player_transactions*') ?  'active' : ''}} has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-users" aria-hidden="true"></i>
                     <span class="site-menu-title">Players Transactions</span>
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub">
-                @forelse(config('constants.menu.transactional-players') as $key => $val)
-                    <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
-                        <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
-                            <span class="site-menu-title">{{$val['nav_title']}}</span>
-                        </a>
-                    </li>
-                @empty
-                @endforelse
+                    @forelse(config('constants.menu.transactional-players') as $key => $val)
+                        <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
+                            <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
+                                <span class="site-menu-title">{{$val['nav_title']}}</span>
+                            </a>
+                        </li>
+                    @empty
+                    @endforelse
                 </ul>
-
             </li>
             @endcan
            

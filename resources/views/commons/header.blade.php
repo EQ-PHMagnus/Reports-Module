@@ -29,8 +29,13 @@
     <link rel="stylesheet" href="{{asset('global/vendor/jquery-mmenu/jquery-mmenu.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/sweetalert2/dist/sweetalert2.min.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{asset('global/vendor/bootstrap-table/bootstrap-table.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('global/vendor/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.css')}}">
+
     <!-- Charts -->
     <link rel="stylesheet" href="{{asset('global/vendor/jvectormap/jquery-jvectormap.css')}}">
+    
 
 
     <!-- Fonts -->

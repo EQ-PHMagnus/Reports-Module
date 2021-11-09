@@ -34,3 +34,8 @@ $(document).on('click','.btn-filter-search',function () {
 });
 
 $(document).on('click', '.btn-filter-export', exportReports);
+
+// search
+$(document).on('keyup','.search input',function () {
+    $('table[data-toggle="table"]').bootstrapTable('refresh');
+});
