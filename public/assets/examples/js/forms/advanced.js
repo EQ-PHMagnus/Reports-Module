@@ -351,5 +351,10 @@
         source: countries
       });
     })();
-  })();
+  })(); // (function() {
+  //   $("#irs_6").ionRangeSlider({
+  //     values: ["zero","one","two","three","four","five","six","seven","eight","nine","ten"]
+  //   })
+  // })();
+
 });

@@ -16,7 +16,27 @@
   _jquery = babelHelpers.interopRequireDefault(_jquery);
   (0, _jquery.default)(document).ready(function ($$$1) {
     (0, _Site.run)();
-  });
+  }); // Example bootstrap v4b tooltip (popper.js)
+  // -----------------------------------------
+
+  (function () {
+    (0, _jquery.default)('[data-toggle="tooltip"]').tooltip();
+  })(); // Example bootstrap v4b popper.js
+  // -------------------------------
+
+
+  (function () {
+    (0, _jquery.default)('[data-toggle="popover"]').popover();
+  })();
+
+  (function () {
+    (0, _jquery.default)('.example-popover').popover({
+      container: 'body'
+    });
+  })(); // Example Webui Popover
+  // =====================
+
+
   var defaults = Plugin.getDefaults("webuiPopover"); // Example Webui Popover Pop with Table
   // ------------------------------------
 

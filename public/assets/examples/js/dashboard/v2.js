@@ -15,7 +15,8 @@
 
   _jquery = babelHelpers.interopRequireDefault(_jquery);
   (0, _jquery.default)(document).ready(function ($$$1) {
-    (0, _Site.run)(); // widget-linearea
+    (0, _Site.run)(); // Widget Linearea
+    // ---------------
 
     (function () {
       var linearea = new Chartist.Line('#widgetLinearea .ct-chart', {
@@ -50,7 +51,8 @@
           }
         }
       });
-    })(); // widget gmap
+    })(); // Widget Gmap
+    // -----------
 
 
     (function () {
