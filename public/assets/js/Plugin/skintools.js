@@ -32,7 +32,7 @@
       return path;
     };
 
-    var layout = 'mmenu';
+    var layout = 'base';
     var settingsName = "remark.".concat(layout, ".skinTools");
     var settings = localStorage.getItem(settingsName);
 

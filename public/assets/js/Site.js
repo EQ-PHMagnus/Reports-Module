@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define("/Site", ["exports", "jquery", "Base", "Menubar", "Sidebar", "PageAside", "GridMenu"], factory);
+    define("/Site", ["exports", "jquery", "Config", "Base", "Menubar", "GridMenu", "Sidebar", "PageAside"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("jquery"), require("Base"), require("Menubar"), require("Sidebar"), require("PageAside"), require("GridMenu"));
+    factory(exports, require("jquery"), require("Config"), require("Base"), require("Menubar"), require("GridMenu"), require("Sidebar"), require("PageAside"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.jQuery, global.Base, global.SectionMenubar, global.SectionSidebar, global.SectionPageAside, global.SectionGridMenu);
+    factory(mod.exports, global.jQuery, global.Config, global.Base, global.SectionMenubar, global.SectionGridMenu, global.SectionSidebar, global.SectionPageAside);
     global.Site = mod.exports;
   }
-})(this, function (_exports, _jquery, _Base2, _Menubar, _Sidebar, _PageAside, _GridMenu) {
+})(this, function (_exports, _jquery, _Config, _Base2, _Menubar, _GridMenu, _Sidebar, _PageAside) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -22,9 +22,9 @@
   _jquery = babelHelpers.interopRequireDefault(_jquery);
   _Base2 = babelHelpers.interopRequireDefault(_Base2);
   _Menubar = babelHelpers.interopRequireDefault(_Menubar);
+  _GridMenu = babelHelpers.interopRequireDefault(_GridMenu);
   _Sidebar = babelHelpers.interopRequireDefault(_Sidebar);
   _PageAside = babelHelpers.interopRequireDefault(_PageAside);
-  _GridMenu = babelHelpers.interopRequireDefault(_GridMenu);
   var DOC = document;
   var $DOC = (0, _jquery.default)(document);
   var $BODY = (0, _jquery.default)('body');
@@ -58,12 +58,11 @@
         this.polyfillIEWidth();
         this.initBootstrap();
         this.setupMenubar();
+        this.setupGridMenu();
         this.setupFullScreen();
         this.setupMegaNavbar();
         this.setupTour();
-        this.setupNavbarCollpase();
-        this.setupGridMenu(); // Dropdown menu setup
-        // ===================
+        this.setupNavbarCollpase(); // Dropdown menu setup ===================
 
         this.$el.on('click', '.dropdown-menu-media', function (e) {
           e.stopPropagation();
@@ -85,6 +84,9 @@
 
         switch (breakpoint) {
           case 'lg':
+            type = type || 'unfold';
+            break;
+
           case 'md':
           case 'sm':
             type = type || 'fold';
@@ -93,9 +95,29 @@
           case 'xs':
             type = 'hide';
             break;
+          // no default
         }
 
         return type;
+      }
+    }, {
+      key: "setDefaultState",
+      value: function setDefaultState() {
+        var defaultState = this.getDefaultState(); // menubar
+
+        this.menubar.change(defaultState.menubarType); // gridmenu
+
+        this.gridmenu.toggle(defaultState.gridmenu);
+      }
+    }, {
+      key: "getDefaultState",
+      value: function getDefaultState() {
+        var menubarType = this._getDefaultMeunbarType();
+
+        return {
+          menubarType: menubarType,
+          gridmenu: false
+        };
       }
     }, {
       key: "menubarType",
@@ -119,6 +141,7 @@
     }, {
       key: "initComponents",
       value: function initComponents() {
+        var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
         this.menubar = new _Menubar.default({
           $el: (0, _jquery.default)('.site-menubar')
         });
@@ -136,13 +159,7 @@
         }
 
         this.menubar.run();
-        this.gridmenu.run();
         this.sidebar.run();
-      }
-    }, {
-      key: "setDefaultState",
-      value: function setDefaultState() {
-        this.menubar.change(this._getDefaultMeunbarType());
       }
     }, {
       key: "getCurrentBreakpoint",
@@ -153,8 +170,7 @@
     }, {
       key: "initBootstrap",
       value: function initBootstrap() {
-        // Tooltip setup
-        // =============
+        // Tooltip setup =============
         $DOC.tooltip({
           selector: '[data-tooltip=true]',
           container: 'body'
@@ -170,23 +186,6 @@
           msViewportStyle.appendChild(DOC.createTextNode('@-ms-viewport{width:auto!important}'));
           DOC.querySelector('head').appendChild(msViewportStyle);
         }
-      }
-    }, {
-      key: "setupGridMenu",
-      value: function setupGridMenu() {
-        var self = this;
-        $DOC.on('click', '[data-toggle="gridmenu"]', function () {
-          var $this = (0, _jquery.default)(this);
-          var isOpened = self.gridmenu.isOpened;
-
-          if (isOpened) {
-            $this.addClass('active').attr('aria-expanded', true);
-          } else {
-            $this.removeClass('active').attr('aria-expanded', false);
-          }
-
-          self.gridmenu.toggle(!isOpened);
-        });
       }
     }, {
       key: "setupFullScreen",
@@ -206,6 +205,23 @@
             });
           }
         }
+      }
+    }, {
+      key: "setupGridMenu",
+      value: function setupGridMenu() {
+        var self = this;
+        $DOC.on('click', '[data-toggle="gridmenu"]', function () {
+          var $this = (0, _jquery.default)(this);
+          var isOpened = self.gridmenu.isOpened;
+
+          if (isOpened) {
+            $this.addClass('active').attr('aria-expanded', true);
+          } else {
+            $this.removeClass('active').attr('aria-expanded', false);
+          }
+
+          self.gridmenu.toggle(!isOpened);
+        });
       }
     }, {
       key: "setupMegaNavbar",
@@ -246,7 +262,7 @@
       value: function setupMenubar() {
         var _this2 = this;
 
-        (0, _jquery.default)(document).on('click', '[data-toggle="menubar"]', function () {
+        (0, _jquery.default)(document).on('click', '[data-toggle="menubar"]:visible', function () {
           var type = _this2.menubar.type;
 
           switch (type) {
@@ -301,9 +317,12 @@
         } // let loadingType = 'default';
 
 
+        var assets = (0, _Config.get)('assets');
         $BODY.animsition({
           inClass: 'fade-in',
+          outClass: 'fade-out',
           inDuration: 800,
+          outDuration: 500,
           loading: true,
           loadingClass: 'loader-overlay',
           loadingParentElement: 'html',
@@ -321,7 +340,7 @@
 
           var overflow = (0, _jquery.default)('body').css('overflow');
           var self = this;
-          var tourOptions = Config.get('tour');
+          var tourOptions = (0, _Config.get)('tour');
           this.tour = introJs();
           this.tour.onbeforechange(function () {
             (0, _jquery.default)('body').css('overflow', 'hidden');
@@ -336,13 +355,7 @@
           (0, _jquery.default)('.site-tour-trigger').on('click', function () {
             self.tour.start();
           });
-        } // if (window.localStorage && window.localStorage.getItem('startTour') && (flag !== true)) {
-        //   return;
-        // } else {
-        //   this.tour.start();
-        //   window.localStorage.setItem('startTour', true);
-        // }
-
+        }
       }
     }]);
     return Site;

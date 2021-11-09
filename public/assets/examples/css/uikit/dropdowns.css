@@ -7,9 +7,6 @@
 .blocks-dropdowns .dropdown-menu {
   width: 100%; }
 
-.dropup .dropdown-submenu .dropdown-menu {
-  top: auto; }
-
 @media (min-width: 992px) {
   .blocks-dropdowns > li {
     max-width: 300px; } }

@@ -53,7 +53,13 @@
         }
       },
       err: {
-        clazz: 'text-help'
+        clazz: 'invalid-feedback'
+      },
+      control: {
+        // The CSS class for valid control
+        valid: 'is-valid',
+        // The CSS class for invalid control
+        invalid: 'is-invalid'
       },
       row: {
         invalid: 'has-danger'
@@ -85,7 +91,13 @@
         }
       },
       err: {
-        clazz: 'text-help'
+        clazz: 'invalid-feedback'
+      },
+      control: {
+        // The CSS class for valid control
+        valid: 'is-valid',
+        // The CSS class for invalid control
+        invalid: 'is-invalid'
       },
       row: {
         invalid: 'has-danger'
@@ -164,7 +176,13 @@
             }
           },
           err: {
-            clazz: 'text-help'
+            clazz: 'invalid-feedback'
+          },
+          control: {
+            // The CSS class for valid control
+            valid: 'is-valid',
+            // The CSS class for invalid control
+            invalid: 'is-invalid'
           },
           row: {
             invalid: 'has-danger'

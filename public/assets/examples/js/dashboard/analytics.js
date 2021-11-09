@@ -17,7 +17,7 @@
   (0, _jquery.default)(document).ready(function ($$$1) {
     (0, _Site.run)();
   }); // Top Line Chart With Tooltips
-  // ------------------------------
+  // ----------------------------
 
   (function () {
     // common options for common style
@@ -100,7 +100,6 @@
 
     var createKindChart = function createKindChart(clickli) {
       var clickli = clickli || (0, _jquery.default)("#productOverviewWidget .product-filters").find(".active");
-      console.log(clickli);
       var chartId = clickli.attr("href");
 
       switch (chartId) {
@@ -184,7 +183,7 @@
       createBar(this, barsData[index], overlappingBarsOptions, responsiveOptions);
     });
   })(); //// Stacked Week Bar Chart
-  // ------------------------------
+  // ------------------------
 
 
   (function () {
@@ -207,7 +206,7 @@
       }
     });
   })(); // Example Morris Donut
-  // ---------------------
+  // --------------------
 
 
   (function () {

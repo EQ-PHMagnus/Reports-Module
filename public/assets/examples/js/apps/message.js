@@ -14,7 +14,6 @@
   "use strict";
 
   _jquery = babelHelpers.interopRequireDefault(_jquery);
-  // (function(document, window, $) {
   (0, _jquery.default)(document).ready(function () {
     AppMessage.run();
   });

@@ -287,7 +287,7 @@
         });
       }
     });
-  })(); // Example Chartist Line Interpolation 
+  })(); // Example Chartist Line Interpolation
   // -----------------------------------
 
 
@@ -436,7 +436,7 @@
         offset: 70
       }
     });
-  })(); // Example Chartist Extreme Responsive 
+  })(); // Example Chartist Extreme Responsive
   // -----------------------------------
 
 
