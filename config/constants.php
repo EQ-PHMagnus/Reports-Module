@@ -38,30 +38,57 @@ return [
             ],
 
         ],
+
         'players' => [
             'earnings'    =>  [
                 'title'                 =>  'Player Earnings Reports',
                 'nav_title'             =>  'Earnings ',
                 'content_title'         =>  'Earnings',
                 'type'                  =>  'earnings',
-                'url'                   =>  'players.earnings'
+                'url'                   =>  'players.transactions'
             ],
             'cash_in'    =>  [
                 'title'                 =>  'Player Cash-in Reports',
                 'nav_title'             =>  'Cash in ',
                 'content_title'         =>  'Cash in',
                 'type'                  =>  'cash_in',
-                'url'                   =>  'players.cash_in'
+                'url'                   =>  'players.transactions'
             ],
             'cash_out'    =>  [
                 'title'                 =>  'Players Cash-out Reports',
                 'nav_title'             =>  'Cash out',
                 'content_title'         =>  'Cash out',
                 'type'                  =>  'cash_out',
-                'url'                   =>  'players.cash_out'
+                'url'                   =>  'players.transactions'
             ],
+        ],
 
-
+        // transactional
+        'transactional-players' => [
+            'earnings'    =>  [
+                'title'           => 'Player Earnings Reports',
+                'nav_title'       => 'Earnings ',
+                'content_title'   => 'Earnings',
+                'type'            => 'earnings',
+                'url'             => 'transactional.players.transactions',
+                'export_filename' => '_Players_Earning_Transactions_Reports'
+            ],
+            'cash_in'    =>  [
+                'title'           => 'Player Cash-in Reports',
+                'nav_title'       => 'Cash in ',
+                'content_title'   => 'Cash in',
+                'type'            => 'cash_in',
+                'url'             => 'transactional.players.transactions',
+                'export_filename' => '_Players_Cash_in_Transactions_Reports'
+            ],
+            'cash_out'    =>  [
+                'title'           => 'Players Cash-out Reports',
+                'nav_title'       => 'Cash out',
+                'content_title'   => 'Cash out',
+                'type'            => 'cash_out',
+                'url'             => 'transactional.players.transactions',
+                'export_filename' => '_Players_Cash_out_Transactions_Reports'
+            ],
         ]
     ]
 ];

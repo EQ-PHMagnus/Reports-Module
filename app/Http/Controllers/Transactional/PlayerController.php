@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Transactional;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
@@ -10,54 +10,60 @@ use Carbon\Carbon;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use App\Http\Traits\Players;
+
 class PlayerController extends Controller
 {
     use Players;
+    // /**
+    //  * Display a listing of the resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function index(Request $request)
+    // {
+    //     $from = $request->input('from', Carbon::now()->subDays('30')->format('Y-m-d'));
+    //     $to = $request->input('to', date('Y-m-d'));
+    //     $search = $request->input('search',false);
+    //     $export =  $request->input('export',false);
+        
+    //     $playersQuery = User::with('agent')
+    //         ->orderByDesc('created_at')
+    //         ->when($search,function($query,$search){
+    //             $_search = "%".$search."%";
+    //             return $query->where('agent_code','LIKE',$_search)
+    //                 ->orWhere('username','LIKE',$_search)
+    //                 ->orWhere('name','LIKE',$_search);
+    //         })
+    //         ->whereBetween(DB::raw('date(created_at)'),[$from,$to])
+    //         ->bettors()
+    //         ->orderByDesc('created_at');
+            
+            
+    //     if($export === 'true'){
+            
+    //         $header_style = (new StyleBuilder())->setFontBold()->build();
+
+    //         $rows_style = (new StyleBuilder())
+    //             ->setShouldWrapText(false)
+    //             ->build();
+
+    //         // Export consumes only a few MB, even with 10M+ rows.
+    //         return (new FastExcel($this->playersGenerator($playersQuery)))
+    //             ->headerStyle($header_style)
+    //             ->rowsStyle($rows_style)
+    //             ->download(Carbon::now()->toDateString() . '_Players_Reports.xlsx');
+    //     }
+
+    //     $players = $playersQuery->paginate(10)
+    //         ->withQueryString();
+    //     return view('players.index',compact('players'));
+    // }
+    
     /**
-     * Display a listing of the resource.
+     * Display transactional earnings.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $from = $request->input('from', Carbon::now()->subDays('30')->format('Y-m-d'));
-        $to = $request->input('to', date('Y-m-d'));
-        $search = $request->input('search',false);
-        $export =  $request->input('export',false);
-        
-        $playersQuery = User::with('agent')
-            ->orderByDesc('created_at')
-            ->when($search,function($query,$search){
-                $_search = "%".$search."%";
-                return $query->where('agent_code','LIKE',$_search)
-                    ->orWhere('username','LIKE',$_search)
-                    ->orWhere('name','LIKE',$_search);
-            })
-            ->whereBetween(DB::raw('date(created_at)'),[$from,$to])
-            ->bettors()
-            ->orderByDesc('created_at');
-            
-            
-        if($export === 'true'){
-            
-            $header_style = (new StyleBuilder())->setFontBold()->build();
-
-            $rows_style = (new StyleBuilder())
-                ->setShouldWrapText(false)
-                ->build();
-
-            // Export consumes only a few MB, even with 10M+ rows.
-            return (new FastExcel($this->playersGenerator($playersQuery)))
-                ->headerStyle($header_style)
-                ->rowsStyle($rows_style)
-                ->download(Carbon::now()->toDateString() . '_Players_Reports.xlsx');
-        }
-
-        $players = $playersQuery->paginate(10)
-            ->withQueryString();
-        return view('players.index',compact('players'));
-    }
-
     public function getTransactionsData(Request $request)
     {
         $type = $request->type;
@@ -80,7 +86,6 @@ class PlayerController extends Controller
 
         return view('transactional.players.index',compact('data'));
     }
-
 
     /**
      * Show the form for creating a new resource.

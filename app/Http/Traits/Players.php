@@ -13,10 +13,10 @@ trait Players {
         $search         = request()->input('filters.search');
         $min_amount     = request()->input('filters.min_amount');
         $max_amount     = request()->input('filters.max_amount');
-        $from           = date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
+        $from           = $request->input('filters.from') ? date('Y-m-d h:i:s', strtotime($request->input('filters.from'))) : null;
         $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
-        
+
         $data   = DB::table('transactions as trans')
                         ->leftJoin('users as user','user.id', '=','trans.user_id')
                         ->selectRaw('user.name as name,

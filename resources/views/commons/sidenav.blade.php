@@ -70,7 +70,7 @@
                 <ul class="site-menu-sub">
                 @forelse(config('constants.menu.players') as $key => $val)
                     <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
-                        <a class="animsition-link" href="{{route($val['url'])}}">
+                        <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
                             <span class="site-menu-title">{{$val['nav_title']}}</span>
                         </a>
                     </li>
@@ -143,47 +143,6 @@
                 </a>
             </li>
 
-            <!-- TAX COMPUTAION REPORTS -->
-            <li class="site-menu-item {{request()->route()->named('tax.gross-receipts') 
-                || request()->route()->named('tax.total-GBR') 
-                || request()->route()->named('tax.gross-commission') 
-                || request()->route()->named('tax.net-commission')
-                || request()->route()->named('tax.final-taxes-winnings')
-                ?  'active' : ''}} has-sub">
-                <ul class="site-menu-sub">
-                    <li class="site-menu-item {{request()->route()->named('tax.gross-receipts') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('tax.gross-receipts')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
-                            <span class="site-menu-title">Gross Receipts from Bets</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item {{request()->route()->named('tax.total-GBR') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('tax.total-GBR')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
-                            <span class="site-menu-title">Total GBR Tax Reports</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item {{request()->route()->named('tax.gross-commission') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('tax.gross-commission')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
-                            <span class="site-menu-title">Gross Commission Tax</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item {{request()->route()->named('tax.net-commission') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('tax.net-commission')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
-                            <span class="site-menu-title">Net Commissions</span>
-                        </a>
-                    </li>
-                    <li class="site-menu-item {{request()->route()->named('tax.final-taxes-winnings') ?  'active' : ''}}">
-                        <a class="animsition-link" href="{{route('tax.final-taxes-winnings')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
-                            <span class="site-menu-title">Final Taxes on Winnings</span>
-                        </a>
-                    </li>
-                </ul>
-
-            </li>
             <!-- END TAX COMPUTAION REPORTS -->
 
             <li class="site-menu-item {{request()->is('players/players_earnings') || request()->is('players/players_cash_in') || request()->is('players/players_cash_out') ?  'active' : ''}} has-sub">
@@ -193,9 +152,9 @@
                     <span class="site-menu-arrow"></span>
                 </a>
                 <ul class="site-menu-sub">
-                @forelse(config('constants.menu.players') as $key => $val)
+                @forelse(config('constants.menu.transactional-players') as $key => $val)
                     <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
-                        <a class="animsition-link" href="{{route($val['url'])}}">
+                        <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
                             <span class="site-menu-title">{{$val['nav_title']}}</span>
                         </a>
                     </li>

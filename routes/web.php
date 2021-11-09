@@ -19,6 +19,7 @@ use App\Http\Controllers\RolesAndPermissionController;
 use App\Http\Controllers\PermissionsAndRoutesController;
 use App\Http\Controllers\ImportDataController;
 use App\Http\Controllers\AgentCommissionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,9 +85,9 @@ Route::middleware(['auth'])
     */
     // Route::resource('players', PlayerController::class);
     Route::group(['prefix' => 'players'], function() {
-        Route::get('/players_earnings', [PlayerController::class, 'earnings'])->name('players.earnings');
-        Route::get('/players_cash_in', [PlayerController::class, 'cash_in'])->name('players.cash_in');
-        Route::get('/players_cash_out', [PlayerController::class, 'cash_out'])->name('players.cash_out');
+        Route::get('/player_transactions', [PlayerController::class, 'getTransactionsData'])->name('players.transactions');
+        // Route::get('/players_cash_in', [PlayerController::class, 'cash_in'])->name('players.cash_in');
+        // Route::get('/players_cash_out', [PlayerController::class, 'cash_out'])->name('players.cash_out');
     });
 
 
@@ -183,6 +184,22 @@ Route::middleware(['auth'])
     */
     Route::resource('import-data', ImportDataController::class);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Transactional
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Players
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::group(['prefix' => 'transactional/players'], function() {
+        Route::get('/player_transactions', [App\Http\Controllers\Transactional\PlayerController::class, 'getTransactionsData'])->name('transactional.players.transactions');
+    });
 });
 
 require __DIR__.'/auth.php';
