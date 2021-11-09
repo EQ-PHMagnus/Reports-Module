@@ -38,15 +38,11 @@
                         data-sort-order="desc">
                         <thead>
                             <tr>
-                                <!-- <th class="text-left" data-field="agent_code" >Agent Code</th>
-                                <th class="text-left" data-field="agent_level"  class="text-center">Agent Level</th>
-                                <th class="text-left" data-field="player_account" >Player Account</th> -->
                                 <th class="text-left" data-field="player_name" >Player Name</th>
-                                <!-- <th class="text-left" data-field="bday" >Birthday</th> -->
                                 <th class="text-left" data-field="current_credits"  class="text-center">Credits</th>
                                 <th class="text-left" data-field="phone_no" >Phone Number</th>
+                                <th class="text-left" data-field="status">Status</th>
                                 <th class="text-left" data-field="transaction_date" data-sortable="true">Transaction Date</th>
-                                <!-- <th class="text-left" data-field="actions" >Actions</th> -->
                             </tr>
                         </thead>
                     </table>
