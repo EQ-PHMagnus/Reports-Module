@@ -31,7 +31,8 @@
                         data-sortable="true"
                         data-detail-formatter="detailFormatter"
                         data-pagination="true"
-                        data-sort-order="desc">
+                        data-sort-order="desc"
+                        data-search="true">
                         <thead>
                             <tr>
                                 <!-- <th class="text-left" data-field="agent_code" >Agent Code</th>

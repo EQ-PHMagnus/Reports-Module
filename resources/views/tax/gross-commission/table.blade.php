@@ -14,7 +14,8 @@
                 data-pagination="true"
                 data-sort-order="desc"
                 data-chart="false"
-                data-count="false">
+                data-count="false"
+                data-search="true">
                 <thead>
                     <tr>
                         <th  class="text-left" data-field="date">Date </th>
