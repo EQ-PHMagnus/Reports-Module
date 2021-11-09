@@ -9,7 +9,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use DB;
-
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
     /**
@@ -51,11 +52,10 @@ class UserController extends Controller
         try{
             $validator = Validator::make($request->all(),[
                 'name' => 'required',
-                // 'username' => 'required|unique:users',
                 'email' => 'email',
                 'password' => 'required|min:4|confirmed',
                 'mobile_number' => 'digits:11',
-                'role' => 'required',
+                // 'role' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -66,9 +66,19 @@ class UserController extends Controller
             }
 
             //TODO
-            //Handle File uploads
+            //Handle File uploads 
+            
             $user = User::create($validator->validated());
             $user->assignRole($request->role);
+
+            if($user){
+                $details = [
+                    'user'    => $request->all(),
+                    'subject' => env('APP_NAME', 'Raven') . ' | New Account',
+                    'view'    => 'mail.new-account',
+                  ];
+                  Mail::to($user->email, $user->name)->send(new SendMail($details));
+            }
 
             DB::commit();
             flashMessage('User created successfully!');

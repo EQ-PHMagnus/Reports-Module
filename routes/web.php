@@ -34,7 +34,7 @@ Route::view('/','landing');
 // Route::view('login', 'auth.login')->name('login');
 
 
-Route::middleware(['auth'])
+Route::middleware('auth','prevent-back-history')
     ->group(function(){
     /*
     |--------------------------------------------------------------------------
