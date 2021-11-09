@@ -232,14 +232,7 @@
             
             @endcan
 
-            @can('manage users')
-            <li class="site-menu-item {{request()->route()->named('users.index') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{route('users.index')}}">
-                <i class="site-menu-icon wb-user" aria-hidden="true"></i><span class="site-menu-title">User Management</span>
-                </a>
-            </li>
            
-            @endcan
             @can('manage roles and permissions')
             <li class="site-menu-item {{request()->is('roles-and-permissions') ?  'active' : ''}}">
                 <a class="animsition-link" href="{{url('roles-and-permissions')}}">
