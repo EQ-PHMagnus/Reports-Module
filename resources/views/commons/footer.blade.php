@@ -43,7 +43,6 @@
     <script src="{{asset('app/js/action.js')}}"></script>
     <script src="{{asset('app/js/filter.js')}}"></script>
     <script src="{{asset('app/js/util.js')}}"></script>
-    <script src="{{asset('app/js/config.js')}}"></script>
 
     <!-- Config -->
     <script src="{{asset('global/js/config/colors.js')}}"></script>
@@ -82,6 +81,8 @@
       })(document, window, jQuery);
 
     </script>
+
+    <script> const baseUrl = "{{asset('/')}}"; </script>
 @stack('scripts')
 </body>
 

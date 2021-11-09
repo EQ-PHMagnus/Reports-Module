@@ -27,6 +27,7 @@ trait Players {
                         user.dob,
                         trans.amount,
                         user.mobile_number,
+                        trans.status,
                         trans.transaction_date')
                         ->when($search, function($query, $search) use($searchable_cols) {
                             $query->where(function($query) use ($searchable_cols, $search){
@@ -70,15 +71,15 @@ trait Players {
             
 
             $finalData[] = [
-                'id'                      => $offset++ ,
-                'player_name'             => $data->name,
-                'bday'                    => date('m-d-Y',strtotime($data->dob)),
-                'current_credits'         => $data->amount ? moneyFormat($data->amount): '',
-                'phone_no'                => $data->mobile_number,
-                'transaction_date'        => date('m-d-Y',strtotime($data->transaction_date)),
-                'actions' => ''
+                'id'               => $offset++,
+                'player_name'      => $data->name,
+                'bday'             => date('m-d-Y',strtotime($data->dob)),
+                'current_credits'  => $data->amount ? moneyFormat($data->amount): '',
+                'phone_no'         => $data->mobile_number,
+                'transaction_date' => date('m-d-Y',strtotime($data->transaction_date)),
+                'status'           => ucfirst($data->status),
+                'actions'          => ''
             ];
-            
         }
 
         return [
