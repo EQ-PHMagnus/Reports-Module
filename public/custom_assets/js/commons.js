@@ -62,3 +62,8 @@ function showPass(e){
 		cont.find('i.icon').removeClass('wb-eye').addClass('wb-eye-close');
 	}
 }
+
+$( document ).ready(function() {
+    $('#elem').addClass('notransition'); // to remove transition
+	$('#elem').removeClass('notransition'); // to return to previouse transition
+});

@@ -8,7 +8,7 @@
     <script src="{{asset('global/vendor/popper-js/umd/popper.min.js')}}"></script>
     <script src="{{asset('global/vendor/bootstrap/bootstrap.js')}}"></script>
     <script src="{{asset('global/vendor/axios/axios.min.js')}}"></script>
-    <script src="{{asset('global/vendor/animsition/animsition.js')}}"></script>
+    <!-- <script src="{{asset('global/vendor/animsition/animsition.js')}}"></script> -->
     <script src="{{asset('global/vendor/mousewheel/jquery.mousewheel.js')}}"></script>
     <script src="{{asset('global/vendor/asscrollbar/jquery-asScrollbar.js')}}"></script>
     <script src="{{asset('global/vendor/asscrollable/jquery-asScrollable.js')}}"></script>
