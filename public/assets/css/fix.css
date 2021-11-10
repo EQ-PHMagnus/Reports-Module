@@ -23,5 +23,5 @@
 }
 
 .site-navbar-small .site-menubar{
-    height: 100%;
+    overflow-x: hidden;
 }
