@@ -22,7 +22,7 @@ trait TransactionalData {
             break;
             case 'agent' || 'super_agent':
                 $collectionTable = $this->getAgentCommissionData($request, $type);
-                $searchable_cols = ['agent.name'];
+                $searchable_cols = ['agent.name', 'superagent.name'];
             break;
             default:
                 $collectionTable = $this->getBetData($request);

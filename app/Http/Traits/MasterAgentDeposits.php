@@ -16,7 +16,7 @@ trait MasterAgentDeposits {
         $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
 
-        $searchable_cols = ['agent.name', 'ad.source'];
+        $searchable_cols = ['agent.name', 'ad.source', 'superagent.name'];
 
         $data   = DB::table('agent_deposits as ad')
                         ->leftJoin('agents as agent', 'agent.id', '=', 'ad.agent_id')
