@@ -59,16 +59,11 @@ trait MasterAgentDeposits {
                         ->where('status','!=', 'pending')
                         // ->whereNull('ad.deleted_at')
                         ;
-<<<<<<< HEAD
         if($roleType == 'super_agent') {
             $data->whereNull('super_agent_id');
         } else {
             $data->whereNotNull('super_agent_id');
         }
-=======
-
-                       
->>>>>>> 5f35ea807647818bc19fa6f7f3bf9ffe913d7308
      
         if($format == 'excel'){
             return $data->get();
