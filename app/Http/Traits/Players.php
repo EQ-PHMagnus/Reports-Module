@@ -22,7 +22,7 @@ trait Players {
         $searchable_cols = ['player.name', 'player.mobile_number', 'agent.name'];
 
         $data   = DB::table('transactions as trans')
-                        ->leftJoin('players as player','player.id', '=','trans.user_id')
+                        ->leftJoin('players as player','player.id', '=','trans.player_id')
                         ->leftJoin('agents as agent','agent.id', '=','player.agent_id')
                         ->selectRaw('player.name as name,
                         player.dob,

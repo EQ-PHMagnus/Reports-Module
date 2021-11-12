@@ -16,7 +16,7 @@ trait Imports {
             $bets    = (new FastExcel)->import($upFile, function ($line) {
                 return Bet::create([
                     'fight_id' => $line['fight_id'],
-                    'user_id'  => $line['user_id'],
+                    'player_id'  => $line['player_id'],
                     'pick'     => $line['pick'],
                     'odds'     => $line['odds'],
                     'amount'   => $line['amount'],

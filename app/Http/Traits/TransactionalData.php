@@ -64,7 +64,8 @@ trait TransactionalData {
         $data = DB::table('bets as bet')
         ->leftJoin('fights as fight', 'fight.id', '=', 'bet.fight_id')
         ->leftJoin('arenas as arena', 'arena.id', '=', 'fight.arena_id')
-        ->leftJoin('users as user', 'user.id', '=', 'bet.user_id')
+        ->leftJoin('players as player', 'player.id', '=', 'bet.player_id')
+        ->leftJoin('agents as agent', 'agent.id', '=', 'player.agent_id')
         ->selectRaw('
             bet.bet_date,
             bet.pick,
@@ -75,10 +76,11 @@ trait TransactionalData {
             bet.result_date,
             arena.name as arena,
             fight.fight_no as fight_no,
-            user.name as name,
+            player.name as name,
             fight.schedule as fight_schedule,
             fight.fight_no as fight_no,
-            user.username as affiliate_name
+            player.username as affiliate_name,
+            agent.name as agent_name
         ')
         ->whereNull('bet.deleted_at');
            
