@@ -43,21 +43,21 @@ return [
                 'nav_title'             =>  'Earnings ',
                 'content_title'         =>  'Earnings',
                 'type'                  =>  'earnings',
-                'url'                   =>  'players.transactions'
+                'url'                   =>  'players.earnings'
             ],
             'cash_in'    =>  [
                 'title'                 =>  'Player Cash-in Reports',
                 'nav_title'             =>  'Cash in ',
                 'content_title'         =>  'Cash in',
                 'type'                  =>  'cash_in',
-                'url'                   =>  'players.transactions'
+                'url'                   =>  'players.cash_in'
             ],
             'cash_out'    =>  [
                 'title'                 =>  'Players Cash-out Reports',
                 'nav_title'             =>  'Cash out',
                 'content_title'         =>  'Cash out',
                 'type'                  =>  'cash_out',
-                'url'                   =>  'players.transactions'
+                'url'                   =>  'players.cash_out'
             ],
         ],
 

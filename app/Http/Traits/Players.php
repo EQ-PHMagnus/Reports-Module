@@ -1,98 +1,155 @@
 <?php
 namespace App\Http\Traits;
 use DB;
-
 trait Players {
-    
 
-    public function getPlayers($request, $type, $format) {
+    public function getPlayers($request,$reportType,$format){
 
-      
-        $sort           = request()->input('sort') == "" ? 'transaction_date' : request()->input('sort');
-        $order          = request()->input('order', 'desc');
-        // $search         = request()->input('filters.search');
-        $search         = request()->input('search') ?? '';
-        $min_amount     = request()->input('filters.min_amount');
-        $max_amount     = request()->input('filters.max_amount');
-        $from           = $request->input('filters.from') ? date('Y-m-d h:i:s', strtotime($request->input('filters.from'))) : null;
-        $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
-        $stat           =  request()->input('filters.status');
+        $type               =    $request->input('filters.group') ?? $request->input('group'); // select type if daily/montly/yearly
+        $limit              =    intval($request->input('limit', 10)); // pagination
+        $offset             =    intval($request->input('offset', 0)); // pagination
+        $collectionTable    =    $this->getPlayerData($request,$reportType); 
+        $rows               =    []; // all array result to be display in data tables
+        $yearCount          =    [];
+        $monthYearCount     =    [];
+        $yearAmount         =    [];
+        $monthYearAmount    =    [];
 
-        // declare searchable cols for now
-        $searchable_cols = ['player.name', 'player.mobile_number', 'agent.name'];
+        // filter collections group by daily/monthly/yearly
+        switch($type){
+            case 'daily':
+                $groupDate = $collectionTable->groupBy('date')->map(function($data,$year){
+                    return $data->groupBy('full_date')->map(function($perday){
+                       return [ 'count' => $perday->count(), 'amount' => $perday->sum('bet_amount')];
+                    });
+                });   
+                // create array format to show date and count for table rows
+                foreach($groupDate as $key => $val){
+                    foreach($val as $keyDate => $valCount){
+                   
+                        $rows[] = [
+                            'date'  => $keyDate,
+                            'count' => $valCount['count'],
+                            'sum'   => '₱ '.number_format($valCount['amount'],2)
+                        ];
+                    }
+                }
+                break;
+            case 'monthly';
 
-        $data   = DB::table('transactions as trans')
-                        ->leftJoin('players as player','player.id', '=','trans.player_id')
-                        ->leftJoin('agents as agent','agent.id', '=','player.agent_id')
-                        ->selectRaw('player.name as name,
-                        player.dob,
-                        trans.amount,
-                        player.mobile_number,
-                        trans.status,
-                        trans.transaction_date,
-                        agent.name as agent_name')
-                        ->when($search, function($query, $search) use($searchable_cols) {
-                            $query->where(function($query) use ($searchable_cols, $search){
-                                foreach($searchable_cols as $i => $col){
-                                    $query->orWhere($col, 'like' ,'%'.$search.'%');
-                                }
-                                return $query;
-                              });
-                            return $query;
-                        })
-                        // ->when($search, function($query,$search){
-                        //     return $query->where('name', 'like' ,'%'.$search.'%');
-                        // })
-                        ->when($from, function ($query , $from) use ($to) {
-                            return $query->whereBetween('trans.transaction_date', [$from, $to]);
-                        })
-                        ->when($min_amount, function ($query , $min_amount) use ($max_amount) {
-                            return $query->whereBetween('trans.amount', [$min_amount, $max_amount]);
-                        })
-                        ->when($sort, function($query, $sort) use ($order){
-                            return $query->orderBy('trans.'.$sort, $order);
-                        })
-                        ->where('trans.type', $type)
-                        // ->whereNull('ac.deleted_at')
-                        ;
+           
+                $groupDate = $collectionTable->groupBy('year')->map(function($data,$year){
+                    return $data->groupBy('month_and_year')->map(function($permonth){
+                        return [ 'count' => $permonth->count(), 'amount' => $permonth->sum('bet_amount')];
+                    });
+                });
+                // create array format to show date and count for table rows
+                foreach($groupDate as $key => $val){
+                    foreach($val as $keyDate => $valCount){
+                        $rows[] = [
+                            'date'  => $keyDate,
+                            'count' => $valCount['count'] ?? null,
+                            'sum'   => '₱ '.number_format($valCount['amount'] ?? null,2)
+                        ];
+                    }
+                }
+                break;
+            case 'yearly';
+            
+                $groupDate = $collectionTable->groupBy('year')->map(function($peryear){
+                    return [ 'count' => $peryear->count(), 'amount' => $peryear->sum('bet_amount')];
+                });
+                // create array format to show date and count for table rows
+                foreach($groupDate as $key => $val){
+                    $rows[] = [
+                        'date'  => $key,
+                        'count' => $val['count'],
+                        'sum'   => '₱ '.number_format($val['amount'] ?? null,2)
+                    ];
+                }
+                break;
+            default:
+                $groupDate = $collectionTable->groupBy('year')->map(function($data,$year){
+                    return $data->groupBy('month_and_day')->map(function($perday){
+                        return [ 'count' => $perday->count(), 'amount' => $perday->sum('bet_amount')];
+                    });
+                }); 
+                // create array format to show date and count for table rows
+                foreach($groupDate as $key => $val){
+                    foreach($val as $keyDate => $valCount){
+                        $rows[] = [
+                            'date'  => $keyDate.', '.$key,
+                            'count' => $valCount['count'],
+                            'sum'   => '₱ '.number_format($valCount['amount'],2)
+                        ];
+                    }
+                }
+        }
 
         if($format == 'excel'){
-            return $data->get();
+            return $rows;
         }
-       
-        $dataCount  = $data->count();
-        $formData   = $data->skip(intval(request()->input('offset', 0)))
-                            ->limit(intval(request()->input('limit', 10)))
-                            ->get();
-
-        $finalData  = [];
-        $offset     = request()->input('offset', 0) + 1;
-     
-
-        foreach($formData as $i => $data){
-            
-
-            $finalData[] = [
-                'id'               => $offset++,
-                'player_name'      => $data->name,
-                'bday'             => date('m-d-Y',strtotime($data->dob)),
-                'current_credits'  => $data->amount ? moneyFormat($data->amount): '',
-                'phone_no'         => $data->mobile_number,
-                'transaction_date' => date('m-d-Y',strtotime($data->transaction_date)),
-                'status'           => ucfirst($data->status),
-                'actions'          => '',
-                'agent_name'       => $data->agent_name
-            ];
-        }
+ 
+        //determine offset and limit of rows for pagination
+        $result      = array_slice($rows,intval($request->input('offset', 0)),intval($request->input('limit', 10)));
+        $countRows   = count($rows);
 
         return [
-            'rows'             => $finalData,
-            'total'            => $dataCount,
-            'totalNotFiltered' => $dataCount,
-            
+            'rows'                  =>   $result,
+            'total'                 =>   $countRows,
+            'totalNotFiltered'      =>   $countRows,
         ];
-
     }
-  
+
+
+    public function getPlayerData($request,$type){
+
+        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order      =    $request->input('order', 'desc');
+       
+        $data   = DB::table('transactions as trans')
+        ->leftJoin('players as player','player.id', '=','trans.player_id')
+        ->leftJoin('agents as agent','agent.id', '=','player.agent_id')
+        ->selectRaw('player.name as name,
+        player.dob,
+        trans.amount,
+        player.mobile_number,
+        trans.status,
+        trans.transaction_date,
+        agent.name as agent_name')
+        ->when($sort, function($query, $sort) use ($order){
+            return $query->orderBy('trans.'.$sort, $order);
+        })
+        ->where('trans.type', $type)
+        ->whereNull('trans.deleted_at')
+        ;
+
+
+        $data = $this->getCollectionData($data);
+
+        return $data;
+    }
+
+    public function getCollectionData($data){
+
+        $query       =    [];
+        
+        foreach($data->get() as $key => $val){
+            $query[$key] = [
+                'year'          => date('Y', strtotime($val->created_at ?? date('Y-m-d h:i:s') ?? date('Y-m-d h:i:s'))),
+                'month'         => date('F', strtotime($val->created_at ?? date('Y-m-d h:i:s'))),
+                'day'           => date('j', strtotime($val->created_at ?? date('Y-m-d h:i:s'))),
+                'month_and_day' => date('F', strtotime($val->created_at ?? date('Y-m-d h:i:s'))).' '.date('j', strtotime($val->created_at ?? date('Y-m-d h:i:s'))),
+                'month_and_year' => date('F', strtotime($val->created_at ?? date('Y-m-d h:i:s'))).' '.date('Y', strtotime($val->created_at ?? date('Y-m-d h:i:s'))),
+                'full_date'     => date('F', strtotime($val->created_at ?? date('Y-m-d h:i:s'))).' '.date('j', strtotime($val->created_at ?? date('Y-m-d h:i:s'))).','.date('Y', strtotime($val->created_at ?? date('Y-m-d h:i:s'))),
+                'time'          => date('H:i:s', strtotime($val->created_at ?? date('Y-m-d h:i:s'))),
+                "bet_amount"    => $val->amount ?? null,
+                "date"          => $val->created_at ?? null,
+            ];
+        }
+        $collection = collect($query);
+        return $collection;
+    }
+
     
 }

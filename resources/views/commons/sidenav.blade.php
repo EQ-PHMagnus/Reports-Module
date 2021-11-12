@@ -72,7 +72,7 @@
                     </a>
                     <ul class="site-menu-sub">
                     @forelse(config('constants.menu.players') as $key => $val)
-                        <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
+                        <li class="site-menu-item {{request()->route()->named(route($val['url']))  ? 'active' : '' }}" >
                             <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
                                 <span class="site-menu-title">{{$val['nav_title']}}</span>
                             </a>

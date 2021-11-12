@@ -35,15 +35,9 @@
                         data-search="true">
                         <thead>
                             <tr>
-                                <!-- <th class="text-left" data-field="agent_code" >Agent Code</th>
-                                <th class="text-left" data-field="agent_level"  class="text-center">Agent Level</th>
-                                <th class="text-left" data-field="player_account" >Player Account</th> -->
-                                <th class="text-left" data-field="player_name" >Player Name</th>
-                                <!-- <th class="text-left" data-field="bday" >Birthday</th> -->
-                                <th class="text-left" data-field="current_credits"  class="text-center">Credits</th>
-                                <th class="text-left" data-field="phone_no" >Phone Number</th>
-                                <th class="text-left" data-field="transaction_date" >Transaction Date</th>
-                                <!-- <th class="text-left" data-field="actions" >Actions</th> -->
+                                <th class="text-left" data-field="date" >Date</th>
+                                <th class="text-left" data-field="count"  class="text-center">Count</th>
+                                <th class="text-left" data-field="sum"  class="text-center">Amount</th>
                             </tr>
                         </thead>
                     </table>
