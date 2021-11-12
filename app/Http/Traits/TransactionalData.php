@@ -52,12 +52,6 @@ trait TransactionalData {
                             ->limit(intval(request()->input('limit', 10)))
                             ->get();
 
-        if($type == 'agent') {
-            foreach($formData as $i => $data){
-                $data->agent_name = Agent::where('id', $data->agent_name)->first()->name;
-            }
-        }
-
         return [
             'rows'                  =>   $formData,
             'total'                 =>   $countRows,
@@ -130,6 +124,7 @@ trait TransactionalData {
 
         $data      = DB::table('agent_commissions as ac')
             ->leftJoin('agents as agent','agent.id', '=', 'ac.agent_id')
+            ->leftJoin('agents as superagent','superagent.id', '=', 'ac.super_agent_id')
             ->selectRaw('agent.name as name,
             agent.role as role,
             ac.id,
@@ -139,7 +134,7 @@ trait TransactionalData {
             ac.level,
             ac.type,
             ac.created_at,
-            ac.super_agent_id as agent_name')
+            superagent.name as agent_name')
             ->when($sort, function($query, $sort) use ($order){
                 return $query->orderBy('ac.'.$sort, $order);
             })

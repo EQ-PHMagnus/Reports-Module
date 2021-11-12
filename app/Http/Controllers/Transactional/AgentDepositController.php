@@ -26,7 +26,7 @@ class AgentDepositController extends Controller
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getMasterAgentDeposits($request, 'excel', null);
+            $exportQuery    = $this->getMasterAgentDeposits($request, 'excel', $type);
             $exportFileName = config('constants.menu.transactional-agent-deposits')[$type]['export_filename'] ?? '';
             return exportFiles($exportQuery,$exportFileName);
         }

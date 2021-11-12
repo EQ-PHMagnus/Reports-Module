@@ -30,7 +30,7 @@ class AgentCommissionController extends Controller
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getTransactions($request, 'excel');
+            $exportQuery    = $this->getTransactions($request, 'excel', $type);
             $exportFileName = config('constants.menu.transactional-agent-commissions')[$type]['export_filename'] ?? '';
             return exportFiles($exportQuery,$exportFileName);
         }
