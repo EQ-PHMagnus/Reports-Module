@@ -79,8 +79,8 @@
                 @endforelse
               
 
-            </li>
-            @endcan -->
+            </li> -->
+            @endcan 
            
             @can('manage super agent cash ins')
             <li class="site-menu-item {{request()->is('master-agent-deposits') ?  'active' : ''}}">
