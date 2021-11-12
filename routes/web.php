@@ -223,7 +223,7 @@ Route::middleware('auth','prevent-back-history')
         |
         */
         Route::group(['prefix' => 'agent-deposits'], function() {
-            Route::get('/agent-deposits', [App\Http\Controllers\Transactional\AgentCommissionController::class, 'getAgentCommisions'])->name('transactional.agent-deposits');
+            Route::get('/agent-deposits', [App\Http\Controllers\Transactional\AgentDepositController::class, 'index'])->name('transactional.agent-deposits');
         });
         /*
         |--------------------------------------------------------------------------

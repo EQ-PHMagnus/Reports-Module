@@ -17,10 +17,10 @@ trait MasterAgentDeposits {
 
         $searchable_cols = ['agent.name', 'ad.source'];
 
-        $agentType = $roleType == 'super_agent' ? 'ac.agent_id' : 'ac.super_agent_id';
-
+        $agentType = $roleType == 'super_agent' ? 'ad.agent_id' : 'ad.super_agent_id';
+        
         $data   = DB::table('agent_deposits as ad')
-                        ->leftJoin('agents as agent', 'agent.id', '=','ad.agent_id')
+                        ->leftJoin('agents as agent', 'agent.id', '=', $agentType)
                         ->selectRaw('agent.name as name,
                         agent.role as role,
                         ad.id,
