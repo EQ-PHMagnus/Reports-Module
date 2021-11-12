@@ -8,11 +8,11 @@
     <script src="{{asset('global/vendor/popper-js/umd/popper.min.js')}}"></script>
     <script src="{{asset('global/vendor/bootstrap/bootstrap.js')}}"></script>
     <script src="{{asset('global/vendor/axios/axios.min.js')}}"></script>
-    <!-- <script src="{{asset('global/vendor/animsition/animsition.js')}}"></script> -->
+ 
     <script src="{{asset('global/vendor/mousewheel/jquery.mousewheel.js')}}"></script>
     <script src="{{asset('global/vendor/asscrollbar/jquery-asScrollbar.js')}}"></script>
     <script src="{{asset('global/vendor/asscrollable/jquery-asScrollable.js')}}"></script>
-
+    <script src="{{asset('global/vendor/ashoverscroll/jquery-asHoverScroll.js')}}"></script>
     <!-- Plugins -->
     <script src="{{asset('global/vendor/jquery-mmenu/jquery.mmenu.min.all.js')}}"></script>
     <script src="{{asset('global/vendor/switchery/switchery.js')}}"></script>
@@ -20,7 +20,7 @@
     <script src="{{asset('global/vendor/screenfull/screenfull.js')}}"></script>
     <script src="{{asset('global/vendor/slidepanel/jquery-slidePanel.js')}}"></script>
     <script src="{{asset('global/vendor/skycons/skycons.js')}}"></script>
-    <script src="{{asset('global/vendor/aspieprogress/jquery-asPieProgress.min.js')}}"></script>
+    <!-- <script src="{{asset('global/vendor/aspieprogress/jquery-asPieProgress.min.js')}}"></script> -->
     <script src="{{asset('global/vendor/jvectormap/jquery-jvectormap.min.js')}}"></script>
     <script src="{{asset('global/vendor/jvectormap/maps/jquery-jvectormap-au-mill-en.js')}}"></script>
     <script src="{{asset('global/vendor/matchheight/jquery.matchHeight-min.js')}}"></script>
@@ -36,6 +36,7 @@
     <script src="{{asset('assets/js/Section/Sidebar.js')}}"></script>
     <script src="{{asset('assets/js/Section/PageAside.js')}}"></script>
     <script src="{{asset('assets/js/Section/GridMenu.js')}}"></script>
+    <script src="{{asset('assets/js/Plugin/menu.js')}}"></script>
 
     <script src="{{asset('global/vendor/bootstrap-table/bootstrap-table.min.js')}}"></script>
     <script src="{{asset('global/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js')}}"></script>
@@ -43,6 +44,9 @@
     <script src="{{asset('app/js/action.js')}}"></script>
     <script src="{{asset('app/js/filter.js')}}"></script>
     <script src="{{asset('app/js/util.js')}}"></script>
+
+    
+   
 
     <!-- Config -->
     <script src="{{asset('global/js/config/colors.js')}}"></script>

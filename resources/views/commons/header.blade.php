@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('global/vendor/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.css')}}">
 
     <!-- Charts -->
-    <link rel="stylesheet" href="{{asset('global/vendor/jvectormap/jquery-jvectormap.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('global/vendor/jvectormap/jquery-jvectormap.css')}}"> -->
     
 
 
