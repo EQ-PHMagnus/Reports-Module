@@ -11,8 +11,6 @@ trait MasterAgentDeposits {
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
         $amount         = request()->input('filters.amount');
-        $from           = date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
-        $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
 
         $searchable_cols = ['agent.name', 'ad.source'];
@@ -37,9 +35,6 @@ trait MasterAgentDeposits {
                         ->when($amount, function($query,$amount){
                             return $query->where('amount' , '<=' ,$amount);
                         })
-                        ->when($from, function ($query , $from) use ($to) {
-                            return $query->whereBetween('ad.date_deposited', [$from, $to]);
-                        })
                         ->when($sort, function($query, $sort) use ($order){
                             return $query->orderBy('ad.'.$sort, $order);
                         })
@@ -59,7 +54,7 @@ trait MasterAgentDeposits {
                         // ->whereNull('ad.deleted_at')
                         ;
 
-        
+                       
      
         if($format == 'excel'){
             return $data->get();
