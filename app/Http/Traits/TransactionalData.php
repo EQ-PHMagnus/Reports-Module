@@ -14,7 +14,7 @@ trait TransactionalData {
         switch($type) {
             case 'bets':
                 $collectionTable = $this->getBetData($request);
-                $searchable_cols = ['user.username', 'arena.name'];
+                $searchable_cols = ['player.name', 'arena.name'];
             break;
             case 'fights':
                 $collectionTable = $this->getFightsData($request);

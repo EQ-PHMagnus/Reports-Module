@@ -1,29 +1,26 @@
 @extends('commons.layout')
 @section('title')
-{{$data['title'] ?? null}}
+{{$data['title'] . ' Reports' ?? null}}
 @endsection
 
 @section('page-title')
-{{$data['title'] ?? null}}
+{{$data['title'] . ' Reports' ?? null}}
 @endsection
-
 @section('breadcrumbs')
-<li class="breadcrumb-item active">{{$data['content_title'] ?? null}}</li>
+<li class="breadcrumb-item breadcrumb-arrow">Reports</li>
+<li class="breadcrumb-item active">{{$data['title'] . ' Reports' ?? null}}</li>
 @endsection
-
-
 
 @section('page-content')
-<div class="row">
-    <div class="col">
-        @include('filters.for-list')
-        <div class="panel">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{$data['content_title'] ?? null}}</h3>
+@include('filters.for-reports')
+<div class="row" data-plugin="matchHeight" data-by-row="true">
+    <div class="col-xxl-12 col-lg-12">
+        <div class="card card-shadow" >
+            <div class="card-header text-center bg-primary">
+                {{$data['title'] . ' Reports' . ' Data' ?? null}}
             </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table  class="table-fit no-view "
+        <div class="card-body">
+        <table  class="table-fit no-view "
                         data-mobile-responsive="true"
                         data-toggle="table"
                         data-ajax="dataRequest"
@@ -32,7 +29,7 @@
                         data-detail-formatter="detailFormatter"
                         data-pagination="true"
                         data-sort-order="desc"
-                        data-search="true">
+                        >
                         <thead>
                             <tr>
                                 <th class="text-left" data-field="date" >Date</th>
@@ -41,8 +38,6 @@
                             </tr>
                         </thead>
                     </table>
-                </div>
-            </div>
         </div>
     </div>
 </div>
