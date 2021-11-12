@@ -37,17 +37,17 @@ class UserSeeder extends Seeder
             'created_at'    => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('users')->insert([
-            'name'          => 'Master Cashier',
-            'dob'           => date('Y-m-d H:i:s'),
-            'username'      => 'master_cashier',
-            'email'         => 'master_cashier@phmagnus.com',
-            'password'      =>  bcrypt('secret'),
-            'mobile_number' => '9192222222',
-            'email'         => 'master.cashier@phmagnus.com',
-            'agent_code'    => 'master_cashier',
-            'created_at'    => date('Y-m-d H:i:s'),
-        ]);
+        // DB::table('users')->insert([
+        //     'name'          => 'Master Cashier',
+        //     'dob'           => date('Y-m-d H:i:s'),
+        //     'username'      => 'master_cashier',
+        //     'email'         => 'master_cashier@phmagnus.com',
+        //     'password'      =>  bcrypt('secret'),
+        //     'mobile_number' => '9192222222',
+        //     'email'         => 'master.cashier@phmagnus.com',
+        //     'agent_code'    => 'master_cashier',
+        //     'created_at'    => date('Y-m-d H:i:s'),
+        // ]);
 
         DB::table('users')->insert([
             'name'          => 'Finance User',
@@ -61,27 +61,27 @@ class UserSeeder extends Seeder
             'created_at'    => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('users')->insert([
-            'name'          => 'Super Agent',
-            'dob'           => date('Y-m-d H:i:s'),
-            'username'      => 'super_agent',
-            'email'         => 'super_agent@phmagnus.com',
-            'password'      =>  bcrypt('secret'),
-            'mobile_number' => '9194444444' ,
-            'agent_code'    => 'super_agent',
-            'created_at'    => date('Y-m-d H:i:s')
-        ]);
+        // DB::table('users')->insert([
+        //     'name'          => 'Super Agent',
+        //     'dob'           => date('Y-m-d H:i:s'),
+        //     'username'      => 'super_agent',
+        //     'email'         => 'super_agent@phmagnus.com',
+        //     'password'      =>  bcrypt('secret'),
+        //     'mobile_number' => '9194444444' ,
+        //     'agent_code'    => 'super_agent',
+        //     'created_at'    => date('Y-m-d H:i:s')
+        // ]);
 
-        DB::table('users')->insert([
-            'name'          => 'Agent',
-            'dob'      => date('Y-m-d H:i:s'),
-            'username'      => 'agent',
-            'email'         => 'agent@phmagnus.com',
-            'password'      =>  bcrypt('secret'),
-            'mobile_number' => '9195555555' ,
-            'agent_code'    => 'agent',
-            'created_at'    => date('Y-m-d H:i:s')
-        ]);
+        // DB::table('users')->insert([
+        //     'name'          => 'Agent',
+        //     'dob'      => date('Y-m-d H:i:s'),
+        //     'username'      => 'agent',
+        //     'email'         => 'agent@phmagnus.com',
+        //     'password'      =>  bcrypt('secret'),
+        //     'mobile_number' => '9195555555' ,
+        //     'agent_code'    => 'agent',
+        //     'created_at'    => date('Y-m-d H:i:s')
+        // ]);
 
         // DB::table('users')->insert([
         //     'name'          => 'Bettor',
@@ -97,13 +97,10 @@ class UserSeeder extends Seeder
         // Assign roles to preinserted accounts.
         $system_admin       = \App\Models\User::find(1)->assignRole('system admin');
         $finance_admin      = \App\Models\User::find(2)->assignRole('finance admin');
-        $master_cashier     = \App\Models\User::find(3)->assignRole('master cashier');
-        $finance_user       = \App\Models\User::find(4)->assignRole('finance user');
-        $super_agent        = \App\Models\User::find(5)->assignRole('super agent');
-        $agent              = \App\Models\User::find(6)->assignRole('agent');
+        // $master_cashier     = \App\Models\User::find(3)->assignRole('master cashier');
+        $finance_user       = \App\Models\User::find(3)->assignRole('finance user');
+        // $super_agent        = \App\Models\User::find(5)->assignRole('super agent');
+        // $agent              = \App\Models\User::find(6)->assignRole('agent');
         // $bettor             = \App\Models\User::find(7)->assignRole('Bettor');
-
-
-        // factory(App\User::class, 100)->create();
     }
 }

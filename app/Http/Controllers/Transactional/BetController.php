@@ -29,7 +29,7 @@ class BetController extends Controller
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getBets($request, 'excel');
+            $exportQuery    = $this->getTransactions($request, 'excel', 'bets');
             $exportFileName = '_Bets_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Traits;
 use DB;
+use App\Models\Agent;
 
 trait TransactionalData {
     public function getTransactions($request, $format, $type = null){
@@ -17,11 +18,11 @@ trait TransactionalData {
             break;
             case 'fights':
                 $collectionTable = $this->getFightsData($request);
-                $searchable_cols = ['arena.name'];
+                $searchable_cols = ['arena.name', 'fights.meron', 'fights.wala'];
             break;
             case 'agent' || 'super_agent':
                 $collectionTable = $this->getAgentCommissionData($request, $type);
-                $searchable_cols = ['agent.name'];
+                $searchable_cols = ['agent.name', 'superagent.name'];
             break;
             default:
                 $collectionTable = $this->getBetData($request);
@@ -63,7 +64,8 @@ trait TransactionalData {
         $data = DB::table('bets as bet')
         ->leftJoin('fights as fight', 'fight.id', '=', 'bet.fight_id')
         ->leftJoin('arenas as arena', 'arena.id', '=', 'fight.arena_id')
-        ->leftJoin('users as user', 'user.id', '=', 'bet.user_id')
+        ->leftJoin('players as player', 'player.id', '=', 'bet.player_id')
+        ->leftJoin('agents as agent', 'agent.id', '=', 'player.agent_id')
         ->selectRaw('
             bet.bet_date,
             bet.pick,
@@ -74,10 +76,11 @@ trait TransactionalData {
             bet.result_date,
             arena.name as arena,
             fight.fight_no as fight_no,
-            user.name as name,
+            player.name as name,
             fight.schedule as fight_schedule,
             fight.fight_no as fight_no,
-            user.username as affiliate_name
+            player.username as affiliate_name,
+            agent.name as agent_name
         ')
         ->whereNull('bet.deleted_at');
            
@@ -118,11 +121,12 @@ trait TransactionalData {
     }
 
     public function getAgentCommissionData($request, $roleType){
-        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
-        $order      =    $request->input('order', 'desc');
-       
-        $data   = DB::table('agent_commissions as ac')
-            ->leftJoin('users as agent','agent.id', '=','ac.super_agent_id')
+        $sort      = $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order     = $request->input('order', 'desc');
+
+        $data      = DB::table('agent_commissions as ac')
+            ->leftJoin('agents as agent','agent.id', '=', 'ac.agent_id')
+            ->leftJoin('agents as superagent','superagent.id', '=', 'ac.super_agent_id')
             ->selectRaw('agent.name as name,
             agent.role as role,
             ac.id,
@@ -131,18 +135,19 @@ trait TransactionalData {
             ac.commission_date,
             ac.level,
             ac.type,
-            ac.created_at')
+            ac.created_at,
+            superagent.name as agent_name')
             ->when($sort, function($query, $sort) use ($order){
                 return $query->orderBy('ac.'.$sort, $order);
             })
             ->where('ac.type', str_replace('_', ' ', $roleType));
-
         $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
         $order      =    $request->input('order', 'desc');
         
         $data->when($sort, function($query, $sort) use ($order){
             return $query->orderBy('ac.'.$sort, $order);
         });
+
         return $data;
     }
 }

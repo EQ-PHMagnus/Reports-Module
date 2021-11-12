@@ -22,24 +22,20 @@ class AgentCommissionFactory extends Factory
     public function definition()
     {
         return [
-            // 'super_agent_id'    => $agentRole == 'agent' ? $agent->agent_id : NULL,
+
+            'super_agent_id'    => \App\Models\User::whereHas(
+                                    'roles', function($q){
+                                        $q->where('name', 'super agent');
+                                    }
+                                )->first()->id,
             'fight_id'          => \App\Models\Fight::inRandomOrder()->first(),
             'bet_id'            => \App\Models\Bet::inRandomOrder()->first(),
             'commission'        => $this->faker->numerify('###.##'),
             'amount'            => $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900),
             'commission_date'   => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
-            // 'type'              => $agentRole,
+            'type'              => $this->faker->randomElement(['agent','super agent']),
             'level'             => $this->faker->sentence($nbWords = 4, $variableNbWords = true),
 
         ];
-    }
-
-    public function withAgent($agent)
-    {
-        return $this->state([
-            'agent_id'       => $agent->id,
-            'super_agent_id' => $agent->role == 'agent' ? $agent->agent_id : NULL,
-            'type'           => $agent->role
-        ]);
     }
 }

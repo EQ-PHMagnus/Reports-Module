@@ -137,11 +137,11 @@
                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i><span class="site-menu-title">Bets</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('transactional/fights') ?  'active' : ''}}">
+            <!-- <li class="site-menu-item {{request()->is('transactional/fights') ?  'active' : ''}}">
                 <a class="animsition-link" href="{{route('transactional.fights')}}">
                     <i class="site-menu-icon wb-flag" aria-hidden="true"></i><span class="site-menu-title">Fights</span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- END TAX COMPUTAION REPORTS -->
 
@@ -165,17 +165,16 @@
             @endcan
            
             @can('manage super agent cash ins')
-            <li class="site-menu-item {{request()->is('transactional/master-agent-deposits') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{route('transactional.master-agent-deposits')}}">
-                    <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Master Agent Deposits</span>
-                </a>
-            </li>
-
-            <li class="site-menu-item {{request()->is('transactional/agent-deposits') ?  'active' : ''}}">
-                <a class="animsition-link" href="{{route('transactional.agent-deposits', ['type' => $val['type']])}}">
-                    <i class="site-menu-icon wb-user-circle" aria-hidden="true"></i><span class="site-menu-title">Agent Deposits</span>
-                </a>
-            </li>
+            
+            @forelse(config('constants.menu.transactional-agent-deposits') as $key => $val)
+                <li class="site-menu-item {{request()->route()->named($val['url']) ?  'active' : ''}}">
+                    <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
+                        <i class="site-menu-icon fa-user" aria-hidden="true"></i>
+                        <span class="site-menu-title">{{$val['nav_title']}}</span>
+                    </a>
+                </li>
+            @empty
+            @endforelse
                
             @forelse(config('constants.menu.transactional-agent-commissions') as $key => $val)
                 <li class="site-menu-item {{request()->route()->named($val['url']) ?  'active' : ''}}">

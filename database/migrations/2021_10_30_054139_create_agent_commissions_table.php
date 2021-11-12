@@ -15,7 +15,8 @@ class CreateAgentCommissionsTable extends Migration
     {
         Schema::create('agent_commissions', function (Blueprint $table) {
             $table->id();
-            $table->integer('super_agent_id');
+            $table->integer('agent_id')->nullable();
+            $table->integer('super_agent_id')->nullable();
             $table->integer('fight_id');
             $table->integer('bet_id');
             $table->decimal('commission')->nullable();

@@ -39,6 +39,7 @@
                         <thead>
                             <tr>
                                 <th class="text-left" data-field="player_name" >Player Name</th>
+                                <th class="text-left" data-field="agent_name" >Agent Name</th>
                                 <th class="text-left" data-field="current_credits"  class="text-center">Credits</th>
                                 <th class="text-left" data-field="phone_no" >Phone Number</th>
                                 <th class="text-left" data-field="status">Status</th>

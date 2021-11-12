@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
+use App\Models\Player;
 use App\Models\Bet;
 class CreateTransactionsTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Player::class);
             $table->foreignIdFor(Bet::class)->nullable();
             $table->enum('type',config('defaults.transcation_type'));
             $table->string('signature')->nullable();

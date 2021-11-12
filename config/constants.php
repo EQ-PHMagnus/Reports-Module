@@ -9,17 +9,15 @@ return [
             'title'                 =>  'Agent Deposits',
             'nav_title'             =>  'Agent Deposits',
             'content_title'         =>  'Agent Deposits List',
-            'url'                   =>  'agent-deposits'
-          
-
+            'url'                   =>  'agent-deposits',
+            'type'                  =>  'agent'
         ],
         'master-agent-deposits' => [
             'title'                 =>  'Master Agent Deposits',
             'nav_title'             =>  'Master Agent Deposits',
             'content_title'         =>  'Master Agent Deposits List',
-            'url'                   =>  'master-agent-deposits'
-          
-
+            'url'                   =>  'master-agent-deposits',
+            'type'                  =>  'super_agent'
         ],
         'agent-commissions' => [
             'super_agent'    =>  [
@@ -71,7 +69,7 @@ return [
                 'content_title'   => 'Earnings',
                 'type'            => 'earnings',
                 'url'             => 'transactional.players.transactions',
-                'export_filename' => '_Players_Earning_Transactions_Reports'
+                'export_filename' => '_Players_Earning_Transactions_Reports.xlsx'
             ],
             'cash_in'    =>  [
                 'title'           => 'Player Cash-in Reports',
@@ -79,7 +77,7 @@ return [
                 'content_title'   => 'Cash in',
                 'type'            => 'cash_in',
                 'url'             => 'transactional.players.transactions',
-                'export_filename' => '_Players_Cash_in_Transactions_Reports'
+                'export_filename' => '_Players_Cash_in_Transactions_Reports.xlsx'
             ],
             'cash_out'    =>  [
                 'title'           => 'Players Cash-out Reports',
@@ -87,7 +85,7 @@ return [
                 'content_title'   => 'Cash out',
                 'type'            => 'cash_out',
                 'url'             => 'transactional.players.transactions',
-                'export_filename' => '_Players_Cash_out_Transactions_Reports'
+                'export_filename' => '_Players_Cash_out_Transactions_Reports.xlsx'
             ],
         ],
 
@@ -109,6 +107,25 @@ return [
                 'export_filename' => '_Agent_Commissions_Reports.xlsx'
             ],
 
+        ],
+
+        'transactional-agent-deposits' => [
+            'super_agent'    =>  [
+                'title'           => 'Master Agent Deposits',
+                'nav_title'       => 'Master Agent Deposits',
+                'content_title'   => 'Master Agent Deposits List',
+                'url'             => 'transactional.agent-deposits',
+                'type'            => 'super_agent',
+                'export_filename' => '_Master_Agent_Deposits_Processed_Reports.xlsx'
+            ],
+            'agent'    =>  [
+                'title'           => 'Agent Deposits',
+                'nav_title'       => 'Agent Deposits',
+                'content_title'   => 'Agent Deposits List',
+                'url'             => 'transactional.agent-deposits',
+                'type'            => 'agent',
+                'export_filename' => '_Agent_Deposits_Reports.xlsx'
+            ]
         ],
     ]
 ];
