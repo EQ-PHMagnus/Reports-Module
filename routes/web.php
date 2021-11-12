@@ -218,20 +218,13 @@ Route::middleware('auth','prevent-back-history')
 
         /*
         |--------------------------------------------------------------------------
-        | Master Agent Deposits
-        |--------------------------------------------------------------------------
-        |
-        */
-        Route::get('transactional-master-agent-deposits', [App\Http\Controllers\Transactional\MasterAgentDepositController::class, 'index'])->name('transactional.master-agent-deposits');
-    
-        /*
-        |--------------------------------------------------------------------------
         | Agent Deposits
         |--------------------------------------------------------------------------
         |
         */
-        Route::get('transactional-agent-deposits', [App\Http\Controllers\Transactional\AgentController::class, 'index'])->name('transactional.agent-deposits');
-
+        Route::group(['prefix' => 'agent-deposits'], function() {
+            Route::get('/agent-deposits', [App\Http\Controllers\Transactional\AgentCommissionController::class, 'getAgentCommisions'])->name('transactional.agent-deposits');
+        });
         /*
         |--------------------------------------------------------------------------
         | Agent Commissions

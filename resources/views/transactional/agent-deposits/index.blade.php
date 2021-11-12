@@ -16,6 +16,9 @@ Master Agent Deposits
 @section('page-content')
 <div class="row">
     <div class="col">
+        <!-- type -->
+        <input class="filters" type="hidden" name="type" value="{{$data['type'] ?? ''}}">
+
         @include('filters.for-list')
         <div class="panel">
             <div class="panel-heading">

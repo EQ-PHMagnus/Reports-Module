@@ -66,7 +66,7 @@ class PlayerController extends Controller
      */
     public function getTransactionsData(Request $request)
     {
-        $type = $request->type;
+        $type = explode("?", $request->type)[0];
 
         if(request()->ajax()){
             $result = $this->getPlayers($request, $type, null);

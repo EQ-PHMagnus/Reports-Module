@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Transaction;
 use App\Models\Bet;
-use App\Models\User;
+use App\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransactionFactory extends Factory
@@ -34,16 +34,16 @@ class TransactionFactory extends Factory
             case 'cash_out':
             case 'deposit':
             case 'withdrawal':
-                $user = User::inRandomOrder()->first();
+                $user = Player::inRandomOrder()->first();
                 return [
-                    'user_id' => $user->id,
-                    'type' => $type,
-                    'amount' => $amount,
-                    'signature' => $signature,
-                    'remarks' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
-                    'approved_date' =>  $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
-                    'transaction_date' =>  $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
-                    'status' =>  $this->faker->randomElement(['pending','approved','rejected'])
+                    'user_id'          => $user->id,
+                    'type'             => $type,
+                    'amount'           => $amount,
+                    'signature'        => $signature,
+                    'remarks'          => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
+                    'approved_date'    => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                    'transaction_date' => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                    'status'           => $this->faker->randomElement(['pending','approved','rejected'])
                 ];
                 break;
 
@@ -52,13 +52,13 @@ class TransactionFactory extends Factory
             default:
                 $bet = Bet::inRandomOrder()->first();
                 return [
-                    'user_id' => $bet->user_id,
-                    'bet_id' => $bet->id,
-                    'type' => $type,
-                    'amount' => $amount,
+                    'user_id'   => $bet->user_id,
+                    'bet_id'    => $bet->id,
+                    'type'      => $type,
+                    'amount'    => $amount,
                     'signature' => $signature,
-                    'remarks' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
-                    'status' => 'auto-generated' 
+                    'remarks'   => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
+                    'status'    => 'auto-generated'
                 ];
                 break;
         }

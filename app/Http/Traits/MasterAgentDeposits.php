@@ -5,8 +5,8 @@ use DB;
 trait MasterAgentDeposits {
     
 
-    public function getMasterAgentDeposits($request,$format) {
-    
+    public function getMasterAgentDeposits($request, $format, $roleType) {
+
         $sort           = request()->input('sort') == "" ? 'created_at' : request()->input('sort');
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
@@ -17,8 +17,10 @@ trait MasterAgentDeposits {
 
         $searchable_cols = ['agent.name', 'ad.source'];
 
+        $agentType = $roleType == 'super_agent' ? 'ac.agent_id' : 'ac.super_agent_id';
+
         $data   = DB::table('agent_deposits as ad')
-                        ->leftJoin('users as agent','agent.id', '=','ad.agent_id')
+                        ->leftJoin('agents as agent', 'agent.id', '=','ad.agent_id')
                         ->selectRaw('agent.name as name,
                         agent.role as role,
                         ad.id,
@@ -99,9 +101,9 @@ trait MasterAgentDeposits {
 
             $finalData[] = [
               
-                'id'            => $offset++ ,
-                'name'          => $data->name,
-                'amount'        =>  $data->amount ? moneyFormat($data->amount): '',
+                'id'             => $offset++,
+                'name'           => $data->name,
+                'amount'         => $data->amount ? moneyFormat($data->amount): '',
                 'source'         => $data->source,
                 'source_details' => $data->source_details,
                 'date_deposited' => date('m-d-Y',strtotime($data->date_deposited)),

@@ -19,6 +19,8 @@ class BetController extends Controller
      */
     public function index(Request $request)
     {
+        $type = explode("?", $request->type)[0];
+
         if(request()->ajax()){
 
             $result = $this->getTransactions($request, null, 'bets');
@@ -29,7 +31,7 @@ class BetController extends Controller
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getBets($request, 'excel');
+            $exportQuery    = $this->getTransactions($request, 'excel');
             $exportFileName = '_Bets_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }

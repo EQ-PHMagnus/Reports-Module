@@ -17,7 +17,7 @@ trait TransactionalData {
             break;
             case 'fights':
                 $collectionTable = $this->getFightsData($request);
-                $searchable_cols = ['arena.name'];
+                $searchable_cols = ['arena.name', 'fights.meron', 'fights.wala'];
             break;
             case 'agent' || 'super_agent':
                 $collectionTable = $this->getAgentCommissionData($request, $type);
@@ -118,11 +118,13 @@ trait TransactionalData {
     }
 
     public function getAgentCommissionData($request, $roleType){
-        $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
-        $order      =    $request->input('order', 'desc');
-       
-        $data   = DB::table('agent_commissions as ac')
-            ->leftJoin('users as agent','agent.id', '=','ac.super_agent_id')
+        $sort      = $request->input('sort') == "" ? 'created_at' : $request->input('sort');
+        $order     = $request->input('order', 'desc');
+        $agentType = $roleType == 'super_agent' ? 'ac.agent_id' : 'ac.super_agent_id';
+
+        $data      = DB::table('agent_commissions as ac')
+            ->leftJoin('agents as agent','agent.id', '=', $agentType)
+
             ->selectRaw('agent.name as name,
             agent.role as role,
             ac.id,

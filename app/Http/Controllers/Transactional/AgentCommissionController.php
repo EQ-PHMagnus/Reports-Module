@@ -21,7 +21,8 @@ class AgentCommissionController extends Controller
 
     public function getAgentCommisions(Request $request)
     {
-        $type = $request->type;
+        $type = explode("?", $request->type)[0];
+
         if(request()->ajax()){
             $result = $this->getTransactions($request, null, $type);
             return response()->json($result);
@@ -29,8 +30,8 @@ class AgentCommissionController extends Controller
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getTransactions($request, 'excel', $type);
-            $exportFileName = config('constants.menu.transactional-players')[$type]['export_filename'] ?? '';
+            $exportQuery    = $this->getTransactions($request, 'excel');
+            $exportFileName = config('constants.menu.transactional-agent-commissions')[$type]['export_filename'] ?? '';
             return exportFiles($exportQuery,$exportFileName);
         }
 
