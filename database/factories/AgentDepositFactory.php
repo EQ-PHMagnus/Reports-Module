@@ -23,7 +23,7 @@ class AgentDepositFactory extends Factory
     {
         return [
 
-            'agent_id'       =>  \App\Models\User::inRandomOrder()->first()->id,
+            // 'agent_id'       =>  \App\Models\User::inRandomOrder()->first()->id,
             'amount'         =>  $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900),
             'source'         =>  $this->faker->randomElement(['Bank Transfer','E - Wallet']),
             'source_details' =>  $this->faker->sentence($nbWords = 6, $variableNbWords = true),
@@ -33,5 +33,13 @@ class AgentDepositFactory extends Factory
             'status'         =>  $this->faker->randomElement(['pending','approved','rejected'])
 
         ];
+    }
+
+    public function withAgent($agent)
+    {
+        return $this->state([
+            'agent_id'       => $agent->id,
+            'super_agent_id' => $agent->role == 'agent' ? $agent->agent_id : NULL
+        ]);
     }
 }

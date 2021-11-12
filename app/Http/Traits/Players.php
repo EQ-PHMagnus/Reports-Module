@@ -19,16 +19,18 @@ trait Players {
         $stat           =  request()->input('filters.status');
 
         // declare searchable cols for now
-        $searchable_cols = ['name', 'mobile_number'];
+        $searchable_cols = ['player.name', 'player.mobile_number', 'agent.name'];
 
         $data   = DB::table('transactions as trans')
-                        ->leftJoin('users as user','user.id', '=','trans.user_id')
-                        ->selectRaw('user.name as name,
-                        user.dob,
+                        ->leftJoin('players as player','player.id', '=','trans.player_id')
+                        ->leftJoin('agents as agent','agent.id', '=','player.agent_id')
+                        ->selectRaw('player.name as name,
+                        player.dob,
                         trans.amount,
-                        user.mobile_number,
+                        player.mobile_number,
                         trans.status,
-                        trans.transaction_date')
+                        trans.transaction_date,
+                        agent.name as agent_name')
                         ->when($search, function($query, $search) use($searchable_cols) {
                             $query->where(function($query) use ($searchable_cols, $search){
                                 foreach($searchable_cols as $i => $col){
@@ -78,7 +80,8 @@ trait Players {
                 'phone_no'         => $data->mobile_number,
                 'transaction_date' => date('m-d-Y',strtotime($data->transaction_date)),
                 'status'           => ucfirst($data->status),
-                'actions'          => ''
+                'actions'          => '',
+                'agent_name'       => $data->agent_name
             ];
         }
 

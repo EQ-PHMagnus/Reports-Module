@@ -27,10 +27,10 @@ class FightController extends Controller
         }
 
         // export file
-        $export = $request->input('export',false);
+        $export = $request->input('export', false);
         if($export === 'true'){
-            $exportQuery    = $this->getFights($request, 'excel');
-            $exportFileName = '_Bets_Reports.xlsx';
+            $exportQuery    = $this->getTransactions($request, 'excel', 'fights');
+            $exportFileName = '_Fights_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
 

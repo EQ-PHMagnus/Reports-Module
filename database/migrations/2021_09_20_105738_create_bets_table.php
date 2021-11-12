@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Fight;
-use App\Models\User;
+use App\Models\Player;
 class CreateBetsTable extends Migration
 {
     /**
@@ -17,7 +17,7 @@ class CreateBetsTable extends Migration
         Schema::create('bets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Fight::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Player::class);
             $table->enum('pick',config('defaults.picks'));
             $table->double('odds',4,2);
             $table->double('amount',12,4);

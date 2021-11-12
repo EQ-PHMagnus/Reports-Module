@@ -58,14 +58,14 @@ class RolesAndPermissions extends Seeder
         // Set permissions
         $system_admin = Role::create(['name' => 'system admin'])->givePermissionTo($permissions);
         $finance_admin = Role::create(['name' => 'finance admin'])->givePermissionTo(['manage users']);
-        $master_cashier = Role::create(['name' => 'master cashier'])
-            ->givePermissionTo([
-                'view reports',
-                'manage agents',
-                'manage super agent cash ins',
-                'manage super agent cash outs',
-                'view super agent credits',
-            ]);
+        // $master_cashier = Role::create(['name' => 'master cashier'])
+        //     ->givePermissionTo([
+        //         'view reports',
+        //         'manage agents',
+        //         'manage super agent cash ins',
+        //         'manage super agent cash outs',
+        //         'view super agent credits',
+        //     ]);
         $finance_user = Role::create(['name' => 'finance user'])
             ->givePermissionTo([
                 'view reports',
@@ -73,7 +73,7 @@ class RolesAndPermissions extends Seeder
                 'manage super agent cash ins',
                 'manage super agent cash outs',
             ]);
-        $super_agent = Role::create(['name' => 'super agent']);
-        $agent = Role::create(['name' => 'agent']);
+        // $super_agent = Role::create(['name' => 'super agent']);
+        // $agent = Role::create(['name' => 'agent']);
     }
 }

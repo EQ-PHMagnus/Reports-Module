@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Transaction;
 use App\Models\Bet;
-use App\Models\User;
+use App\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TransactionFactory extends Factory
@@ -24,26 +24,26 @@ class TransactionFactory extends Factory
     public function definition()
     {
         $transaction_types = config('defaults.transcation_type');
-        $type_key = array_rand($transaction_types,1);
-        $type = $transaction_types[$type_key];
-        $amount = $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900);
-        $signature = bcrypt($amount);
+        $type_key          = array_rand($transaction_types,1);
+        $type              = $transaction_types[$type_key];
+        $amount            = $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900);
+        $signature         = bcrypt($amount);
 
         switch ($type) {
             case 'cash_in':
             case 'cash_out':
             case 'deposit':
             case 'withdrawal':
-                $user = User::inRandomOrder()->first();
+                $user = Player::inRandomOrder()->first();
                 return [
-                    'user_id' => $user->id,
-                    'type' => $type,
-                    'amount' => $amount,
-                    'signature' => $signature,
-                    'remarks' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
-                    'approved_date' =>  $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
-                    'transaction_date' =>  $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
-                    'status' =>  $this->faker->randomElement(['pending','approved','rejected'])
+                    'player_id'        => $user->id,
+                    'type'             => $type,
+                    'amount'           => $amount,
+                    'signature'        => $signature,
+                    'remarks'          => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
+                    'approved_date'    => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                    'transaction_date' => $this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null),
+                    'status'           => $this->faker->randomElement(['pending','approved','rejected'])
                 ];
                 break;
 
@@ -52,13 +52,13 @@ class TransactionFactory extends Factory
             default:
                 $bet = Bet::inRandomOrder()->first();
                 return [
-                    'user_id' => $bet->user_id,
-                    'bet_id' => $bet->id,
-                    'type' => $type,
-                    'amount' => $amount,
+                    'player_id' => $bet->player_id,
+                    'bet_id'    => $bet->id,
+                    'type'      => $type,
+                    'amount'    => $amount,
                     'signature' => $signature,
-                    'remarks' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
-                    'status' => 'auto-generated' 
+                    'remarks'   => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
+                    'status'    => 'auto-generated'
                 ];
                 break;
         }

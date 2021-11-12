@@ -15,7 +15,8 @@ class CreateAgentDepositsTable extends Migration
     {
         Schema::create('agent_deposits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('agent_id');
+            $table->unsignedBigInteger('agent_id')->nullable();
+            $table->integer('super_agent_id')->nullable();
             $table->double('amount',12,4);
             $table->string('source');
             $table->text('source_details');

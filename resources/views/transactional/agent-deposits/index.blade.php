@@ -1,10 +1,10 @@
 @extends('commons.layout')
 @section('title')
-Master Agent Deposits
+{{$data['title'] ?? null}}
 @endsection
 
 @section('page-title')
-Master Agent Deposits
+{{$data['title'] ?? null}}
 @endsection
 
 @section('breadcrumbs')
@@ -16,6 +16,9 @@ Master Agent Deposits
 @section('page-content')
 <div class="row">
     <div class="col">
+        <!-- type -->
+        <input class="filters" type="hidden" name="type" value="{{$data['type'] ?? ''}}">
+
         @include('filters.for-list')
         <div class="panel">
             <div class="panel-heading">
@@ -37,6 +40,9 @@ Master Agent Deposits
                         <thead>
                             <tr>
                                 <th  class="text-left" data-field="name">Name </th>
+                                @if($data['type'] == 'agent')
+                                    <th  class="text-left" data-field="agent_name">Master Agent </th>
+                                @endif
                                 <th  class="text-left" data-field="amount">Amount</th>
                                 <th  class="text-left" data-field="source">Source</th>
                                 <th  class="text-left" data-field="source_details">Source Details</th>

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\AgentDeposit;
 use App\Http\Traits\MasterAgentDeposits;
 
-class MasterAgentDepositController extends Controller
+class AgentDepositController extends Controller
 {
     use MasterAgentDeposits;
     /**
@@ -16,20 +16,24 @@ class MasterAgentDepositController extends Controller
      */
     public function index(Request $request)
     {
-
+        $type = $type = explode("?", $request->type)[0];
+        
         if(request()->ajax()){
-            $result = $this->getMasterAgentDeposits($request,null); 
+            $result = $this->getMasterAgentDeposits($request, null, $type);
+
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getMasterAgentDeposits($request,'excel');
-            $exportFileName = '_Master_Agent_Deposits_Processed_Reports.xlsx';
+            $exportQuery    = $this->getMasterAgentDeposits($request, 'excel', $type);
+            $exportFileName = config('constants.menu.transactional-agent-deposits')[$type]['export_filename'] ?? '';
             return exportFiles($exportQuery,$exportFileName);
         }
+
         // render components
-        $data = config('constants.menu.master-agent-deposits');
+        $data = config('constants.menu.transactional-agent-deposits')[$type];
+
         return view('transactional.agent-deposits.index',compact('data'));
     }
 

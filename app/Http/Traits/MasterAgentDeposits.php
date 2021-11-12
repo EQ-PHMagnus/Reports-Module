@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Traits;
 use DB;
+use App\Models\Agent;
 
 trait MasterAgentDeposits {
     
