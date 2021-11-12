@@ -11,8 +11,6 @@ trait AgentDeposits {
         $order          = request()->input('order', 'desc');
         $search         = request()->input('filters.search');
         $amount         = request()->input('filters.amount');
-        $from           = date('Y-m-d h:i:s', strtotime($request->input('filters.from')));
-        $to             = date('Y-m-d h:i:s', strtotime($request->input('filters.to'))) ?? $from;
         $stat           =  request()->input('filters.status');
 
         $data   = DB::table('agent_deposits as ad')
@@ -35,9 +33,6 @@ trait AgentDeposits {
                         ->when($amount, function($query,$amount){
                             return $query->where('ad.amount' , '<=' ,$amount);
                         })
-                        ->when($from, function ($query , $from) use ($to) {
-                            return $query->whereBetween('ad.date_deposited', [$from, $to]);
-                        })
                         ->when($sort, function($query, $sort) use ($order){
                             return $query->orderBy('ad.'.$sort, $order);
                         })
@@ -49,7 +44,7 @@ trait AgentDeposits {
                         ;
 
         
-     
+   
         if($format == 'excel'){
             return $data->get();
         }
