@@ -16,15 +16,15 @@ class MasterAgentDepositController extends Controller
      */
     public function index(Request $request)
     {
-
+        $type = 'super_agent';
         if(request()->ajax()){
-            $result = $this->getMasterAgentDeposits($request,null); 
+            $result = $this->getMasterAgentDeposits($request,$type,null); 
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getMasterAgentDeposits($request,'excel');
+            $exportQuery    = $this->getMasterAgentDeposits($request,$type,'excel');
             $exportFileName = '_Master_Agent_Deposits_Processed_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }

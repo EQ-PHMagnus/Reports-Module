@@ -16,15 +16,15 @@ class AgentDepositController extends Controller
      */
     public function index(Request $request)
     {
-
+        $type = 'agent';
         if(request()->ajax()){
-            $result = $this->getAgentDeposits($request,null); 
+            $result = $this->getAgentDeposits($request,$type,null);
             return response()->json($result);
         }
         // export file
         $export = $request->input('export',false);
         if($export === 'true'){
-            $exportQuery    = $this->getAgentDeposits($request,'excel');
+            $exportQuery    = $this->getAgentDeposits($request,$type,'excel');
             $exportFileName = '_Agent_Deposits_Reports.xlsx';
             return exportFiles($exportQuery,$exportFileName);
         }
