@@ -1,10 +1,10 @@
 @extends('commons.layout')
 @section('title')
-Master Agent Deposits
+{{$data['title'] ?? null}}
 @endsection
 
 @section('page-title')
-Master Agent Deposits
+{{$data['title'] ?? null}}
 @endsection
 
 @section('breadcrumbs')
