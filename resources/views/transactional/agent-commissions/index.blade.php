@@ -39,7 +39,7 @@
                             <tr>
                                 <th class="text-left" data-field="name" >Name</th>
                                 @if($data['type'] == 'agent')
-                                    <th  class="text-left" data-field="agent_name">Agent Name </th>
+                                    <th  class="text-left" data-field="agent_name">Master Agent</th>
                                 @endif
                                 <th class="text-left money-format" data-field="commission">Commission</th>
                                 <th class="text-left money-format" data-field="amount">Amount</th>

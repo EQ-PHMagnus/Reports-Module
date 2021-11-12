@@ -137,11 +137,11 @@
                     <i class="site-menu-icon wb-dashboard" aria-hidden="true"></i><span class="site-menu-title">Bets</span>
                 </a>
             </li>
-            <li class="site-menu-item {{request()->is('transactional/fights') ?  'active' : ''}}">
+            <!-- <li class="site-menu-item {{request()->is('transactional/fights') ?  'active' : ''}}">
                 <a class="animsition-link" href="{{route('transactional.fights')}}">
                     <i class="site-menu-icon wb-flag" aria-hidden="true"></i><span class="site-menu-title">Fights</span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- END TAX COMPUTAION REPORTS -->
 
