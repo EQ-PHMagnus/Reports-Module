@@ -25,49 +25,50 @@
                     <span class="site-menu-title">Tax Computations</span>
                     <span class="site-menu-arrow"></span>
                 </a>
-                <ul class="site-menu-sub">
+             
+               
                     <li class="site-menu-item {{request()->route()->named('tax.gross-receipts') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('tax.gross-receipts')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                            
                             <span class="site-menu-title">Gross Receipts from Bets</span>
                         </a>
                     </li>
                     <li class="site-menu-item {{request()->route()->named('tax.total-GBR') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('tax.total-GBR')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                            
                             <span class="site-menu-title">Total GBR Tax Reports</span>
                         </a>
                     </li>
                     <li class="site-menu-item {{request()->route()->named('tax.gross-commission') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('tax.gross-commission')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                            
                             <span class="site-menu-title">Gross Commission Tax</span>
                         </a>
                     </li>
                     <li class="site-menu-item {{request()->route()->named('tax.net-commission') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('tax.net-commission')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                            
                             <span class="site-menu-title">Net Commissions</span>
                         </a>
                     </li>
                     <li class="site-menu-item {{request()->route()->named('tax.final-taxes-winnings') ?  'active' : ''}}">
                         <a class="animsition-link" href="{{route('tax.final-taxes-winnings')}}">
-                            <i class="site-menu-icon fa-institution" aria-hidden="true"></i>
+                            
                             <span class="site-menu-title">Final Taxes on Winnings</span>
                         </a>
                     </li>
-                </ul>
+                
 
             </li>
             <!-- END TAX COMPUTAION REPORTS -->
 
-            <li class="site-menu-item {{request()->is('players/players_earnings') || request()->is('players/players_cash_in') || request()->is('players/players_cash_out') ?  'active' : ''}} has-sub">
+            <!-- <li class="site-menu-item {{request()->is('players/players_earnings') || request()->is('players/players_cash_in') || request()->is('players/players_cash_out') ?  'active' : ''}} has-sub">
                 <a href="javascript:void(0)">
                     <i class="site-menu-icon wb-users" aria-hidden="true"></i>
                     <span class="site-menu-title">Players Transactions</span>
                     <span class="site-menu-arrow"></span>
                 </a>
-                <ul class="site-menu-sub">
+               
                 @forelse(config('constants.menu.players') as $key => $val)
                     <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
                         <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
@@ -76,10 +77,10 @@
                     </li>
                 @empty
                 @endforelse
-                </ul>
+              
 
             </li>
-            @endcan
+            @endcan -->
            
             @can('manage super agent cash ins')
             <li class="site-menu-item {{request()->is('master-agent-deposits') ?  'active' : ''}}">
@@ -151,7 +152,7 @@
                     <span class="site-menu-title">Players Transactions</span>
                     <span class="site-menu-arrow"></span>
                 </a>
-                <ul class="site-menu-sub">
+               
                     @forelse(config('constants.menu.transactional-players') as $key => $val)
                         <li class="site-menu-item {{request()->is(route($val['url'])) ? 'active' : '' }}" >
                             <a class="animsition-link" href="{{route($val['url'], ['type' => $val['type']])}}">
@@ -160,7 +161,7 @@
                         </li>
                     @empty
                     @endforelse
-                </ul>
+                
             </li>
             @endcan
            
