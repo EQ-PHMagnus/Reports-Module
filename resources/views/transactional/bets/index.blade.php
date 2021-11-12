@@ -42,6 +42,7 @@ Bets
                                 <th data-field="fight_no">Fight no</th>
                                 <th data-field="arena">Arena</th>
                                 <th data-field="affiliate_name">Account</th>
+                                <th data-field="agent_name">Agent Name</th>
                                 <th data-field="pick">Pick</th>
                                 <th data-field="fight_schedule">Odds</th>
                                 <th data-field="odds" class="text-center">Bet Amount</th>

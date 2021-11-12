@@ -24,10 +24,10 @@ class TransactionFactory extends Factory
     public function definition()
     {
         $transaction_types = config('defaults.transcation_type');
-        $type_key = array_rand($transaction_types,1);
-        $type = $transaction_types[$type_key];
-        $amount = $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900);
-        $signature = bcrypt($amount);
+        $type_key          = array_rand($transaction_types,1);
+        $type              = $transaction_types[$type_key];
+        $amount            = $this->faker->randomFloat($nbMaxDecimals = 0, $min = 100, $max = 900);
+        $signature         = bcrypt($amount);
 
         switch ($type) {
             case 'cash_in':
@@ -36,7 +36,7 @@ class TransactionFactory extends Factory
             case 'withdrawal':
                 $user = Player::inRandomOrder()->first();
                 return [
-                    'user_id'          => $user->id,
+                    'player_id'        => $user->id,
                     'type'             => $type,
                     'amount'           => $amount,
                     'signature'        => $signature,
@@ -52,7 +52,7 @@ class TransactionFactory extends Factory
             default:
                 $bet = Bet::inRandomOrder()->first();
                 return [
-                    'user_id'   => $bet->user_id,
+                    'player_id' => $bet->player_id,
                     'bet_id'    => $bet->id,
                     'type'      => $type,
                     'amount'    => $amount,
