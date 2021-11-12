@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Transactional;
 
 use Illuminate\Http\Request;
 use App\Models\AgentDeposit;
-use App\Http\Traits\MasterAgentDeposits;
+use App\Http\Traits\TransactionalData;
 
 class AgentDepositController extends Controller
 {
-    use MasterAgentDeposits;
+    use TransactionalData;
     /**
      * Display a listing of the resource.
      *
