@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Traits;
 use DB;
+use App\Models\Agent;
 
 trait MasterAgentDeposits {
     
@@ -16,11 +17,10 @@ trait MasterAgentDeposits {
         $stat           =  request()->input('filters.status');
 
         $searchable_cols = ['agent.name', 'ad.source'];
-
         $agentType = $roleType == 'super_agent' ? 'ad.agent_id' : 'ad.super_agent_id';
-        
+
         $data   = DB::table('agent_deposits as ad')
-                        ->leftJoin('agents as agent', 'agent.id', '=', $agentType)
+                        ->leftJoin('agents as agent', 'agent.id', '=', 'ad.agent_id')
                         ->selectRaw('agent.name as name,
                         agent.role as role,
                         ad.id,
@@ -30,7 +30,8 @@ trait MasterAgentDeposits {
                         ad.date_approved,
                         ad.date_deposited,
                         ad.remarks,
-                        ad.status')
+                        ad.status,
+                        ad.super_agent_id as agent_id')
                         ->when($search, function($query,$search){
                             return $query->where('name', 'like' ,'%'.$search.'%')
                             ->orWhere('source', 'like' ,'%'.$search.'%')
@@ -39,9 +40,9 @@ trait MasterAgentDeposits {
                         ->when($amount, function($query,$amount){
                             return $query->where('amount' , '<=' ,$amount);
                         })
-                        ->when($from, function ($query , $from) use ($to) {
-                            return $query->whereBetween('ad.date_deposited', [$from, $to]);
-                        })
+                        // ->when($from, function ($query , $from) use ($to) {
+                        //     return $query->whereBetween('ad.date_deposited', [$from, $to]);
+                        // })
                         ->when($sort, function($query, $sort) use ($order){
                             return $query->orderBy('ad.'.$sort, $order);
                         })
@@ -60,8 +61,11 @@ trait MasterAgentDeposits {
                         ->where('status','!=', 'pending')
                         // ->whereNull('ad.deleted_at')
                         ;
-
-        
+        if($roleType == 'super_agent') {
+            $data->whereNull('super_agent_id');
+        } else {
+            $data->whereNotNull('super_agent_id');
+        }
      
         if($format == 'excel'){
             return $data->get();
@@ -99,6 +103,8 @@ trait MasterAgentDeposits {
                 $status = '<span class="badge badge-warning">Pending</span>';
             }
 
+            $super_agent = Agent::where('id', $data->agent_id)->first();
+
             $finalData[] = [
               
                 'id'             => $offset++,
@@ -109,8 +115,8 @@ trait MasterAgentDeposits {
                 'date_deposited' => date('m-d-Y',strtotime($data->date_deposited)),
                 'date_approved'  => date('m-d-Y',strtotime($data->date_approved)),
                 'status'         => $status,
-                'action'         => $action
-        
+                'action'         => $action,
+                'agent_name'     => $super_agent ? $super_agent->name : NULL
             ];
             
         }

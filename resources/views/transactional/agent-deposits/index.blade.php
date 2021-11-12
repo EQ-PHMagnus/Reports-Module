@@ -40,6 +40,9 @@ Master Agent Deposits
                         <thead>
                             <tr>
                                 <th  class="text-left" data-field="name">Name </th>
+                                @if($data['type'] == 'agent')
+                                    <th  class="text-left" data-field="agent_name">Agent Name </th>
+                                @endif
                                 <th  class="text-left" data-field="amount">Amount</th>
                                 <th  class="text-left" data-field="source">Source</th>
                                 <th  class="text-left" data-field="source_details">Source Details</th>

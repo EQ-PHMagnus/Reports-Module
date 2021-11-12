@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Traits;
 use DB;
+use App\Models\Agent;
 
 trait TransactionalData {
     public function getTransactions($request, $format, $type = null){
@@ -50,6 +51,12 @@ trait TransactionalData {
         $formData   = $collectionTable->skip(intval(request()->input('offset', 0)))
                             ->limit(intval(request()->input('limit', 10)))
                             ->get();
+
+        if($type == 'agent') {
+            foreach($formData as $i => $data){
+                $data->agent_name = Agent::where('id', $data->agent_name)->first()->name;
+            }
+        }
 
         return [
             'rows'                  =>   $formData,
@@ -120,11 +127,9 @@ trait TransactionalData {
     public function getAgentCommissionData($request, $roleType){
         $sort      = $request->input('sort') == "" ? 'created_at' : $request->input('sort');
         $order     = $request->input('order', 'desc');
-        $agentType = $roleType == 'super_agent' ? 'ac.agent_id' : 'ac.super_agent_id';
 
         $data      = DB::table('agent_commissions as ac')
-            ->leftJoin('agents as agent','agent.id', '=', $agentType)
-
+            ->leftJoin('agents as agent','agent.id', '=', 'ac.agent_id')
             ->selectRaw('agent.name as name,
             agent.role as role,
             ac.id,
@@ -133,18 +138,19 @@ trait TransactionalData {
             ac.commission_date,
             ac.level,
             ac.type,
-            ac.created_at')
+            ac.created_at,
+            ac.super_agent_id as agent_name')
             ->when($sort, function($query, $sort) use ($order){
                 return $query->orderBy('ac.'.$sort, $order);
             })
             ->where('ac.type', str_replace('_', ' ', $roleType));
-
         $sort       =    $request->input('sort') == "" ? 'created_at' : $request->input('sort');
         $order      =    $request->input('order', 'desc');
         
         $data->when($sort, function($query, $sort) use ($order){
             return $query->orderBy('ac.'.$sort, $order);
         });
+
         return $data;
     }
 }

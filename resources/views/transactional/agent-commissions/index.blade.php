@@ -37,7 +37,10 @@
                         data-sort-order="desc">
                         <thead>
                             <tr>
-                                <th class="text-left" data-field="name" >Agent Name</th>
+                                <th class="text-left" data-field="name" >Name</th>
+                                @if($data['type'] == 'agent')
+                                    <th  class="text-left" data-field="agent_name">Agent Name </th>
+                                @endif
                                 <th class="text-left money-format" data-field="commission">Commission</th>
                                 <th class="text-left money-format" data-field="amount">Amount</th>
                                 <th class="text-left" data-field="commission_date" data-sortable="true">Commission Date</th>
